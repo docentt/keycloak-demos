@@ -4,7 +4,9 @@ Repozytorium pozwala na szybkie uruchomienie Keycloak z demonstracyjnymi konfigu
 
 Wersja Keycloak: *24.0.5*
 
-## Start
+## Użycie
+
+### Start
 
 Uruchomienie Keycloak o parametrach:
 - wersja zgodna z informacją powyżej
@@ -21,26 +23,30 @@ Uruchomienie Keycloak o parametrach:
 
 Konsola Keycloak dostępna jest pod adresem http://localhost:8080/auth
 
-## Stop
+### Stop
 
 Zatrzymianie Keycloak wraz z wykonaniem zrzutu konfiguracji.
 
     ./stop_kc_24.sh
 
-## Restart
+### Restart
 
 Restart Keycloak wraz z wykonaniem zrzutu konfiguracji.
 
     ./restart_kc_24.sh
 
-## Zrzut konfiguracji
+### Zrzut konfiguracji
 
 Samo wykonanie zrzutu konfiguracji działającego Keycloak.
 
     ./dump_realms_kc_24.sh
 
-## Podgląd logów
+### Podgląd logów
 
 Podgląd logów działającego Keycloak.
 
     ./see_logs_kc_24.sh
+
+## Kolekcja Postman
+
+W katalogu POSTMAN znajdują się pliki do zaimportowania do Postman (https://www.postman.com/) skrojone pod interakcję z demonstracyjnym Keycloak.
