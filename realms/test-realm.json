@@ -245,9 +245,34 @@
         "containerId" : "0284409a-e51e-43b9-a629-e449ba831f1c",
         "attributes" : { }
       } ],
+      "https://example.org/" : [ ],
       "service-account_private_key_jwt" : [ ],
+      "https://example.org/api" : [ {
+        "id" : "7b78ba23-8cd4-4226-b0ca-08b1efc09a8f",
+        "name" : "admin",
+        "description" : "",
+        "composite" : false,
+        "clientRole" : true,
+        "containerId" : "8f08eda6-cb70-4976-a3c3-8a0a508f823f",
+        "attributes" : { }
+      }, {
+        "id" : "bdbb05b3-dc21-477d-84f2-9b3dfaac535c",
+        "name" : "read",
+        "description" : "",
+        "composite" : false,
+        "clientRole" : true,
+        "containerId" : "8f08eda6-cb70-4976-a3c3-8a0a508f823f",
+        "attributes" : { }
+      }, {
+        "id" : "6c59a0ff-c09a-4a09-8d44-7af0250a77e6",
+        "name" : "write",
+        "description" : "",
+        "composite" : false,
+        "clientRole" : true,
+        "containerId" : "8f08eda6-cb70-4976-a3c3-8a0a508f823f",
+        "attributes" : { }
+      } ],
       "security-admin-console" : [ ],
-      "admin-cli" : [ ],
       "account-console" : [ ],
       "broker" : [ {
         "id" : "c9149059-fdfc-432b-997b-f54f004f5842",
@@ -256,6 +281,34 @@
         "composite" : false,
         "clientRole" : true,
         "containerId" : "3ad1130a-f664-4fd9-93e4-2b8b8209aa16",
+        "attributes" : { }
+      } ],
+      "https://admin.example.com/" : [ ],
+      "admin-cli" : [ ],
+      "https://example.com/" : [ ],
+      "https://example.com/api" : [ {
+        "id" : "aea3b4f5-524a-422e-89e9-870cd2243e86",
+        "name" : "read",
+        "description" : "",
+        "composite" : false,
+        "clientRole" : true,
+        "containerId" : "a7b6d2b7-499d-43cf-85f6-e903b034ae28",
+        "attributes" : { }
+      }, {
+        "id" : "b409f10e-f28e-40f5-92d4-ba782ee63458",
+        "name" : "admin",
+        "description" : "",
+        "composite" : false,
+        "clientRole" : true,
+        "containerId" : "a7b6d2b7-499d-43cf-85f6-e903b034ae28",
+        "attributes" : { }
+      }, {
+        "id" : "4e03b437-85ae-436d-8219-cdbab78b32c1",
+        "name" : "write",
+        "description" : "",
+        "composite" : false,
+        "clientRole" : true,
+        "containerId" : "a7b6d2b7-499d-43cf-85f6-e903b034ae28",
         "attributes" : { }
       } ],
       "https://oidcdebugger.com/" : [ ],
@@ -337,7 +390,49 @@
       "service-account_client_secret_jwt" : [ ]
     }
   },
-  "groups" : [ ],
+  "groups" : [ {
+    "id" : "9cf56a14-7c9e-4171-a582-95dee5e70a36",
+    "name" : "https://example.com/",
+    "path" : "/https://example.com/",
+    "subGroups" : [ {
+      "id" : "56fe40a9-6110-40de-a12b-77e9b5b90d9b",
+      "name" : "admins",
+      "path" : "/https://example.com//admins",
+      "parentId" : "9cf56a14-7c9e-4171-a582-95dee5e70a36",
+      "subGroups" : [ ],
+      "attributes" : { },
+      "realmRoles" : [ ],
+      "clientRoles" : {
+        "https://example.com/api" : [ "admin" ]
+      }
+    } ],
+    "attributes" : { },
+    "realmRoles" : [ ],
+    "clientRoles" : {
+      "https://example.com/api" : [ "read", "write" ]
+    }
+  }, {
+    "id" : "576c314a-7c27-42f4-9e02-8f377cf470d0",
+    "name" : "https://example.org/",
+    "path" : "/https://example.org/",
+    "subGroups" : [ {
+      "id" : "a19882cd-a10f-4b6b-b14e-083dc5687bf7",
+      "name" : "admins",
+      "path" : "/https://example.org//admins",
+      "parentId" : "576c314a-7c27-42f4-9e02-8f377cf470d0",
+      "subGroups" : [ ],
+      "attributes" : { },
+      "realmRoles" : [ ],
+      "clientRoles" : {
+        "https://example.org/api" : [ "admin" ]
+      }
+    } ],
+    "attributes" : { },
+    "realmRoles" : [ ],
+    "clientRoles" : {
+      "https://example.org/api" : [ "read", "write" ]
+    }
+  } ],
   "defaultRole" : {
     "id" : "537dff0e-1b74-4f7b-89f7-9175f1b1999a",
     "name" : "default-roles-test",
@@ -383,6 +478,20 @@
     "roles" : [ "offline_access" ]
   } ],
   "clientScopeMappings" : {
+    "https://example.org/api" : [ {
+      "client" : "https://admin.example.com/",
+      "roles" : [ "admin" ]
+    }, {
+      "client" : "https://example.org/",
+      "roles" : [ "read", "write" ]
+    } ],
+    "https://example.com/api" : [ {
+      "client" : "https://admin.example.com/",
+      "roles" : [ "admin" ]
+    }, {
+      "client" : "https://example.com/",
+      "roles" : [ "read", "write" ]
+    } ],
     "account" : [ {
       "client" : "account-console",
       "roles" : [ "manage-account", "view-groups" ]
@@ -507,6 +616,181 @@
     "authenticationFlowBindingOverrides" : { },
     "fullScopeAllowed" : false,
     "nodeReRegistrationTimeout" : 0,
+    "defaultClientScopes" : [ "web-origins", "acr", "roles", "profile", "email" ],
+    "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
+  }, {
+    "id" : "261afb97-0c4f-4c60-bd09-de642524bfa7",
+    "clientId" : "https://admin.example.com/",
+    "name" : "",
+    "description" : "DOstęp administracyjny zarówno do example.com, jak i example.org",
+    "rootUrl" : "",
+    "adminUrl" : "",
+    "baseUrl" : "",
+    "surrogateAuthRequired" : false,
+    "enabled" : true,
+    "alwaysDisplayInConsole" : false,
+    "clientAuthenticatorType" : "client-secret",
+    "redirectUris" : [ "https://oidcdebugger.com/debug" ],
+    "webOrigins" : [ "https://oidcdebugger.com" ],
+    "notBefore" : 0,
+    "bearerOnly" : false,
+    "consentRequired" : false,
+    "standardFlowEnabled" : true,
+    "implicitFlowEnabled" : true,
+    "directAccessGrantsEnabled" : false,
+    "serviceAccountsEnabled" : false,
+    "publicClient" : true,
+    "frontchannelLogout" : true,
+    "protocol" : "openid-connect",
+    "attributes" : {
+      "oidc.ciba.grant.enabled" : "false",
+      "oauth2.device.authorization.grant.enabled" : "false",
+      "backchannel.logout.session.required" : "true",
+      "backchannel.logout.revoke.offline.tokens" : "false"
+    },
+    "authenticationFlowBindingOverrides" : { },
+    "fullScopeAllowed" : false,
+    "nodeReRegistrationTimeout" : -1,
+    "defaultClientScopes" : [ "web-origins", "acr", "roles", "profile", "email" ],
+    "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
+  }, {
+    "id" : "4b762bd9-c769-4890-a71d-097bc828a358",
+    "clientId" : "https://example.com/",
+    "name" : "",
+    "description" : "",
+    "rootUrl" : "",
+    "adminUrl" : "",
+    "baseUrl" : "",
+    "surrogateAuthRequired" : false,
+    "enabled" : true,
+    "alwaysDisplayInConsole" : false,
+    "clientAuthenticatorType" : "client-secret",
+    "redirectUris" : [ "https://oidcdebugger.com/debug" ],
+    "webOrigins" : [ "https://oidcdebugger.com" ],
+    "notBefore" : 0,
+    "bearerOnly" : false,
+    "consentRequired" : false,
+    "standardFlowEnabled" : true,
+    "implicitFlowEnabled" : true,
+    "directAccessGrantsEnabled" : false,
+    "serviceAccountsEnabled" : false,
+    "publicClient" : true,
+    "frontchannelLogout" : true,
+    "protocol" : "openid-connect",
+    "attributes" : {
+      "oidc.ciba.grant.enabled" : "false",
+      "oauth2.device.authorization.grant.enabled" : "false",
+      "backchannel.logout.session.required" : "true",
+      "backchannel.logout.revoke.offline.tokens" : "false"
+    },
+    "authenticationFlowBindingOverrides" : { },
+    "fullScopeAllowed" : false,
+    "nodeReRegistrationTimeout" : -1,
+    "defaultClientScopes" : [ "web-origins", "acr", "roles", "profile", "email" ],
+    "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
+  }, {
+    "id" : "a7b6d2b7-499d-43cf-85f6-e903b034ae28",
+    "clientId" : "https://example.com/api",
+    "name" : "",
+    "description" : "",
+    "rootUrl" : "",
+    "adminUrl" : "",
+    "baseUrl" : "",
+    "surrogateAuthRequired" : false,
+    "enabled" : true,
+    "alwaysDisplayInConsole" : false,
+    "clientAuthenticatorType" : "client-secret",
+    "redirectUris" : [ "/*" ],
+    "webOrigins" : [ "/*" ],
+    "notBefore" : 0,
+    "bearerOnly" : false,
+    "consentRequired" : false,
+    "standardFlowEnabled" : false,
+    "implicitFlowEnabled" : false,
+    "directAccessGrantsEnabled" : false,
+    "serviceAccountsEnabled" : false,
+    "publicClient" : true,
+    "frontchannelLogout" : true,
+    "protocol" : "openid-connect",
+    "attributes" : {
+      "oidc.ciba.grant.enabled" : "false",
+      "oauth2.device.authorization.grant.enabled" : "false",
+      "backchannel.logout.session.required" : "true",
+      "backchannel.logout.revoke.offline.tokens" : "false"
+    },
+    "authenticationFlowBindingOverrides" : { },
+    "fullScopeAllowed" : true,
+    "nodeReRegistrationTimeout" : -1,
+    "defaultClientScopes" : [ "web-origins", "acr", "roles", "profile", "email" ],
+    "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
+  }, {
+    "id" : "35ef6c38-02e1-44dc-ad1c-e5cd86d7f573",
+    "clientId" : "https://example.org/",
+    "name" : "",
+    "description" : "",
+    "rootUrl" : "",
+    "adminUrl" : "",
+    "baseUrl" : "",
+    "surrogateAuthRequired" : false,
+    "enabled" : true,
+    "alwaysDisplayInConsole" : false,
+    "clientAuthenticatorType" : "client-secret",
+    "redirectUris" : [ "https://oidcdebugger.com/debug" ],
+    "webOrigins" : [ "https://oidcdebugger.com" ],
+    "notBefore" : 0,
+    "bearerOnly" : false,
+    "consentRequired" : false,
+    "standardFlowEnabled" : true,
+    "implicitFlowEnabled" : true,
+    "directAccessGrantsEnabled" : false,
+    "serviceAccountsEnabled" : false,
+    "publicClient" : true,
+    "frontchannelLogout" : true,
+    "protocol" : "openid-connect",
+    "attributes" : {
+      "oidc.ciba.grant.enabled" : "false",
+      "oauth2.device.authorization.grant.enabled" : "false",
+      "backchannel.logout.session.required" : "true",
+      "backchannel.logout.revoke.offline.tokens" : "false"
+    },
+    "authenticationFlowBindingOverrides" : { },
+    "fullScopeAllowed" : false,
+    "nodeReRegistrationTimeout" : -1,
+    "defaultClientScopes" : [ "web-origins", "acr", "roles", "profile", "email" ],
+    "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
+  }, {
+    "id" : "8f08eda6-cb70-4976-a3c3-8a0a508f823f",
+    "clientId" : "https://example.org/api",
+    "name" : "",
+    "description" : "",
+    "rootUrl" : "",
+    "adminUrl" : "",
+    "baseUrl" : "",
+    "surrogateAuthRequired" : false,
+    "enabled" : true,
+    "alwaysDisplayInConsole" : false,
+    "clientAuthenticatorType" : "client-secret",
+    "redirectUris" : [ "/*" ],
+    "webOrigins" : [ "/*" ],
+    "notBefore" : 0,
+    "bearerOnly" : false,
+    "consentRequired" : false,
+    "standardFlowEnabled" : false,
+    "implicitFlowEnabled" : false,
+    "directAccessGrantsEnabled" : false,
+    "serviceAccountsEnabled" : false,
+    "publicClient" : true,
+    "frontchannelLogout" : true,
+    "protocol" : "openid-connect",
+    "attributes" : {
+      "oidc.ciba.grant.enabled" : "false",
+      "oauth2.device.authorization.grant.enabled" : "false",
+      "backchannel.logout.session.required" : "true",
+      "backchannel.logout.revoke.offline.tokens" : "false"
+    },
+    "authenticationFlowBindingOverrides" : { },
+    "fullScopeAllowed" : true,
+    "nodeReRegistrationTimeout" : -1,
     "defaultClientScopes" : [ "web-origins", "acr", "roles", "profile", "email" ],
     "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
   }, {
@@ -1287,11 +1571,11 @@
     "strictTransportSecurity" : "max-age=31536000; includeSubDomains"
   },
   "smtpServer" : { },
-  "eventsEnabled" : false,
+  "eventsEnabled" : true,
   "eventsListeners" : [ "jboss-logging" ],
-  "enabledEventTypes" : [ ],
-  "adminEventsEnabled" : false,
-  "adminEventsDetailsEnabled" : false,
+  "enabledEventTypes" : [ "UPDATE_CONSENT_ERROR", "UPDATE_TOTP", "PERMISSION_TOKEN_ERROR", "IDENTITY_PROVIDER_RETRIEVE_TOKEN_ERROR", "IMPERSONATE_ERROR", "CUSTOM_REQUIRED_ACTION", "RESTART_AUTHENTICATION", "CLIENT_INFO", "IMPERSONATE", "LOGIN", "CLIENT_INITIATED_ACCOUNT_LINKING", "OAUTH2_EXTENSION_GRANT", "USER_DISABLED_BY_PERMANENT_LOCKOUT", "USER_DISABLED_BY_TEMPORARY_LOCKOUT_ERROR", "TOKEN_EXCHANGE", "REGISTER", "DELETE_ACCOUNT_ERROR", "IDENTITY_PROVIDER_LINK_ACCOUNT", "INTROSPECT_TOKEN_ERROR", "USER_DISABLED_BY_TEMPORARY_LOCKOUT", "DELETE_ACCOUNT", "UPDATE_PASSWORD", "IDENTITY_PROVIDER_FIRST_LOGIN", "VERIFY_EMAIL", "CLIENT_LOGIN_ERROR", "RESTART_AUTHENTICATION_ERROR", "EXECUTE_ACTIONS", "REMOVE_FEDERATED_IDENTITY_ERROR", "TOKEN_EXCHANGE_ERROR", "UNREGISTER_NODE", "SEND_IDENTITY_PROVIDER_LINK_ERROR", "USER_INFO_REQUEST_ERROR", "EXECUTE_ACTION_TOKEN_ERROR", "OAUTH2_EXTENSION_GRANT_ERROR", "SEND_VERIFY_EMAIL", "IDENTITY_PROVIDER_RESPONSE", "EXECUTE_ACTIONS_ERROR", "IDENTITY_PROVIDER_RETRIEVE_TOKEN", "OAUTH2_DEVICE_CODE_TO_TOKEN", "USER_DISABLED_BY_PERMANENT_LOCKOUT_ERROR", "UNREGISTER_NODE_ERROR", "VALIDATE_ACCESS_TOKEN_ERROR", "OAUTH2_DEVICE_VERIFY_USER_CODE_ERROR", "REVOKE_GRANT_ERROR", "UPDATE_EMAIL_ERROR", "UPDATE_PROFILE", "USER_INFO_REQUEST", "SEND_IDENTITY_PROVIDER_LINK", "SEND_VERIFY_EMAIL_ERROR", "CLIENT_INITIATED_ACCOUNT_LINKING_ERROR", "OAUTH2_DEVICE_AUTH_ERROR", "REMOVE_TOTP_ERROR", "VERIFY_EMAIL_ERROR", "CLIENT_UPDATE", "UPDATE_TOTP_ERROR", "VERIFY_PROFILE", "GRANT_CONSENT_ERROR", "SEND_RESET_PASSWORD", "GRANT_CONSENT", "REGISTER_NODE_ERROR", "VERIFY_PROFILE_ERROR", "REMOVE_TOTP", "REVOKE_GRANT", "LOGIN_ERROR", "CLIENT_LOGIN", "RESET_PASSWORD_ERROR", "CODE_TO_TOKEN_ERROR", "OAUTH2_DEVICE_CODE_TO_TOKEN_ERROR", "UPDATE_PROFILE_ERROR", "VALIDATE_ACCESS_TOKEN", "OAUTH2_DEVICE_VERIFY_USER_CODE", "UPDATE_PASSWORD_ERROR", "IDENTITY_PROVIDER_LOGIN", "AUTHREQID_TO_TOKEN", "LOGOUT", "CLIENT_INFO_ERROR", "CLIENT_REGISTER", "PUSHED_AUTHORIZATION_REQUEST", "REFRESH_TOKEN", "INTROSPECT_TOKEN", "CLIENT_DELETE", "FEDERATED_IDENTITY_LINK_ERROR", "CLIENT_DELETE_ERROR", "PERMISSION_TOKEN", "REGISTER_NODE", "INVALID_SIGNATURE", "PUSHED_AUTHORIZATION_REQUEST_ERROR", "OAUTH2_DEVICE_AUTH", "REMOVE_FEDERATED_IDENTITY", "IDENTITY_PROVIDER_POST_LOGIN", "IDENTITY_PROVIDER_LINK_ACCOUNT_ERROR", "UPDATE_EMAIL", "REGISTER_ERROR", "EXECUTE_ACTION_TOKEN", "LOGOUT_ERROR", "CLIENT_UPDATE_ERROR", "AUTHREQID_TO_TOKEN_ERROR", "INVALID_SIGNATURE_ERROR", "CLIENT_REGISTER_ERROR", "FEDERATED_IDENTITY_LINK", "IDENTITY_PROVIDER_RESPONSE_ERROR", "IDENTITY_PROVIDER_LOGIN_ERROR", "RESET_PASSWORD", "UPDATE_CONSENT", "SEND_RESET_PASSWORD_ERROR", "REFRESH_TOKEN_ERROR", "CUSTOM_REQUIRED_ACTION_ERROR", "IDENTITY_PROVIDER_POST_LOGIN_ERROR", "CODE_TO_TOKEN", "IDENTITY_PROVIDER_FIRST_LOGIN_ERROR" ],
+  "adminEventsEnabled" : true,
+  "adminEventsDetailsEnabled" : true,
   "identityProviders" : [ ],
   "identityProviderMappers" : [ ],
   "components" : {
@@ -1966,13 +2250,18 @@
   "firstBrokerLoginFlow" : "first broker login",
   "attributes" : {
     "cibaBackchannelTokenDeliveryMode" : "poll",
-    "cibaExpiresIn" : "120",
     "cibaAuthRequestedUserHint" : "login_hint",
-    "oauth2DeviceCodeLifespan" : "600",
     "oauth2DevicePollingInterval" : "5",
-    "parRequestUriLifespan" : "60",
+    "clientOfflineSessionMaxLifespan" : "0",
+    "clientSessionIdleTimeout" : "0",
+    "clientOfflineSessionIdleTimeout" : "0",
     "cibaInterval" : "5",
-    "realmReusableOtpCode" : "false"
+    "realmReusableOtpCode" : "false",
+    "cibaExpiresIn" : "120",
+    "oauth2DeviceCodeLifespan" : "600",
+    "parRequestUriLifespan" : "60",
+    "clientSessionMaxLifespan" : "0",
+    "adminEventsExpiration" : ""
   },
   "keycloakVersion" : "24.0.5",
   "userManagedAccessAllowed" : false,

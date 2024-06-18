@@ -1,6 +1,29 @@
 {
   "realm" : "test",
   "users" : [ {
+    "id" : "5d804ae1-ce6d-46d2-9554-0dda7323085b",
+    "username" : "admin",
+    "firstName" : "Admiński",
+    "lastName" : "Admin",
+    "email" : "admin@example.com",
+    "emailVerified" : true,
+    "createdTimestamp" : 1718708498478,
+    "enabled" : true,
+    "totp" : false,
+    "credentials" : [ {
+      "id" : "1b7cf266-7285-4f0f-a45f-daaa5f67eb64",
+      "type" : "password",
+      "userLabel" : "My password",
+      "createdDate" : 1718708544368,
+      "secretData" : "{\"value\":\"T2BxjY1Qkex8WOdBCGIs/FErbsMpftUEecj2Vf6tJow6aHzgeQawBVO7RpW7cpKPmMw9O9LL5zVZAwi9sXagiA==\",\"salt\":\"iQ0EGQ2spZKu3BSL8uI89A==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":210000,\"algorithm\":\"pbkdf2-sha512\",\"additionalParameters\":{}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-test" ],
+    "notBefore" : 0,
+    "groups" : [ "/https://example.com//admins", "/https://example.org//admins" ]
+  }, {
     "id" : "1a92dbee-520f-4675-8a7c-653366266cb0",
     "username" : "service-account-service-account_client_secret_jwt",
     "emailVerified" : false,
@@ -34,7 +57,7 @@
     "firstName" : "Teściarski",
     "lastName" : "Teściarz",
     "email" : "test@example.com",
-    "emailVerified" : false,
+    "emailVerified" : true,
     "createdTimestamp" : 1718703002171,
     "enabled" : true,
     "totp" : false,
@@ -50,6 +73,6 @@
     "requiredActions" : [ ],
     "realmRoles" : [ "default-roles-test" ],
     "notBefore" : 0,
-    "groups" : [ ]
+    "groups" : [ "/https://example.com/", "/https://example.org/" ]
   } ]
 }

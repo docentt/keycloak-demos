@@ -54,7 +54,10 @@ Realm: test
 
 ### Użytkownicy
 
-test / test - testowy użytkownik
+- test / test - testowy użytkownik
+  - Uprawnienia odczytu i zapisu na zasobach https://example.com/api oraz https://example.org/api
+- admin / admin - testowy administrator
+    - Uprawnienia administracji na zasobach https://example.com/api oraz https://example.org/api
 
 ### Klienci
 
@@ -62,13 +65,17 @@ test / test - testowy użytkownik
 
 Testowa integracja z https://oidcdebugger.com/
 - client id: https://oidcdebugger.com/
+- valid redirect URIs:
+  - https://oidcdebugger.com/debug
 - typ klienta: publiczny
 - granty: 
   - Authorization Code grant, 
   - Resource Owner Password Credentials grant, 
   - Implicit grant
 
-#### service-account_client_secret_jwt
+#### Konta serwisowe
+
+##### service-account_client_secret_jwt
 
 Konto serwisowe z uwierzytelnianiem client_secret_jwt (patrz: https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication)
 
@@ -81,7 +88,7 @@ Konto serwisowe z uwierzytelnianiem client_secret_jwt (patrz: https://openid.net
 - granty:
     - Client Credentials grant
 
-#### service-account_private_key_jwt
+##### service-account_private_key_jwt
 
 Konto serwisowe z uwierzytelnianiem private_key_jwt (patrz: https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication)
 
@@ -93,6 +100,73 @@ Konto serwisowe z uwierzytelnianiem private_key_jwt (patrz: https://openid.net/s
     - klucze: patrz katalog _./keys_
 - granty:
     - Client Credentials grant
+#### Modelowanie Serwerów Zasobów
+
+##### https://example.com/api
+
+Serwer Zasobów https://example.com/api
+- client id: https://example.com/api
+- typ klienta: bearer-only
+- role:
+  - read
+  - write
+  - admin
+- granty: brak
+
+##### https://example.org/api
+
+Serwer Zasobów https://example.org/api
+- client id: https://example.org/api
+- typ klienta: bearer-only
+- role:
+    - read
+    - write
+    - admin
+- granty: brak
+
+##### https://example.com/
+
+Aplikacja https://example.com/ (do testowania z https://oidcdebugger.com/)
+- client id: https://example.com/
+- valid redirect URIs:
+    - https://oidcdebugger.com/debug
+- typ klienta: publiczny
+- role na filtrze:
+  - https://example.com/api
+      - read
+      - write
+- granty: 
+  - Implicit grant
+
+##### https://example.org/
+
+Aplikacja https://example.org/ (do testowania z https://oidcdebugger.com/)
+- client id: https://example.org/
+- valid redirect URIs:
+    - https://oidcdebugger.com/debug
+- typ klienta: publiczny
+- role na filtrze:
+    - https://example.org/api
+        - read
+        - write
+- granty:
+    - Implicit grant
+
+##### https://admin.example.com/
+
+Aplikacja https://admin.example.com/ (do testowania z https://oidcdebugger.com/)
+- client id: https://admin.example.com/
+- valid redirect URIs:
+    - https://oidcdebugger.com/debug
+- typ klienta: publiczny
+- role na filtrze:
+    - https://example.com/api
+        - admin
+    - https://example.org/api
+        - admin
+- granty:
+    - Implicit grant
+
 
 ## Kolekcja Postman
 
