@@ -920,6 +920,146 @@
 							"response": []
 						},
 						{
+							"name": "CC Grant with client_secret_jwt",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var realmPrefix = pm.environment.get(\"active-realm\") + \"-\";\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"postman.setEnvironmentVariable(realmPrefix+\"access_token\", jsonData.access_token);\r",
+											"postman.setEnvironmentVariable(realmPrefix+\"tokens_scope\", jsonData.scope);\r",
+											"const payload = jsonData.access_token.split('.')[1];\r",
+											"const parsed = JSON.parse(atob(payload));\r",
+											"postman.setEnvironmentVariable(realmPrefix+\"access_token_payload-json\", JSON.stringify(parsed));\r",
+											"postman.setEnvironmentVariable(realmPrefix+\"access_token_payload-sub\", parsed.sub);\r",
+											"postman.setEnvironmentVariable(realmPrefix+\"access_token_payload-exp\", new Date(Number(parsed.exp)*1000).toLocaleString(\"pl-PL\"));\r",
+											"postman.setEnvironmentVariable(realmPrefix+\"access_token_payload-iat\", new Date(Number(parsed.iat)*1000).toLocaleString(\"pl-PL\"));"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "{{active-CC_client_client_secret_jwt}}",
+											"type": "text"
+										},
+										{
+											"key": "client_assertion_type",
+											"value": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+											"type": "text"
+										},
+										{
+											"key": "client_assertion",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{active-token_endpoint}}",
+									"host": [
+										"{{active-token_endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "CC Grant with private_key_jwt",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var realmPrefix = pm.environment.get(\"active-realm\") + \"-\";\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"postman.setEnvironmentVariable(realmPrefix+\"access_token\", jsonData.access_token);\r",
+											"postman.setEnvironmentVariable(realmPrefix+\"tokens_scope\", jsonData.scope);\r",
+											"const payload = jsonData.access_token.split('.')[1];\r",
+											"const parsed = JSON.parse(atob(payload));\r",
+											"postman.setEnvironmentVariable(realmPrefix+\"access_token_payload-json\", JSON.stringify(parsed));\r",
+											"postman.setEnvironmentVariable(realmPrefix+\"access_token_payload-sub\", parsed.sub);\r",
+											"postman.setEnvironmentVariable(realmPrefix+\"access_token_payload-exp\", new Date(Number(parsed.exp)*1000).toLocaleString(\"pl-PL\"));\r",
+											"postman.setEnvironmentVariable(realmPrefix+\"access_token_payload-iat\", new Date(Number(parsed.iat)*1000).toLocaleString(\"pl-PL\"));"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"name": "Content-Type",
+										"type": "text",
+										"value": "application/x-www-form-urlencoded"
+									}
+								],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "client_credentials",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "{{active-CC_client_private_key_jwt}}",
+											"type": "text"
+										},
+										{
+											"key": "client_assertion_type",
+											"value": "urn:ietf:params:oauth:client-assertion-type:jwt-bearer",
+											"type": "text"
+										},
+										{
+											"key": "client_assertion",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{active-token_endpoint}}",
+									"host": [
+										"{{active-token_endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "AC -> tokens",
 							"event": [
 								{
@@ -1438,7 +1578,9 @@
 							"pm.environment.set(\"active-ROPC_client\", pm.environment.get(realm + \"-ROPC_client\"));\r",
 							"pm.environment.set(\"active-ROPC_secret\", pm.environment.get(realm + \"-ROPC_secret\"));\r",
 							"pm.environment.set(\"active-CC_client\", pm.environment.get(realm + \"-CC_client\"));\r",
-							"pm.environment.set(\"active-CC_secret\", pm.environment.get(realm + \"-CC_secret\"));"
+							"pm.environment.set(\"active-CC_secret\", pm.environment.get(realm + \"-CC_secret\"));\r",
+							"pm.environment.set(\"active-CC_client_client_secret_jwt\", pm.environment.get(realm + \"-CC_client_client_secret_jwt\"));\r",
+							"pm.environment.set(\"active-CC_client_private_key_jwt\", pm.environment.get(realm + \"-CC_client_private_key_jwt\"));"
 						]
 					}
 				},
