@@ -47,6 +47,27 @@ Podgląd logów działającego Keycloak.
 
     ./see_logs_kc_24.sh
 
+## Konfiguracja
+
+Testowa konfiguracja. 
+Realm: test
+
+### Użytkownicy
+
+test / test - testowy użytkownik
+
+### Klienci
+
+#### https://oidcdebugger.com/ 
+
+Testowa integracja z https://oidcdebugger.com/
+- client id: https://oidcdebugger.com/
+- typ klienta: publiczny
+- granty: 
+  - Authorization Code grant, 
+  - Resource Owner Password Credentials grant, 
+  - Implicit grant
+
 ## Kolekcja Postman
 
 W katalogu POSTMAN znajdują się pliki do zaimportowania do Postman (https://www.postman.com/) skrojone pod interakcję z demonstracyjnym Keycloak.
