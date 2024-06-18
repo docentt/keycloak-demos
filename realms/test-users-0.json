@@ -15,6 +15,20 @@
     "notBefore" : 0,
     "groups" : [ ]
   }, {
+    "id" : "9d003112-53be-4f6f-b1f9-5f7a2e38e141",
+    "username" : "service-account-service-account_private_key_jwt",
+    "emailVerified" : false,
+    "createdTimestamp" : 1718705678652,
+    "enabled" : true,
+    "totp" : false,
+    "serviceAccountClientId" : "service-account_private_key_jwt",
+    "credentials" : [ ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-test" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
     "id" : "895b88b4-5766-43cf-bd77-f50ef05d15c6",
     "username" : "test",
     "firstName" : "Teściarski",

@@ -81,6 +81,19 @@ Konto serwisowe z uwierzytelnianiem client_secret_jwt (patrz: https://openid.net
 - granty:
     - Client Credentials grant
 
+#### service-account_private_key_jwt
+
+Konto serwisowe z uwierzytelnianiem private_key_jwt (patrz: https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication)
+
+- client id: service-account_private_key_jwt
+- typ klienta: poufny
+- uwierzytelnianie klienta:
+    - metoda: private_key_jwt
+    - algorytm sygnatury: RS256
+    - klucze: patrz katalog _./keys_
+- granty:
+    - Client Credentials grant
+
 ## Kolekcja Postman
 
 W katalogu POSTMAN znajdują się pliki do zaimportowania do Postman (https://www.postman.com/) skrojone pod interakcję z demonstracyjnym Keycloak.

@@ -245,6 +245,7 @@
         "containerId" : "0284409a-e51e-43b9-a629-e449ba831f1c",
         "attributes" : { }
       } ],
+      "service-account_private_key_jwt" : [ ],
       "security-admin-console" : [ ],
       "admin-cli" : [ ],
       "account-console" : [ ],
@@ -693,6 +694,89 @@
         "id.token.claim" : "true",
         "access.token.claim" : "true",
         "claim.name" : "clientAddress",
+        "jsonType.label" : "String"
+      }
+    } ],
+    "defaultClientScopes" : [ "web-origins", "acr", "roles", "profile", "email" ],
+    "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
+  }, {
+    "id" : "e3dc804f-4efb-4dab-be5f-2eaf0ccccefc",
+    "clientId" : "service-account_private_key_jwt",
+    "name" : "",
+    "description" : "",
+    "rootUrl" : "",
+    "adminUrl" : "",
+    "baseUrl" : "",
+    "surrogateAuthRequired" : false,
+    "enabled" : true,
+    "alwaysDisplayInConsole" : false,
+    "clientAuthenticatorType" : "client-jwt",
+    "secret" : "IBYrtNNfHpsaICQ6sBfdT3bAtMz9b4WG",
+    "redirectUris" : [ "/*" ],
+    "webOrigins" : [ "/*" ],
+    "notBefore" : 0,
+    "bearerOnly" : false,
+    "consentRequired" : false,
+    "standardFlowEnabled" : false,
+    "implicitFlowEnabled" : false,
+    "directAccessGrantsEnabled" : false,
+    "serviceAccountsEnabled" : true,
+    "publicClient" : false,
+    "frontchannelLogout" : true,
+    "protocol" : "openid-connect",
+    "attributes" : {
+      "oidc.ciba.grant.enabled" : "false",
+      "client.secret.creation.time" : "1718705678",
+      "backchannel.logout.session.required" : "true",
+      "jwt.credential.public.key" : "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvBsLlYD0ql9zyCKaIQDs\nx3NIxtqY6jA+0L15f8Z4jwzpf1JtkaSV1lz9QFVvahCspuujGds3dqG1Ik/dBvx4\nf2ssDJjY902EUiSftJwcvoTzw+m+UW2CubKRIhc1svi7xOHwRtJeLcm4M2sg2NsZ\ng5rao1XdsmYVSKzVLIvxoLTfNN7nKrlaaRHLjETyMMqy/SdGJZuYpLD6Sdi1RRFk\n2J8WmFUWJZ3gbomjwmUhtehQAOYMX6lzeGL1RIHqr75EUzmfbsKYdqeMlLnt9fvv\nKBQ4L7FjROveMNCCoN0abBRbS5Y5dVUzcSxJZjGfh83kMuzLeMwGJ4Xk5PCGftaV\nmwIDAQAB\n-----END PUBLIC KEY-----\n",
+      "token.endpoint.auth.signing.alg" : "RS256",
+      "oauth2.device.authorization.grant.enabled" : "false",
+      "display.on.consent.screen" : "false",
+      "backchannel.logout.revoke.offline.tokens" : "false"
+    },
+    "authenticationFlowBindingOverrides" : { },
+    "fullScopeAllowed" : true,
+    "nodeReRegistrationTimeout" : -1,
+    "protocolMappers" : [ {
+      "id" : "f83e7fb1-2547-41f2-a495-42cd4dca679a",
+      "name" : "Client IP Address",
+      "protocol" : "openid-connect",
+      "protocolMapper" : "oidc-usersessionmodel-note-mapper",
+      "consentRequired" : false,
+      "config" : {
+        "user.session.note" : "clientAddress",
+        "introspection.token.claim" : "true",
+        "id.token.claim" : "true",
+        "access.token.claim" : "true",
+        "claim.name" : "clientAddress",
+        "jsonType.label" : "String"
+      }
+    }, {
+      "id" : "30ebe521-89fe-46a8-89e3-6f47ee943722",
+      "name" : "Client ID",
+      "protocol" : "openid-connect",
+      "protocolMapper" : "oidc-usersessionmodel-note-mapper",
+      "consentRequired" : false,
+      "config" : {
+        "user.session.note" : "client_id",
+        "introspection.token.claim" : "true",
+        "id.token.claim" : "true",
+        "access.token.claim" : "true",
+        "claim.name" : "client_id",
+        "jsonType.label" : "String"
+      }
+    }, {
+      "id" : "9e002958-b85e-4670-9ad1-4af31aacf7f2",
+      "name" : "Client Host",
+      "protocol" : "openid-connect",
+      "protocolMapper" : "oidc-usersessionmodel-note-mapper",
+      "consentRequired" : false,
+      "config" : {
+        "user.session.note" : "clientHost",
+        "introspection.token.claim" : "true",
+        "id.token.claim" : "true",
+        "access.token.claim" : "true",
+        "claim.name" : "clientHost",
         "jsonType.label" : "String"
       }
     } ],
