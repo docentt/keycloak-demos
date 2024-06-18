@@ -68,6 +68,19 @@ Testowa integracja z https://oidcdebugger.com/
   - Resource Owner Password Credentials grant, 
   - Implicit grant
 
+#### service-account_client_secret_jwt
+
+Konto serwisowe z uwierzytelnianiem client_secret_jwt (patrz: https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication)
+
+- client id: service-account_client_secret_jwt
+- typ klienta: poufny
+- uwierzytelnianie klienta: 
+  - metoda: client_secret_jwt
+  - algorytm sygnatury: HS256
+  - secret: 54wgKGlaGYtaG3ZIBQWJ6mLu3v7WgW25
+- granty:
+    - Client Credentials grant
+
 ## Kolekcja Postman
 
 W katalogu POSTMAN znajdują się pliki do zaimportowania do Postman (https://www.postman.com/) skrojone pod interakcję z demonstracyjnym Keycloak.

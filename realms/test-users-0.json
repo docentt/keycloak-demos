@@ -1,6 +1,20 @@
 {
   "realm" : "test",
   "users" : [ {
+    "id" : "1a92dbee-520f-4675-8a7c-653366266cb0",
+    "username" : "service-account-service-account_client_secret_jwt",
+    "emailVerified" : false,
+    "createdTimestamp" : 1718704888105,
+    "enabled" : true,
+    "totp" : false,
+    "serviceAccountClientId" : "service-account_client_secret_jwt",
+    "credentials" : [ ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-test" ],
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
     "id" : "895b88b4-5766-43cf-bd77-f50ef05d15c6",
     "username" : "test",
     "firstName" : "Teściarski",
