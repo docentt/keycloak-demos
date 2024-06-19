@@ -50,16 +50,24 @@ Podgląd logów działającego Keycloak.
 ## Konfiguracja
 
 Testowa konfiguracja. 
-Realm: test
+Realmy: 
+- test - realm z testową konfiguracją
+- test2 - realm do testowania identity brokeringu (RP zintegrowany z OP, którym jest realm test)
+  - konfiguracja dostawcy tożsamości http://localhost:8080/auth/admin/master/console/#/test2/identity-providers/oidc/test/settings
+  - w konfiguracji należy dostosować adresy URL endpointów backchannel (zamiana z _172.18.0.2_ na adres odczytany z sieci Docker).
 
-### Użytkownicy
+### Użytkownicy (realm: test)
 
 - test / test - testowy użytkownik
   - Uprawnienia odczytu i zapisu na zasobach https://example.com/api oraz https://example.org/api
 - admin / admin - testowy administrator
     - Uprawnienia administracji na zasobach https://example.com/api oraz https://example.org/api
 
-### Klienci
+### Użytkownicy (realm: test2)
+
+Brak użytkowników - należy uwierzytelnić się względem realma test.
+
+### Klienci (realm: test)
 
 #### https://oidcdebugger.com/ 
 
@@ -167,6 +175,22 @@ Aplikacja https://admin.example.com/ (do testowania z https://oidcdebugger.com/)
 - granty:
     - Implicit grant
 
+##### http://localhost:8080/auth/realms/test2
+
+Klient do integracji realm test2 w scenariuszu Identity Brokeringu z realm test.
+- client id: http://localhost:8080/auth/realms/test2
+- valid redirect URIs:
+  - http://localhost:8080/auth/realms/test2/broker/test/endpoint
+- valid post logout redirect URIs:
+  - http://localhost:8080/auth/realms/test2/broker/test/endpoint/logout_response
+- typ klienta: poufny
+- uwierzytelnianie klienta:
+  - metoda: private_key_jwt
+  - algorytm sygnatury: RS256
+  - klucze pobrane po jwks (na backchannel, dlatego po IP _172.18.0.2_ - należy zastąpić wewnętrznym IP kontenera z Keycloak): http://localhost:8080/auth/realms/test2/protocol/openid-connect/certs
+- granty:
+  - Authorization Code grant
+- PKCE: S256
 
 ## Kolekcja Postman
 
