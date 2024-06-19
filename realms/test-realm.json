@@ -393,12 +393,12 @@
   },
   "groups" : [ {
     "id" : "9cf56a14-7c9e-4171-a582-95dee5e70a36",
-    "name" : "https://example.com/",
-    "path" : "/https://example.com/",
+    "name" : "example.com",
+    "path" : "/example.com",
     "subGroups" : [ {
       "id" : "56fe40a9-6110-40de-a12b-77e9b5b90d9b",
       "name" : "admins",
-      "path" : "/https://example.com//admins",
+      "path" : "/example.com/admins",
       "parentId" : "9cf56a14-7c9e-4171-a582-95dee5e70a36",
       "subGroups" : [ ],
       "attributes" : { },
@@ -414,12 +414,12 @@
     }
   }, {
     "id" : "576c314a-7c27-42f4-9e02-8f377cf470d0",
-    "name" : "https://example.org/",
-    "path" : "/https://example.org/",
+    "name" : "example.org",
+    "path" : "/example.org",
     "subGroups" : [ {
       "id" : "a19882cd-a10f-4b6b-b14e-083dc5687bf7",
       "name" : "admins",
-      "path" : "/https://example.org//admins",
+      "path" : "/example.org/admins",
       "parentId" : "576c314a-7c27-42f4-9e02-8f377cf470d0",
       "subGroups" : [ ],
       "attributes" : { },

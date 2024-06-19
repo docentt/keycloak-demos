@@ -22,7 +22,7 @@
     "requiredActions" : [ ],
     "realmRoles" : [ "default-roles-test" ],
     "notBefore" : 0,
-    "groups" : [ "/https://example.com//admins", "/https://example.org//admins" ]
+    "groups" : [ "/example.com/admins", "/example.org/admins" ]
   }, {
     "id" : "1a92dbee-520f-4675-8a7c-653366266cb0",
     "username" : "service-account-service-account_client_secret_jwt",
@@ -73,6 +73,6 @@
     "requiredActions" : [ ],
     "realmRoles" : [ "default-roles-test" ],
     "notBefore" : 0,
-    "groups" : [ "/https://example.com/", "/https://example.org/" ]
+    "groups" : [ "/example.com", "/example.org" ]
   } ]
 }
