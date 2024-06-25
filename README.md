@@ -75,11 +75,17 @@ Testowa integracja z https://oidcdebugger.com/
 - client id: https://oidcdebugger.com/
 - valid redirect URIs:
   - https://oidcdebugger.com/debug
-- typ klienta: publiczny
+- typ klienta: poufny
+- uwierzytelnianie klienta:
+  - metoda: client secret
+  - secret: 0rsNk8Dzf9QfHHg7lnmSSrSKRrw3za5O
+- role na koncie serwisowym:
+  - view-users @ realm-management
 - granty: 
   - Authorization Code grant, 
   - Resource Owner Password Credentials grant, 
   - Implicit grant
+  - Client Credentials grant
 
 #### Konta serwisowe
 
