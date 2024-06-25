@@ -24,6 +24,22 @@
     "notBefore" : 0,
     "groups" : [ "/example.com/admins", "/example.org/admins" ]
   }, {
+    "id" : "4c8d1002-9492-439d-96e0-b5c14e8e2b8a",
+    "username" : "service-account-https://oidcdebugger.com/",
+    "emailVerified" : false,
+    "createdTimestamp" : 1719337507895,
+    "enabled" : true,
+    "totp" : false,
+    "serviceAccountClientId" : "https://oidcdebugger.com/",
+    "credentials" : [ ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "clientRoles" : {
+      "realm-management" : [ "view-users" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ ]
+  }, {
     "id" : "1a92dbee-520f-4675-8a7c-653366266cb0",
     "username" : "service-account-service-account_client_secret_jwt",
     "emailVerified" : false,
