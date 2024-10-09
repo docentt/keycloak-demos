@@ -10,6 +10,7 @@ Wersja Keycloak: *26.0.0*
 
 Uruchomienie Keycloak o parametrach:
 - wersja zgodna z informacją powyżej
+- przed startem skopiowanie konfiguracji z katalogu *./template-realms* do *./realms*, a następnie poprawa w niej adresacji IP,
 - w trakcie startu import konfiguracji z katalogu *./realms*
 - port usługi: 8080
 - ścieżka usługi: */auth*
