@@ -1,6 +1,6 @@
 #!/bin/sh
 
-KC24=$(docker ps --filter "name=keycloak-24")
+KC24=$(docker ps --filter "name=keycloak-demos")
 currentTime=$(date "+%Y.%m.%d-%H.%M.%S")
 
 if [ -z ""${KC24##*keycloak-24*} ]; then
@@ -10,5 +10,5 @@ if [ -z ""${KC24##*keycloak-24*} ]; then
 	docker cp keycloak-24:/opt/keycloak/DUMP .
 	mv DUMP DUMPS/$currentTime
 else
-	echo "Not dumping, keycloak-24 is not running"
+	echo "Not dumping, keycloak-demos is not running"
 fi

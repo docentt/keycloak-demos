@@ -2,7 +2,7 @@
 
 Repozytorium pozwala na szybkie uruchomienie Keycloak z demonstracyjnymi konfiguracjami.
 
-Wersja Keycloak: *24.0.5*
+Wersja Keycloak: *26.0.0*
 
 ## Użycie
 
@@ -19,7 +19,7 @@ Uruchomienie Keycloak o parametrach:
 - poświadczenia: admin / admin
 
 
-    ./start_kc_24.sh
+    ./start_kc.sh
 
 Konsola Keycloak dostępna jest pod adresem http://localhost:8080/auth
 
@@ -27,25 +27,25 @@ Konsola Keycloak dostępna jest pod adresem http://localhost:8080/auth
 
 Zatrzymianie Keycloak wraz z wykonaniem zrzutu konfiguracji.
 
-    ./stop_kc_24.sh
+    ./stop_kc.sh
 
 ### Restart
 
 Restart Keycloak wraz z wykonaniem zrzutu konfiguracji.
 
-    ./restart_kc_24.sh
+    ./restart_kc.sh
 
 ### Zrzut konfiguracji
 
 Samo wykonanie zrzutu konfiguracji działającego Keycloak.
 
-    ./dump_realms_kc_24.sh
+    ./dump_realms_kc.sh
 
 ### Podgląd logów
 
 Podgląd logów działającego Keycloak.
 
-    ./see_logs_kc_24.sh
+    ./see_logs_kc.sh
 
 ## Konfiguracja
 
