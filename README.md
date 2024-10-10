@@ -37,7 +37,7 @@ Zatrzymianie Keycloak wraz z wykonaniem zrzutu konfiguracji.
 
 | Opcja            | Opis                                                   |
 |------------------|--------------------------------------------------------|
-| `--no-dump`      | Nie wykonuj zrzutu konfiguracji.                       |
+| `--no-dump`      | Nie wykonuje zrzutu konfiguracji.                      |
 
 ### Restart
 
@@ -46,10 +46,10 @@ Restart Keycloak wraz z wykonaniem zrzutu konfiguracji.
     ./restart_kc.sh [opcje]
 
 #### Opcje uruchomienia skryptu
-| Opcja            | Opis                             |
-|------------------|----------------------------------|
-| `--no-dump`      | Nie wykonuj zrzutu konfiguracji. |
-| `--smtp-restart` | Zrestartuj serwer pocztowy.      |
+| Opcja            | Opis                              |
+|------------------|-----------------------------------|
+| `--no-dump`      | Nie wykonuje zrzutu konfiguracji. |
+| `--smtp-restart` | Zrestartuje serwer pocztowy.      |
 
 ### Podgląd logów
 
