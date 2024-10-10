@@ -31,19 +31,25 @@ Skrzynka email typu "catch all" z testowego serwera pocztowego dostępna jest po
 
 Zatrzymianie Keycloak wraz z wykonaniem zrzutu konfiguracji.
 
-    ./stop_kc.sh
+    ./stop_kc.sh [opcje]
+
+#### Opcje uruchomienia skryptu
+
+| Opcja            | Opis                                                   |
+|------------------|--------------------------------------------------------|
+| `--no-dump`      | Nie wykonuj zrzutu konfiguracji.                       |
 
 ### Restart
 
 Restart Keycloak wraz z wykonaniem zrzutu konfiguracji.
 
-    ./restart_kc.sh
+    ./restart_kc.sh [opcje]
 
-### Zrzut konfiguracji
-
-Samo wykonanie zrzutu konfiguracji działającego Keycloak.
-
-    ./dump_realms_kc.sh
+#### Opcje uruchomienia skryptu
+| Opcja            | Opis                             |
+|------------------|----------------------------------|
+| `--no-dump`      | Nie wykonuj zrzutu konfiguracji. |
+| `--smtp-restart` | Zrestartuj serwer pocztowy.      |
 
 ### Podgląd logów
 
