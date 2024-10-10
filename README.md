@@ -22,7 +22,10 @@ Uruchomienie Keycloak o parametrach:
 
     ./start_kc.sh
 
+Dodatkowo uruchomiony zostanie testowy serwer pocztowy.
+
 Konsola Keycloak dostępna jest pod adresem http://localhost:8080/auth
+Skrzynka email typu "catch all" z testowego serwera pocztowego dostępna jest pod adresem http://localhost:5000/
 
 ### Stop
 
