@@ -12,4 +12,6 @@ SMTP=$(docker ps --filter "name=smtp-keycloak-demos")
 if [ -z "${SMTP##*smtp-keycloak-demos*}" ]; then
   exit 0
 fi
-docker run --name=smtp-keycloak-demos --network keycloak-demos -d -p 5000:80 rnwood/smtp4dev
+docker run --name=smtp-keycloak-demos --network keycloak-demos -d -p 5000:80 \
+ -v $(pwd)/smtp/appsettings.json:/smtp4dev/appsettings.json \
+ rnwood/smtp4dev
