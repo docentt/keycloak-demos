@@ -1,5 +1,5 @@
 {
-  "realm" : "test",
+  "realm" : "demo.com",
   "users" : [ {
     "id" : "5d804ae1-ce6d-46d2-9554-0dda7323085b",
     "username" : "admin",
@@ -20,7 +20,7 @@
     } ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-test" ],
+    "realmRoles" : [ "default-roles-demo.com" ],
     "notBefore" : 0,
     "groups" : [ "/example.com/admins", "/example.org/admins" ]
   }, {
@@ -50,7 +50,7 @@
     "credentials" : [ ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-test" ],
+    "realmRoles" : [ "default-roles-demo.com" ],
     "notBefore" : 0,
     "groups" : [ ]
   }, {
@@ -64,7 +64,7 @@
     "credentials" : [ ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-test" ],
+    "realmRoles" : [ "default-roles-demo.com" ],
     "notBefore" : 0,
     "groups" : [ ]
   }, {
@@ -87,7 +87,7 @@
     } ],
     "disableableCredentialTypes" : [ ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "default-roles-test" ],
+    "realmRoles" : [ "default-roles-demo.com" ],
     "notBefore" : 0,
     "groups" : [ "/example.com", "/example.org" ]
   } ]

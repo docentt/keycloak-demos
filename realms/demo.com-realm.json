@@ -1,6 +1,8 @@
 {
   "id" : "118e3627-d6e8-4d61-bf1a-a22f5dcfe3da",
-  "realm" : "test",
+  "realm" : "demo.com",
+  "displayName" : "demo.com",
+  "displayNameHtml" : "<div style=\"background-color: rgb(255,165,0)\"><span>demo.com</span></div>",
   "notBefore" : 0,
   "defaultSignatureAlgorithm" : "RS256",
   "revokeRefreshToken" : false,
@@ -55,7 +57,7 @@
       "attributes" : { }
     }, {
       "id" : "537dff0e-1b74-4f7b-89f7-9175f1b1999a",
-      "name" : "default-roles-test",
+      "name" : "default-roles-demo.com",
       "description" : "${role_default-roles}",
       "composite" : true,
       "composites" : {
@@ -284,7 +286,7 @@
         "attributes" : { }
       } ],
       "https://admin.example.com/" : [ ],
-      "http://localhost:8080/auth/realms/test2" : [ ],
+      "https://login.example.org:8443/auth/realms/demo.org" : [ ],
       "admin-cli" : [ ],
       "https://example.com/" : [ ],
       "https://example.com/api" : [ {
@@ -436,7 +438,7 @@
   } ],
   "defaultRole" : {
     "id" : "537dff0e-1b74-4f7b-89f7-9175f1b1999a",
-    "name" : "default-roles-test",
+    "name" : "default-roles-demo.com",
     "description" : "${role_default-roles}",
     "composite" : true,
     "clientRole" : false,
@@ -507,12 +509,12 @@
     "clientId" : "account",
     "name" : "${client_account}",
     "rootUrl" : "${authBaseUrl}",
-    "baseUrl" : "/realms/test/account/",
+    "baseUrl" : "/realms/demo.com/account/",
     "surrogateAuthRequired" : false,
     "enabled" : true,
     "alwaysDisplayInConsole" : false,
     "clientAuthenticatorType" : "client-secret",
-    "redirectUris" : [ "/realms/test/account/*" ],
+    "redirectUris" : [ "/realms/demo.com/account/*" ],
     "webOrigins" : [ ],
     "notBefore" : 0,
     "bearerOnly" : false,
@@ -538,12 +540,12 @@
     "clientId" : "account-console",
     "name" : "${client_account-console}",
     "rootUrl" : "${authBaseUrl}",
-    "baseUrl" : "/realms/test/account/",
+    "baseUrl" : "/realms/demo.com/account/",
     "surrogateAuthRequired" : false,
     "enabled" : true,
     "alwaysDisplayInConsole" : false,
     "clientAuthenticatorType" : "client-secret",
-    "redirectUris" : [ "/realms/test/account/*" ],
+    "redirectUris" : [ "/realms/demo.com/account/*" ],
     "webOrigins" : [ ],
     "notBefore" : 0,
     "bearerOnly" : false,
@@ -634,7 +636,7 @@
     "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
   }, {
     "id" : "482b96a0-94ec-4a21-acc2-2b349607dfb9",
-    "clientId" : "http://localhost:8080/auth/realms/test2",
+    "clientId" : "https://login.example.org:8443/auth/realms/demo.org",
     "name" : "",
     "description" : "",
     "rootUrl" : "",
@@ -645,8 +647,8 @@
     "alwaysDisplayInConsole" : false,
     "clientAuthenticatorType" : "client-jwt",
     "secret" : "6JRL1oG3dYjQo1vXV0GsnYWaWT8FD1hK",
-    "redirectUris" : [ "http://localhost:8080/auth/realms/test2/broker/test/endpoint" ],
-    "webOrigins" : [ "http://localhost:8080" ],
+    "redirectUris" : [ "https://login.example.org:8443/auth/realms/demo.org/broker/login.example.com/endpoint" ],
+    "webOrigins" : [ "https://login.example.org:8443" ],
     "notBefore" : 0,
     "bearerOnly" : false,
     "consentRequired" : false,
@@ -660,7 +662,7 @@
     "attributes" : {
       "client.secret.creation.time" : "1718789569",
       "token.endpoint.auth.signing.alg" : "RS256",
-      "post.logout.redirect.uris" : "http://localhost:8080/auth/realms/test2/broker/test/endpoint/logout_response",
+      "post.logout.redirect.uris" : "https://login.example.org:8443/auth/realms/demo.org/broker/login.example.com/endpoint/logout_response",
       "oauth2.device.authorization.grant.enabled" : "false",
       "use.jwks.url" : "true",
       "backchannel.logout.revoke.offline.tokens" : "false",
@@ -669,7 +671,7 @@
       "oidc.ciba.grant.enabled" : "false",
       "client.use.lightweight.access.token.enabled" : "false",
       "backchannel.logout.session.required" : "true",
-      "jwks.url" : "http://172.18.0.2:8080/auth/realms/test2/protocol/openid-connect/certs",
+      "jwks.url" : "https://keycloak-demos:8443/auth/realms/demo.org/protocol/openid-connect/certs",
       "client_credentials.use_refresh_token" : "false",
       "tls.client.certificate.bound.access.tokens" : "false",
       "require.pushed.authorization.requests" : "false",
@@ -687,7 +689,7 @@
     "id" : "261afb97-0c4f-4c60-bd09-de642524bfa7",
     "clientId" : "https://admin.example.com/",
     "name" : "",
-    "description" : "DOstęp administracyjny zarówno do example.com, jak i example.org",
+    "description" : "Dostęp administracyjny zarówno do example.com, jak i example.org",
     "rootUrl" : "",
     "adminUrl" : "",
     "baseUrl" : "",
@@ -988,12 +990,12 @@
     "clientId" : "security-admin-console",
     "name" : "${client_security-admin-console}",
     "rootUrl" : "${authAdminUrl}",
-    "baseUrl" : "/admin/test/console/",
+    "baseUrl" : "/admin/demo.com/console/",
     "surrogateAuthRequired" : false,
     "enabled" : true,
     "alwaysDisplayInConsole" : false,
     "clientAuthenticatorType" : "client-secret",
-    "redirectUris" : [ "/admin/test/console/*" ],
+    "redirectUris" : [ "/admin/demo.com/console/*" ],
     "webOrigins" : [ "+" ],
     "notBefore" : 0,
     "bearerOnly" : false,
@@ -1667,8 +1669,9 @@
       "consentRequired" : false,
       "config" : {
         "user.session.note" : "AUTH_TIME",
-        "id.token.claim" : "true",
         "introspection.token.claim" : "true",
+        "userinfo.token.claim" : "true",
+        "id.token.claim" : "true",
         "access.token.claim" : "true",
         "claim.name" : "auth_time",
         "jsonType.label" : "long"
@@ -1753,8 +1756,8 @@
     "auth" : "",
     "replyTo" : "",
     "host" : "smtp-keycloak-demos",
-    "from" : "test-realm@example.com",
-    "fromDisplayName" : "Test realm",
+    "from" : "demo.com-realm@example.com",
+    "fromDisplayName" : "Demo.com realm",
     "envelopeFrom" : "",
     "ssl" : "false"
   },
@@ -1805,7 +1808,7 @@
       "subType" : "anonymous",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "oidc-usermodel-property-mapper", "oidc-full-name-mapper", "saml-role-list-mapper", "oidc-address-mapper", "saml-user-attribute-mapper", "saml-user-property-mapper", "oidc-usermodel-attribute-mapper", "oidc-sha256-pairwise-sub-mapper" ]
+        "allowed-protocol-mapper-types" : [ "saml-user-property-mapper", "saml-role-list-mapper", "saml-user-attribute-mapper", "oidc-usermodel-property-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-usermodel-attribute-mapper", "oidc-full-name-mapper", "oidc-address-mapper" ]
       }
     }, {
       "id" : "9b495166-305b-4308-9f70-7f044a2c28c1",
@@ -1814,7 +1817,7 @@
       "subType" : "authenticated",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "oidc-usermodel-property-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-full-name-mapper", "oidc-address-mapper", "saml-user-property-mapper", "saml-user-attribute-mapper", "oidc-usermodel-attribute-mapper", "saml-role-list-mapper" ]
+        "allowed-protocol-mapper-types" : [ "oidc-sha256-pairwise-sub-mapper", "saml-user-attribute-mapper", "oidc-usermodel-property-mapper", "oidc-full-name-mapper", "saml-user-property-mapper", "oidc-usermodel-attribute-mapper", "saml-role-list-mapper", "oidc-address-mapper" ]
       }
     }, {
       "id" : "bc3c09c7-391c-4ba8-bbde-0cdfd2926721",
@@ -2448,6 +2451,7 @@
     "oauth2DeviceCodeLifespan" : "600",
     "parRequestUriLifespan" : "60",
     "clientSessionMaxLifespan" : "0",
+    "organizationsEnabled" : "false",
     "adminEventsExpiration" : ""
   },
   "keycloakVersion" : "26.0.0",

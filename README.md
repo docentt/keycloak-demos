@@ -4,16 +4,72 @@ Repozytorium pozwala na szybkie uruchomienie Keycloak z demonstracyjnymi konfigu
 
 Wersja Keycloak: *26.0.0*
 
+## Wymagania
+
+Aby móc uruchomić demonstrację, należy:
+
+1. (opcjonalnie) Wygenerować certyfikat TLS.
+2. Zainstalować certyfikat TLS _./certs/keycloak-demos.crt_ w zaufanych głównych urzędach certyfikacji.
+3. Dodać wpisy z domenami wykorzystywanymi w demonstracji do lokalnego DNS.
+
+### Wygenerowanie certyfikatu
+
+Krok opcjonalny, wymaga wcześniejszej instalacji OpenSSL.
+
+**UWAGA**: Ze względów bezpieczeństwa zalecane jest wygenerowanie certyfikatu, zamiast wykorzystywania certyfikatu znajdującego się w _./certs/_.
+
+    cd certs/
+    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout keycloak-demos.key -out keycloak-demos.crt -subj "/CN=login.example.com" -addext "subjectAltName=DNS:login.example.com,DNS:login.example.org,DNS:keycloak-demos"
+
+### Instalacja certyfikatu TLS 
+
+Poniżej podano kroki dla systemu Windows z przeglądarką Chrome oraz Docker uruchomionym w WSL, aczkolwiek część z tych kroków można zastosować w zupełnie innych setupach.
+
+#### Instalacja w OS (Windows)
+
+1. uruchomić _cmd_ jako administrator,
+2. uruchomić _certmgr.msc_ z poziomu ww. _cmd_,
+3. na pozycji _Zaufane główne urzędy certyfikacji_ wcisnąć prawy przycisk i wybrać _Wszystkie zadania -> import_,
+4. wybrać plik _certs/keycloak-demos.crt_ i dokończyć proces.
+
+#### Instalacja w Docker (instalacja na WSL)
+
+Doinstalowanie _ca-certificates_ (pierwsza komenda) jedynie jeżeli pakiet nie był wcześniej zainstalowany.
+
+    sudo apt-get install -y ca-certificates
+    sudo cp ./certs/keycloak-demos.crt /usr/local/share/ca-certificates/keycloak-demos.crt
+    sudo update-ca-certificates
+
+#### Instalacja w przeglądarce (Chrome)
+
+Chrome na Windows korzysta z systemowego magazynu certyfikatów, więc po dodaniu certyfikatu do systemu, Chrome automatycznie go zaakceptuje.
+Jeżeli jednak tak się nie stanie, lub OS jest inny niż Windows, należy wykonać poniższe czynności.
+
+1. uruchomić przeglądarkę Chrome,
+2. w pasku adresu wpisać: _chrome://settings/security_,
+3. wybrać opcję _Zarządzaj certyfikatami_,
+4. przełączyć na zakładkę _Zaufane główne urzędy certyfikacji_,
+5. kliknąć przycisk _Import_, a następnie _Dalej_, _Przeglądaj..._,
+6. wybrać plik _certs/keycloak-demos.crt_ i dokończyć proces.
+
+### Wpisy DNS 
+
+Demonstracja wymaga dodania następujących wpisów do DNS na komputerze na którym uruchamiane jest demo (wpisy w _/etc/hosts_, w przypadku Windows w _C:\Windows\System32\drivers\etc\hosts_):
+- 127.0.0.1       login.example.com
+- 127.0.0.1       login.example.org
+
 ## Użycie
 
 ### Start
 
 Uruchomienie Keycloak o parametrach:
 - wersja zgodna z informacją powyżej
-- przed startem skopiowanie konfiguracji z katalogu *./template-realms* do *./realms*, a następnie poprawa w niej adresacji IP,
 - w trakcie startu import konfiguracji z katalogu *./realms*
-- port usługi: 8080
+- port usługi: 8443
 - ścieżka usługi: */auth*
+- domeny usługi: 
+  - *login.example.com*
+  - *login.example.org* (dla wybranego realm)
 - tryb developerski
 - uruchomienie w tle
 - port do zdalnego debuggowania: 5005
@@ -24,7 +80,7 @@ Uruchomienie Keycloak o parametrach:
 
 Dodatkowo uruchomiony zostanie testowy serwer pocztowy.
 
-Konsola Keycloak dostępna jest pod adresem http://localhost:8080/auth
+Konsola Keycloak dostępna jest pod adresem https://login.example.com:8443/auth
 Skrzynka email typu "catch all" z testowego serwera pocztowego dostępna jest pod adresem http://localhost:5000/
 
 ### Stop
@@ -61,23 +117,22 @@ Podgląd logów działającego Keycloak.
 
 Testowa konfiguracja. 
 Realmy: 
-- test - realm z testową konfiguracją
-- test2 - realm do testowania identity brokeringu (RP zintegrowany z OP, którym jest realm test)
-  - konfiguracja dostawcy tożsamości http://localhost:8080/auth/admin/master/console/#/test2/identity-providers/oidc/test/settings
-  - w konfiguracji należy dostosować adresy URL endpointów backchannel (zamiana z _172.18.0.2_ na adres odczytany z sieci Docker).
+- demo.com - realm z testową konfiguracją
+- demo.org - realm do testowania identity brokeringu (RP zintegrowany z OP, którym jest realm demo.com)
+  - konfiguracja dostawcy tożsamości https://login.example.com:8443/auth/admin/master/console/#/demo.org/identity-providers/oidc/login.example.com/settings
 
-### Użytkownicy (realm: test)
+### Użytkownicy (realm: demo.com)
 
 - test / test - testowy użytkownik
   - Uprawnienia odczytu i zapisu na zasobach https://example.com/api oraz https://example.org/api
 - admin / admin - testowy administrator
     - Uprawnienia administracji na zasobach https://example.com/api oraz https://example.org/api
 
-### Użytkownicy (realm: test2)
+### Użytkownicy (realm: demo.org)
 
-Brak użytkowników - należy uwierzytelnić się względem realma test.
+Brak użytkowników - należy uwierzytelnić się względem realma demo.com.
 
-### Klienci (realm: test)
+### Klienci (realm: demo.com)
 
 #### https://oidcdebugger.com/ 
 
@@ -191,19 +246,19 @@ Aplikacja https://admin.example.com/ (do testowania z https://oidcdebugger.com/)
 - granty:
     - Implicit grant
 
-##### http://localhost:8080/auth/realms/test2
+##### https://login.example.org:8443/auth/realms/demo.org
 
-Klient do integracji realm test2 w scenariuszu Identity Brokeringu z realm test.
-- client id: http://localhost:8080/auth/realms/test2
+Klient do integracji realm demo.org w scenariuszu Identity Brokeringu z realm demo.com.
+- client id: https://login.example.org:8443/auth/realms/demo.org
 - valid redirect URIs:
-  - http://localhost:8080/auth/realms/test2/broker/test/endpoint
+  - https://login.example.org:8443/auth/realms/demo.org/broker/login.example.com/endpoint
 - valid post logout redirect URIs:
-  - http://localhost:8080/auth/realms/test2/broker/test/endpoint/logout_response
+  - https://login.example.org:8443/auth/realms/demo.org/broker/login.example.com/endpoint/logout_response
 - typ klienta: poufny
 - uwierzytelnianie klienta:
   - metoda: private_key_jwt
   - algorytm sygnatury: RS256
-  - klucze pobrane po jwks (na backchannel, dlatego po IP _172.18.0.2_ - należy zastąpić wewnętrznym IP kontenera z Keycloak): http://localhost:8080/auth/realms/test2/protocol/openid-connect/certs
+  - klucze pobrane po jwks (na backchannel)
 - granty:
   - Authorization Code grant
 - PKCE: S256
