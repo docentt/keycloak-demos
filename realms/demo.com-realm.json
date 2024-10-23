@@ -79,6 +79,7 @@
       "attributes" : { }
     } ],
     "client" : {
+      "opa" : [ ],
       "realm-management" : [ {
         "id" : "8e678ee8-c522-419f-b287-9d39638be416",
         "name" : "create-client",
@@ -249,7 +250,7 @@
       } ],
       "https://example.org/" : [ ],
       "service-account_private_key_jwt" : [ ],
-      "https://example.org/api" : [ {
+      "https://api.example.org" : [ {
         "id" : "7b78ba23-8cd4-4226-b0ca-08b1efc09a8f",
         "name" : "admin",
         "description" : "",
@@ -289,7 +290,7 @@
       "https://login.example.org:8443/auth/realms/demo.org" : [ ],
       "admin-cli" : [ ],
       "https://example.com/" : [ ],
-      "https://example.com/api" : [ {
+      "https://api.example.com" : [ {
         "id" : "aea3b4f5-524a-422e-89e9-870cd2243e86",
         "name" : "read",
         "description" : "",
@@ -406,13 +407,13 @@
       "attributes" : { },
       "realmRoles" : [ ],
       "clientRoles" : {
-        "https://example.com/api" : [ "admin" ]
+        "https://api.example.com" : [ "admin" ]
       }
     } ],
     "attributes" : { },
     "realmRoles" : [ ],
     "clientRoles" : {
-      "https://example.com/api" : [ "read", "write" ]
+      "https://api.example.com" : [ "read", "write" ]
     }
   }, {
     "id" : "576c314a-7c27-42f4-9e02-8f377cf470d0",
@@ -427,13 +428,13 @@
       "attributes" : { },
       "realmRoles" : [ ],
       "clientRoles" : {
-        "https://example.org/api" : [ "admin" ]
+        "https://api.example.org" : [ "admin" ]
       }
     } ],
     "attributes" : { },
     "realmRoles" : [ ],
     "clientRoles" : {
-      "https://example.org/api" : [ "read", "write" ]
+      "https://api.example.org" : [ "read", "write" ]
     }
   } ],
   "defaultRole" : {
@@ -485,14 +486,14 @@
       "client" : "https://oidcdebugger.com/",
       "roles" : [ "view-users" ]
     } ],
-    "https://example.org/api" : [ {
+    "https://api.example.org" : [ {
       "client" : "https://admin.example.com/",
       "roles" : [ "admin" ]
     }, {
       "client" : "https://example.org/",
       "roles" : [ "read", "write" ]
     } ],
-    "https://example.com/api" : [ {
+    "https://api.example.com" : [ {
       "client" : "https://admin.example.com/",
       "roles" : [ "admin" ]
     }, {
@@ -704,7 +705,7 @@
     "consentRequired" : false,
     "standardFlowEnabled" : true,
     "implicitFlowEnabled" : true,
-    "directAccessGrantsEnabled" : false,
+    "directAccessGrantsEnabled" : true,
     "serviceAccountsEnabled" : false,
     "publicClient" : true,
     "frontchannelLogout" : true,
@@ -741,7 +742,7 @@
     "consentRequired" : false,
     "standardFlowEnabled" : true,
     "implicitFlowEnabled" : true,
-    "directAccessGrantsEnabled" : false,
+    "directAccessGrantsEnabled" : true,
     "serviceAccountsEnabled" : false,
     "publicClient" : true,
     "frontchannelLogout" : true,
@@ -761,7 +762,7 @@
     "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
   }, {
     "id" : "a7b6d2b7-499d-43cf-85f6-e903b034ae28",
-    "clientId" : "https://example.com/api",
+    "clientId" : "https://api.example.com",
     "name" : "",
     "description" : "",
     "rootUrl" : "",
@@ -835,7 +836,7 @@
     "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
   }, {
     "id" : "8f08eda6-cb70-4976-a3c3-8a0a508f823f",
-    "clientId" : "https://example.org/api",
+    "clientId" : "https://api.example.org",
     "name" : "",
     "description" : "",
     "rootUrl" : "",
@@ -954,6 +955,57 @@
         "jsonType.label" : "String"
       }
     } ],
+    "defaultClientScopes" : [ "web-origins", "acr", "roles", "profile", "basic", "email" ],
+    "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
+  }, {
+    "id" : "54922318-2afc-4ba7-ab56-0e53bddf4f1a",
+    "clientId" : "opa",
+    "name" : "",
+    "description" : "",
+    "rootUrl" : "",
+    "adminUrl" : "",
+    "baseUrl" : "",
+    "surrogateAuthRequired" : false,
+    "enabled" : true,
+    "alwaysDisplayInConsole" : false,
+    "clientAuthenticatorType" : "client-jwt",
+    "secret" : "At8PfmXRxD9LaUgmrmwQYsEhHBXNQNlm",
+    "redirectUris" : [ "/*" ],
+    "webOrigins" : [ "/*" ],
+    "notBefore" : 0,
+    "bearerOnly" : false,
+    "consentRequired" : false,
+    "standardFlowEnabled" : false,
+    "implicitFlowEnabled" : false,
+    "directAccessGrantsEnabled" : false,
+    "serviceAccountsEnabled" : false,
+    "publicClient" : false,
+    "frontchannelLogout" : true,
+    "protocol" : "openid-connect",
+    "attributes" : {
+      "client.secret.creation.time" : "1729639221",
+      "client.introspection.response.allow.jwt.claim.enabled" : "false",
+      "token.endpoint.auth.signing.alg" : "RS256",
+      "oauth2.device.authorization.grant.enabled" : "false",
+      "use.jwks.url" : "false",
+      "backchannel.logout.revoke.offline.tokens" : "false",
+      "use.refresh.tokens" : "true",
+      "realm_client" : "false",
+      "oidc.ciba.grant.enabled" : "false",
+      "client.use.lightweight.access.token.enabled" : "false",
+      "backchannel.logout.session.required" : "true",
+      "jwt.credential.public.key" : "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAvBsLlYD0ql9zyCKaIQDs\nx3NIxtqY6jA+0L15f8Z4jwzpf1JtkaSV1lz9QFVvahCspuujGds3dqG1Ik/dBvx4\nf2ssDJjY902EUiSftJwcvoTzw+m+UW2CubKRIhc1svi7xOHwRtJeLcm4M2sg2NsZ\ng5rao1XdsmYVSKzVLIvxoLTfNN7nKrlaaRHLjETyMMqy/SdGJZuYpLD6Sdi1RRFk\n2J8WmFUWJZ3gbomjwmUhtehQAOYMX6lzeGL1RIHqr75EUzmfbsKYdqeMlLnt9fvv\nKBQ4L7FjROveMNCCoN0abBRbS5Y5dVUzcSxJZjGfh83kMuzLeMwGJ4Xk5PCGftaV\nmwIDAQAB\n-----END PUBLIC KEY-----\n",
+      "client_credentials.use_refresh_token" : "false",
+      "tls.client.certificate.bound.access.tokens" : "false",
+      "require.pushed.authorization.requests" : "false",
+      "acr.loa.map" : "{}",
+      "display.on.consent.screen" : "false",
+      "token.response.type.bearer.lower-case" : "false",
+      "dpop.bound.access.tokens" : "false"
+    },
+    "authenticationFlowBindingOverrides" : { },
+    "fullScopeAllowed" : true,
+    "nodeReRegistrationTimeout" : -1,
     "defaultClientScopes" : [ "web-origins", "acr", "roles", "profile", "basic", "email" ],
     "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
   }, {

@@ -1,6 +1,6 @@
 # Demonstracje Keycloak
 
-Repozytorium pozwala na szybkie uruchomienie Keycloak z demonstracyjnymi konfiguracjami.
+Repozytorium pozwala na szybkie uruchomienie Keycloak z demonstracyjnymi konfiguracjami oraz zintegrowanymi usługami (demonstracyjne API).
 
 Wersja Keycloak: *26.0.0*
 
@@ -55,12 +55,30 @@ Jeżeli jednak tak się nie stanie, lub OS jest inny niż Windows, należy wykon
 ### Wpisy DNS 
 
 Demonstracja wymaga dodania następujących wpisów do DNS na komputerze na którym uruchamiane jest demo (wpisy w _/etc/hosts_, w przypadku Windows w _C:\Windows\System32\drivers\etc\hosts_):
-- 127.0.0.1       login.example.com
-- 127.0.0.1       login.example.org
+- Keycloak
+  - 127.0.0.1       login.example.com
+  - 127.0.0.1       login.example.org
+- demonstracyjne API
+  - 127.0.0.1       api.example.com
+  - 127.0.0.1       api.example.org
 
 ## Użycie
 
+### Build
+
+#### Keycloak
+
+Usługa nie wymaga budowania.
+
+#### Demonstracyjne API
+
+Przed uruchomieniem demonstracyjnego API, należy zbudować kontener ze środowiskiem pozwalającym na jego uruchomienie.
+
+    ./build_demo-API.sh
+
 ### Start
+
+#### Keycloak
 
 Uruchomienie Keycloak o parametrach:
 - wersja zgodna z informacją powyżej
@@ -83,25 +101,54 @@ Dodatkowo uruchomiony zostanie testowy serwer pocztowy.
 Konsola Keycloak dostępna jest pod adresem https://login.example.com:8443/auth
 Skrzynka email typu "catch all" z testowego serwera pocztowego dostępna jest pod adresem http://localhost:5000/
 
+#### Demonstracyjne API
+
+Uruchomienie demonstracyjnego API o parametrach:
+- port usługi: 9443
+- ścieżka usługi: */*
+- domeny usługi:
+  - *api.example.com*
+  - *api.example.org*
+
+
+    ./start_demo-API.sh
+
+Demonstracyjne API dostępne jest pod adresami:
+- https://api.example.com:9443/
+- https://api.example.org:9443/
+
+API odpowiada decyzjami autoryzacyjnymi realizowanymi przez agenta [Open Policy Agent (OPA)](https://www.openpolicyagent.org/) uruchomionego w osobnym kontenerze.
+Do OPA kierowane są jedynie żądania zawierające nagłówek HTTP _Authorization_ z tokenem na okaziciela.
+
 ### Stop
+
+#### Keycloak
 
 Zatrzymianie Keycloak wraz z wykonaniem zrzutu konfiguracji.
 
     ./stop_kc.sh [opcje]
 
-#### Opcje uruchomienia skryptu
+##### Opcje uruchomienia skryptu
 
 | Opcja            | Opis                                                   |
 |------------------|--------------------------------------------------------|
 | `--no-dump`      | Nie wykonuje zrzutu konfiguracji.                      |
 
+#### Demonstracyjne API
+
+Zatrzymianie demonstracyjnego API.
+
+    ./stop_demo-API.sh
+
 ### Restart
+
+#### Keycloak
 
 Restart Keycloak wraz z wykonaniem zrzutu konfiguracji.
 
     ./restart_kc.sh [opcje]
 
-#### Opcje uruchomienia skryptu
+##### Opcje uruchomienia skryptu
 | Opcja            | Opis                              |
 |------------------|-----------------------------------|
 | `--no-dump`      | Nie wykonuje zrzutu konfiguracji. |
@@ -109,9 +156,23 @@ Restart Keycloak wraz z wykonaniem zrzutu konfiguracji.
 
 ### Podgląd logów
 
+#### Keycloak
+
 Podgląd logów działającego Keycloak.
 
     ./see_logs_kc.sh
+
+#### Demonstracyjne API
+
+Podgląd logów działającego demonstracyjnego API.
+
+    ./see_logs_demo-API.sh
+
+lub
+
+    ./see_logs_demo-API-opa.sh
+
+w zależności od tego, logi którego z kontenerów chcemy podejrzeć.
 
 ## Konfiguracja
 
@@ -124,9 +185,9 @@ Realmy:
 ### Użytkownicy (realm: demo.com)
 
 - test / test - testowy użytkownik
-  - Uprawnienia odczytu i zapisu na zasobach https://example.com/api oraz https://example.org/api
+  - Uprawnienia odczytu i zapisu na zasobach https://api.example.com oraz https://api.example.org
 - admin / admin - testowy administrator
-    - Uprawnienia administracji na zasobach https://example.com/api oraz https://example.org/api
+    - Uprawnienia administracji na zasobach https://api.example.com oraz https://api.example.org
 
 ### Użytkownicy (realm: demo.org)
 
@@ -179,12 +240,13 @@ Konto serwisowe z uwierzytelnianiem private_key_jwt (patrz: https://openid.net/s
     - klucze: patrz katalog _./keys_
 - granty:
     - Client Credentials grant
+
 #### Modelowanie Serwerów Zasobów
 
-##### https://example.com/api
+##### https://api.example.com
 
-Serwer Zasobów https://example.com/api
-- client id: https://example.com/api
+Serwer Zasobów https://api.example.com
+- client id: https://api.example.com
 - typ klienta: bearer-only
 - role:
   - read
@@ -192,10 +254,10 @@ Serwer Zasobów https://example.com/api
   - admin
 - granty: brak
 
-##### https://example.org/api
+##### https://api.example.org
 
-Serwer Zasobów https://example.org/api
-- client id: https://example.org/api
+Serwer Zasobów https://api.example.org
+- client id: https://api.example.org
 - typ klienta: bearer-only
 - role:
     - read
@@ -205,13 +267,13 @@ Serwer Zasobów https://example.org/api
 
 ##### https://example.com/
 
-Aplikacja https://example.com/ (do testowania z https://oidcdebugger.com/)
+Aplikacja https://example.com/ (do testowania z https://oidcdebugger.com/ lub Postman)
 - client id: https://example.com/
 - valid redirect URIs:
     - https://oidcdebugger.com/debug
 - typ klienta: publiczny
 - role na filtrze:
-  - https://example.com/api
+  - https://api.example.com
       - read
       - write
 - granty: 
@@ -219,13 +281,13 @@ Aplikacja https://example.com/ (do testowania z https://oidcdebugger.com/)
 
 ##### https://example.org/
 
-Aplikacja https://example.org/ (do testowania z https://oidcdebugger.com/)
+Aplikacja https://example.org/ (do testowania z https://oidcdebugger.com/ lub Postman)
 - client id: https://example.org/
 - valid redirect URIs:
     - https://oidcdebugger.com/debug
 - typ klienta: publiczny
 - role na filtrze:
-    - https://example.org/api
+    - https://api.example.org
         - read
         - write
 - granty:
@@ -233,20 +295,20 @@ Aplikacja https://example.org/ (do testowania z https://oidcdebugger.com/)
 
 ##### https://admin.example.com/
 
-Aplikacja https://admin.example.com/ (do testowania z https://oidcdebugger.com/)
+Aplikacja https://admin.example.com/ (do testowania z https://oidcdebugger.com/ lub Postman)
 - client id: https://admin.example.com/
 - valid redirect URIs:
     - https://oidcdebugger.com/debug
 - typ klienta: publiczny
 - role na filtrze:
-    - https://example.com/api
+    - https://api.example.com
         - admin
-    - https://example.org/api
+    - https://api.example.org
         - admin
 - granty:
     - Implicit grant
 
-##### https://login.example.org:8443/auth/realms/demo.org
+#### https://login.example.org:8443/auth/realms/demo.org
 
 Klient do integracji realm demo.org w scenariuszu Identity Brokeringu z realm demo.com.
 - client id: https://login.example.org:8443/auth/realms/demo.org
@@ -262,6 +324,17 @@ Klient do integracji realm demo.org w scenariuszu Identity Brokeringu z realm de
 - granty:
   - Authorization Code grant
 - PKCE: S256
+
+#### opa
+
+Klient do weryfikacji tokenów online z poziomu polityk OPA.
+
+- client id: opa
+- typ klienta: poufny
+- uwierzytelnianie klienta:
+  - metoda: private_key_jwt
+  - algorytm sygnatury: RS256
+  - klucze: patrz katalog _./keys_
 
 ## Kolekcja Postman
 
