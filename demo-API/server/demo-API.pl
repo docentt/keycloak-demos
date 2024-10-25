@@ -83,6 +83,7 @@ hook before => sub {
                 status => 'DENY',
                 online_introspected => $result->{result}{online_introspected},
                 reasons => $result->{result}{reasons},
+                endpoint_requirements => $result->{result}{endpoint_requirements},
                 config => $result->{result}{config}
             });
         } else {
@@ -103,6 +104,7 @@ any qr{.*} => sub {
         status  => 'ALLOW',
         token_data   => $opa_response->{token_data},
         online_introspected   => $opa_response->{online_introspected},
+        endpoint_requirements   => $opa_response->{endpoint_requirements},
         config   => $opa_response->{config}
     });
 };

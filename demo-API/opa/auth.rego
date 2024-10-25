@@ -5,8 +5,27 @@ import rego.v1
 import data.config.metadata_urls
 import data.config.introspection_clients
 import data.config.tls_ca_cert_file
+import data.scopes.endpoint_access
+import data.scopes.check_scopes
 
 default allow := false
+default global_roles := []
+default client_roles := []
+default all_client_roles := {}
+default endpoint_requirements_or_empty := {}
+
+endpoint_requirements := _endpoint_requirements if{
+    some _endpoint_requirements in endpoint_access
+    _endpoint_requirements.method == input.method
+    _endpoint_requirements.path == input.path
+    _endpoint_requirements.aud == expected_audience
+}
+
+endpoint_requirements_or_empty := endpoint_requirements
+
+errors["incorrect_endpoint_or_method"] if {
+	not endpoint_requirements
+}
 
 # OIDC Discovery
 
@@ -60,18 +79,29 @@ offline_matched_roles := offline_payload.resource_access[offline_matched_aud].ro
 
 offline_scopes := split(offline_payload.scope, " ")
 
+offline_scopes_valid if{
+    check_scopes(endpoint_requirements, offline_scopes)
+}
+
 allow if {
 	offline_valid_jwt
 	offline_matched_aud
+	offline_scopes_valid
 }
 
 errors["JWT_invalid_or_expired"] if {
+    not input.want_online_introspection
 	not offline_valid_jwt
 }
 
 errors["incorrect_audience"] if {
 	offline_valid_jwt
 	not offline_matched_aud
+}
+
+errors["insufficient_token_scope"] if {
+	offline_valid_jwt
+	not offline_scopes_valid
 }
 
 config := {
@@ -81,12 +111,17 @@ config := {
     not input.want_online_introspection
 }
 
+global_roles := offline_payload.realm_access.roles
+client_roles := offline_matched_roles
+all_client_roles := offline_payload.resource_access
+
 token_data := {
     "matched_aud": offline_matched_aud,
-    "matched_roles": offline_matched_roles,
+    "matched_roles": client_roles,
+    "global_roles": global_roles,
     "scopes": offline_scopes,
     "all_auds": offline_payload.aud,
-    "all_roles": offline_payload.resource_access,
+    "all_roles": all_client_roles,
     "selected_claims": {
         "email": offline_payload.email
     }
@@ -224,9 +259,14 @@ online_matched_roles := token_introspection_result.resource_access[online_matche
 
 online_scopes := split(token_introspection_result.scope, " ")
 
+online_scopes_valid if {
+    check_scopes(endpoint_requirements, online_scopes)
+}
+
 allow if {
 	online_is_active
 	online_matched_aud
+	online_scopes_valid
 }
 
 errors["JWT_invalid_or_expired"] if {
@@ -235,9 +275,13 @@ errors["JWT_invalid_or_expired"] if {
 }
 
 errors["incorrect_audience"] if {
-	input.want_online_introspection
 	online_is_active
 	not online_matched_aud
+}
+
+errors["insufficient_token_scope"] if {
+	online_is_active
+	not online_scopes_valid
 }
 
 config := {
@@ -247,12 +291,17 @@ config := {
     input.want_online_introspection
 }
 
+global_roles := token_introspection_result.realm_access.roles
+client_roles := online_matched_roles
+all_client_roles := token_introspection_result.resource_access
+
 token_data := {
     "matched_aud": online_matched_aud,
-    "matched_roles": online_matched_roles,
+    "matched_roles": client_roles,
+    "global_roles": global_roles,
     "scopes": online_scopes,
     "all_auds": token_introspection_result.aud,
-    "all_roles": token_introspection_result.resource_access,
+    "all_roles": all_client_roles,
     "selected_claims": {
         "email": token_introspection_result.email
     }
@@ -268,6 +317,7 @@ policy_evaluation := {
     "allow": allow,
     "online_introspected": input.want_online_introspection,
     "token_data": token_data,
+    "endpoint_requirements": endpoint_requirements_or_empty,
     "config": config
 } if {
     allow
@@ -292,6 +342,7 @@ policy_evaluation := {
     "online_introspected": input.want_online_introspection,
     "code": code,
     "reasons": errors,
+    "endpoint_requirements": endpoint_requirements_or_empty,
     "config": config
 } if {
     not allow

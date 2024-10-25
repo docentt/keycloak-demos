@@ -184,10 +184,10 @@ Realmy:
 
 ### Użytkownicy (realm: demo.com)
 
-- test / test - testowy użytkownik
-  - Uprawnienia odczytu i zapisu na zasobach https://api.example.com oraz https://api.example.org
-- admin / admin - testowy administrator
-    - Uprawnienia administracji na zasobach https://api.example.com oraz https://api.example.org
+- user / user - zwykły użytkownik
+- premium / premium - użytkownik premium
+- analyst / analyst - analityk danych
+- admin / admin - administrator
 
 ### Użytkownicy (realm: demo.org)
 
@@ -248,10 +248,6 @@ Konto serwisowe z uwierzytelnianiem private_key_jwt (patrz: https://openid.net/s
 Serwer Zasobów https://api.example.com
 - client id: https://api.example.com
 - typ klienta: bearer-only
-- role:
-  - read
-  - write
-  - admin
 - granty: brak
 
 ##### https://api.example.org
@@ -259,54 +255,62 @@ Serwer Zasobów https://api.example.com
 Serwer Zasobów https://api.example.org
 - client id: https://api.example.org
 - typ klienta: bearer-only
-- role:
-    - read
-    - write
-    - admin
 - granty: brak
 
-##### https://example.com/
+##### https://userportal.example.com/
 
-Aplikacja https://example.com/ (do testowania z https://oidcdebugger.com/ lub Postman)
-- client id: https://example.com/
+Aplikacja https://userportal.example.com/ (do testowania z https://oidcdebugger.com/ lub Postman)
+- client id: https://userportal.example.com/
 - valid redirect URIs:
-    - https://oidcdebugger.com/debug
+  - https://oidcdebugger.com/debug
+  - https://oauth.pstmn.io/v1/callback
 - typ klienta: publiczny
-- role na filtrze:
+- zakresy:
+  - profile.read
+  - profile.update (opcjonalny)
+- aud:
   - https://api.example.com
-      - read
-      - write
 - granty: 
+  - Authorization Code grant,
+  - Resource Owner Password Credentials grant,
   - Implicit grant
 
-##### https://example.org/
+##### https://analyticsviewer.example.com/
 
-Aplikacja https://example.org/ (do testowania z https://oidcdebugger.com/ lub Postman)
-- client id: https://example.org/
+Aplikacja https://analyticsviewer.example.com/ (do testowania z https://oidcdebugger.com/ lub Postman)
+- client id: https://analyticsviewer.example.com/
 - valid redirect URIs:
-    - https://oidcdebugger.com/debug
+  - https://oidcdebugger.com/debug
+  - https://oauth.pstmn.io/v1/callback
 - typ klienta: publiczny
-- role na filtrze:
-    - https://api.example.org
-        - read
-        - write
+- zakresy:
+  - data.read
+  - data.export
+- aud:
+  - https://api.example.com
 - granty:
-    - Implicit grant
+  - Authorization Code grant,
+  - Resource Owner Password Credentials grant,
+  - Implicit grant
 
-##### https://admin.example.com/
+##### https://admindashboard.example.com/
 
-Aplikacja https://admin.example.com/ (do testowania z https://oidcdebugger.com/ lub Postman)
-- client id: https://admin.example.com/
+Aplikacja https://admindashboard.example.com/ (do testowania z https://oidcdebugger.com/ lub Postman)
+- client id: https://admindashboard.example.com/
 - valid redirect URIs:
-    - https://oidcdebugger.com/debug
+  - https://oidcdebugger.com/debug
+  - https://oauth.pstmn.io/v1/callback
 - typ klienta: publiczny
-- role na filtrze:
-    - https://api.example.com
-        - admin
-    - https://api.example.org
-        - admin
+- zakresy:
+  - data.update
+  - admin.config
+- aud:
+  - https://api.example.com
+  - https://api.example.org
 - granty:
-    - Implicit grant
+  - Authorization Code grant,
+  - Resource Owner Password Credentials grant,
+  - Implicit grant
 
 #### https://login.example.org:8443/auth/realms/demo.org
 
