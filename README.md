@@ -94,6 +94,7 @@ Uruchomienie Keycloak o parametrach:
 - poświadczenia: admin / admin
 
 
+
     ./start_kc.sh
 
 Dodatkowo uruchomiony zostanie testowy serwer pocztowy.
@@ -109,6 +110,7 @@ Uruchomienie demonstracyjnego API o parametrach:
 - domeny usługi:
   - *api.example.com*
   - *api.example.org*
+
 
 
     ./start_demo-API.sh
