@@ -3,8 +3,8 @@
   "users" : [ {
     "id" : "5d804ae1-ce6d-46d2-9554-0dda7323085b",
     "username" : "admin",
-    "firstName" : "Admiński",
-    "lastName" : "Admin",
+    "firstName" : "Admin",
+    "lastName" : "Admiński",
     "email" : "admin@example.com",
     "emailVerified" : true,
     "createdTimestamp" : 1718708498478,
@@ -26,8 +26,8 @@
   }, {
     "id" : "373c007f-d49f-4bc7-8f99-1487ddbebf30",
     "username" : "analyst",
-    "firstName" : "Analityczny",
-    "lastName" : "Analityk",
+    "firstName" : "Analityk",
+    "lastName" : "Analityczny",
     "email" : "analyst@example.com",
     "emailVerified" : true,
     "createdTimestamp" : 1729811146460,
@@ -49,8 +49,8 @@
   }, {
     "id" : "461ebd59-aa8e-412a-9c9b-1a89980cdfab",
     "username" : "premium",
-    "firstName" : "Premiumowy",
-    "lastName" : "User",
+    "firstName" : "User",
+    "lastName" : "Premiumowy",
     "email" : "premium@example.com",
     "emailVerified" : true,
     "createdTimestamp" : 1729811052769,
@@ -116,8 +116,8 @@
   }, {
     "id" : "9be37501-21b2-422a-927f-2f0bda2825ec",
     "username" : "user",
-    "firstName" : "Userski",
-    "lastName" : "User",
+    "firstName" : "User",
+    "lastName" : "Userski",
     "email" : "user@example.com",
     "emailVerified" : true,
     "createdTimestamp" : 1729810994760,
