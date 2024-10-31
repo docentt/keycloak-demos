@@ -343,7 +343,33 @@
       } ]
     }
   },
-  "groups" : [ ],
+  "groups" : [ {
+    "id" : "0062c2ab-9b20-4737-b139-514731c8f925",
+    "name" : "LDAP",
+    "path" : "/LDAP",
+    "subGroups" : [ {
+      "id" : "3b5cf80f-df47-40ab-aea4-592a5db20201",
+      "name" : "OTHERS_ROOT",
+      "path" : "/LDAP/OTHERS_ROOT",
+      "parentId" : "0062c2ab-9b20-4737-b139-514731c8f925",
+      "subGroups" : [ ],
+      "attributes" : { },
+      "realmRoles" : [ ],
+      "clientRoles" : { }
+    }, {
+      "id" : "b8d25f92-3f0a-46b0-bf1a-161d1622de15",
+      "name" : "TECHS_ROOT",
+      "path" : "/LDAP/TECHS_ROOT",
+      "parentId" : "0062c2ab-9b20-4737-b139-514731c8f925",
+      "subGroups" : [ ],
+      "attributes" : { },
+      "realmRoles" : [ ],
+      "clientRoles" : { }
+    } ],
+    "attributes" : { },
+    "realmRoles" : [ ],
+    "clientRoles" : { }
+  } ],
   "defaultRole" : {
     "id" : "41cf7e50-10fa-4667-bf58-ebbd847e5eed",
     "name" : "default-roles-demo.org",
@@ -1275,6 +1301,158 @@
       "subComponents" : { },
       "config" : {
         "max-clients" : [ "200" ]
+      }
+    } ],
+    "org.keycloak.storage.UserStorageProvider" : [ {
+      "id" : "4bee9eb3-c5ad-44fe-b9e7-11ccef192e52",
+      "name" : "Read-only ldap.example.org",
+      "providerId" : "ldap",
+      "subComponents" : {
+        "org.keycloak.storage.ldap.mappers.LDAPStorageMapper" : [ {
+          "id" : "29b488d0-1173-4aab-93b8-262da088720a",
+          "name" : "last name",
+          "providerId" : "user-attribute-ldap-mapper",
+          "subComponents" : { },
+          "config" : {
+            "ldap.attribute" : [ "sn" ],
+            "is.mandatory.in.ldap" : [ "true" ],
+            "always.read.value.from.ldap" : [ "true" ],
+            "read.only" : [ "true" ],
+            "user.model.attribute" : [ "lastName" ]
+          }
+        }, {
+          "id" : "b5a09a06-c22e-41ad-b7c4-7172c5453d58",
+          "name" : "email",
+          "providerId" : "user-attribute-ldap-mapper",
+          "subComponents" : { },
+          "config" : {
+            "ldap.attribute" : [ "mail" ],
+            "is.mandatory.in.ldap" : [ "false" ],
+            "read.only" : [ "true" ],
+            "always.read.value.from.ldap" : [ "false" ],
+            "user.model.attribute" : [ "email" ]
+          }
+        }, {
+          "id" : "54f454dc-1953-458c-8a1d-f039f34112b7",
+          "name" : "Techs Group Mapper",
+          "providerId" : "group-ldap-mapper",
+          "subComponents" : { },
+          "config" : {
+            "membership.attribute.type" : [ "DN" ],
+            "group.name.ldap.attribute" : [ "cn" ],
+            "membership.user.ldap.attribute" : [ "uid" ],
+            "preserve.group.inheritance" : [ "true" ],
+            "groups.dn" : [ "ou=techs-groups,ou=groups,dc=example,dc=org" ],
+            "mapped.group.attributes" : [ "description" ],
+            "mode" : [ "LDAP_ONLY" ],
+            "user.roles.retrieve.strategy" : [ "LOAD_GROUPS_BY_MEMBER_ATTRIBUTE" ],
+            "ignore.missing.groups" : [ "false" ],
+            "membership.ldap.attribute" : [ "member" ],
+            "group.object.classes" : [ "groupOfNames" ],
+            "memberof.ldap.attribute" : [ "memberOf" ],
+            "groups.path" : [ "/LDAP/TECHS_ROOT" ],
+            "drop.non.existing.groups.during.sync" : [ "true" ]
+          }
+        }, {
+          "id" : "17f15e2e-0ce0-48de-af41-4f4ed3814014",
+          "name" : "modify date",
+          "providerId" : "user-attribute-ldap-mapper",
+          "subComponents" : { },
+          "config" : {
+            "ldap.attribute" : [ "modifyTimestamp" ],
+            "is.mandatory.in.ldap" : [ "false" ],
+            "always.read.value.from.ldap" : [ "true" ],
+            "read.only" : [ "true" ],
+            "user.model.attribute" : [ "modifyTimestamp" ]
+          }
+        }, {
+          "id" : "503412a5-9a36-4c78-a088-94769d02dc08",
+          "name" : "Others Group Mapper",
+          "providerId" : "group-ldap-mapper",
+          "subComponents" : { },
+          "config" : {
+            "mode" : [ "LDAP_ONLY" ],
+            "membership.attribute.type" : [ "DN" ],
+            "user.roles.retrieve.strategy" : [ "LOAD_GROUPS_BY_MEMBER_ATTRIBUTE" ],
+            "group.name.ldap.attribute" : [ "cn" ],
+            "membership.ldap.attribute" : [ "member" ],
+            "membership.user.ldap.attribute" : [ "uid" ],
+            "ignore.missing.groups" : [ "false" ],
+            "preserve.group.inheritance" : [ "true" ],
+            "groups.dn" : [ "ou=other-groups,ou=groups,dc=example,dc=org" ],
+            "mapped.group.attributes" : [ "description" ],
+            "memberof.ldap.attribute" : [ "memberOf" ],
+            "group.object.classes" : [ "groupOfNames" ],
+            "groups.path" : [ "/LDAP/OTHERS_ROOT" ],
+            "drop.non.existing.groups.during.sync" : [ "true" ]
+          }
+        }, {
+          "id" : "837683c1-60c1-4c4a-b2b0-7893b154a825",
+          "name" : "first name",
+          "providerId" : "user-attribute-ldap-mapper",
+          "subComponents" : { },
+          "config" : {
+            "ldap.attribute" : [ "cn" ],
+            "is.mandatory.in.ldap" : [ "true" ],
+            "read.only" : [ "true" ],
+            "always.read.value.from.ldap" : [ "true" ],
+            "user.model.attribute" : [ "firstName" ]
+          }
+        }, {
+          "id" : "07f1d931-18c4-4978-a04a-d32c51f56f7d",
+          "name" : "creation date",
+          "providerId" : "user-attribute-ldap-mapper",
+          "subComponents" : { },
+          "config" : {
+            "ldap.attribute" : [ "createTimestamp" ],
+            "is.mandatory.in.ldap" : [ "false" ],
+            "always.read.value.from.ldap" : [ "true" ],
+            "read.only" : [ "true" ],
+            "user.model.attribute" : [ "createTimestamp" ]
+          }
+        }, {
+          "id" : "dfe7cce1-007d-4341-98c7-18e2c46501d2",
+          "name" : "username",
+          "providerId" : "user-attribute-ldap-mapper",
+          "subComponents" : { },
+          "config" : {
+            "ldap.attribute" : [ "uid" ],
+            "is.mandatory.in.ldap" : [ "true" ],
+            "always.read.value.from.ldap" : [ "false" ],
+            "read.only" : [ "true" ],
+            "user.model.attribute" : [ "username" ]
+          }
+        } ]
+      },
+      "config" : {
+        "pagination" : [ "true" ],
+        "fullSyncPeriod" : [ "-1" ],
+        "startTls" : [ "false" ],
+        "usersDn" : [ "dc=example,dc=org" ],
+        "connectionPooling" : [ "true" ],
+        "cachePolicy" : [ "DEFAULT" ],
+        "useKerberosForPasswordAuthentication" : [ "false" ],
+        "importEnabled" : [ "true" ],
+        "enabled" : [ "true" ],
+        "changedSyncPeriod" : [ "-1" ],
+        "bindDn" : [ "cn=admin,dc=example,dc=org" ],
+        "usernameLDAPAttribute" : [ "uid" ],
+        "bindCredential" : [ "admin" ],
+        "vendor" : [ "other" ],
+        "uuidLDAPAttribute" : [ "entryUUID" ],
+        "connectionUrl" : [ "ldap://ldap-keycloak-demos" ],
+        "allowKerberosAuthentication" : [ "false" ],
+        "syncRegistrations" : [ "false" ],
+        "authType" : [ "simple" ],
+        "krbPrincipalAttribute" : [ "krb5PrincipalName" ],
+        "searchScope" : [ "2" ],
+        "useTruststoreSpi" : [ "always" ],
+        "usePasswordModifyExtendedOp" : [ "false" ],
+        "trustEmail" : [ "true" ],
+        "userObjectClasses" : [ "inetOrgPerson" ],
+        "rdnLDAPAttribute" : [ "uid" ],
+        "editMode" : [ "READ_ONLY" ],
+        "validatePasswordPolicy" : [ "false" ]
       }
     } ],
     "org.keycloak.keys.KeyProvider" : [ {

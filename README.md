@@ -1,6 +1,6 @@
 # Demonstracje Keycloak
 
-Repozytorium pozwala na szybkie uruchomienie Keycloak z demonstracyjnymi konfiguracjami oraz zintegrowanymi usługami (demonstracyjne API).
+Repozytorium pozwala na szybkie uruchomienie Keycloak z demonstracyjnymi konfiguracjami oraz zintegrowanymi usługami (demonstracyjne API, LDAP).
 
 Wersja Keycloak: *26.0.0*
 
@@ -76,6 +76,10 @@ Przed uruchomieniem demonstracyjnego API, należy zbudować kontener ze środowi
 
     ./build_demo-API.sh
 
+#### LDAP
+
+Usługa nie wymaga budowania.
+
 ### Start
 
 #### Keycloak
@@ -122,6 +126,25 @@ Demonstracyjne API dostępne jest pod adresami:
 API odpowiada decyzjami autoryzacyjnymi realizowanymi przez agenta [Open Policy Agent (OPA)](https://www.openpolicyagent.org/) uruchomionego w osobnym kontenerze.
 Do OPA kierowane są jedynie żądania zawierające nagłówek HTTP _Authorization_ z tokenem na okaziciela.
 
+#### LDAP
+
+Uruchomienie serwera OpenLDAP o parametrach:
+- na bazie obrazu [bitnami/openldap](https://hub.docker.com/r/bitnami/openldap)
+- w trakcie startu import _./LDAP/keycloak-demos.ldif_
+- logowanie na poziomie 1 (więcej informacji: [OpenLDAP loglevel](https://www.openldap.org/doc/admin26/slapdconfig.html#loglevel%20%3Clevel%3E))
+- brak konfiguracji TLS
+- port usługi: 389
+- uruchomienie w tle
+- bind: _cn=admin,dc=example,dc=org / admin_
+
+
+
+    ./start_ldap.sh
+
+Serwer OpenLDAP dostępny:
+- dla Keycloak pod adresem _ldap://ldap-keycloak-demos:389_
+- zewnętrznie pod adresem _ldap://localhost:389_
+
 ### Stop
 
 #### Keycloak
@@ -141,6 +164,12 @@ Zatrzymianie Keycloak wraz z wykonaniem zrzutu konfiguracji.
 Zatrzymianie demonstracyjnego API.
 
     ./stop_demo-API.sh
+
+#### LDAP
+
+Zatrzymianie serwera OpenLDAP.
+
+    ./stop_ldap.sh
 
 ### Restart
 
@@ -176,13 +205,20 @@ lub
 
 w zależności od tego, logi którego z kontenerów chcemy podejrzeć.
 
+#### LDAP
+
+Podgląd logów działającego serwera OpenLDAP.
+
+    ./see_logs_ldap.sh
+
 ## Konfiguracja
 
 Testowa konfiguracja. 
 Realmy: 
 - demo.com - realm z testową konfiguracją
-- demo.org - realm do testowania identity brokeringu (RP zintegrowany z OP, którym jest realm demo.com)
+- demo.org - realm do testowania identity brokeringu (RP zintegrowany z OP, którym jest realm demo.com) oraz federacji użytkowników przez LDAP
   - konfiguracja dostawcy tożsamości https://login.example.com:8443/auth/admin/master/console/#/demo.org/identity-providers/oidc/login.example.com/settings
+  - konfiguracja federacji użytkowników przez LDAP https://login.example.com:8443/auth/admin/master/console/#/demo.org/user-federation/ldap/4bee9eb3-c5ad-44fe-b9e7-11ccef192e52
 
 ### Użytkownicy (realm: demo.com)
 
@@ -191,9 +227,21 @@ Realmy:
 - analyst / analyst - analityk danych
 - admin / admin - administrator
 
+Do testowania account linkingu z użytkownikami federowanymi przez LDAP w realm _demo.org_ (wymagana zmiana konfiguracji trybu synchronizacji LDAP):
+- anowak / anowak
+- awojcik / awojcik
+- jkowalski / jkowalski
+- pwisniewski / pwisniewski
+- tmazur / tmazur
+
 ### Użytkownicy (realm: demo.org)
 
-Brak użytkowników - należy uwierzytelnić się względem realma demo.com.
+Brak użytkowników lokalnych, można uwierzytelnić się względem realma _demo.com_, dodatkowo po uruchomieniu serwera OpenLDAP użytkownicy federowani przez LDAP:
+- anowak / anowak
+- awojcik / awojcik
+- jkowalski / jkowalski
+- pwisniewski / pwisniewski
+- tmazur / tmazur
 
 ### Klienci (realm: demo.com)
 

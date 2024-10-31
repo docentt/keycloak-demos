@@ -416,6 +416,14 @@
     "attributes" : { },
     "realmRoles" : [ "User" ],
     "clientRoles" : { }
+  }, {
+    "id" : "555b9ca5-870c-4943-8ac0-0662848f94c6",
+    "name" : "example.org",
+    "path" : "/example.org",
+    "subGroups" : [ ],
+    "attributes" : { },
+    "realmRoles" : [ ],
+    "clientRoles" : { }
   } ],
   "defaultRole" : {
     "id" : "537dff0e-1b74-4f7b-89f7-9175f1b1999a",

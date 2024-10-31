@@ -1,0 +1,129 @@
+# Główna struktura organizacyjna
+dn: dc=example,dc=org
+objectClass: domain
+dc: example
+
+# Pion IT
+dn: ou=IT,dc=example,dc=org
+objectClass: organizationalUnit
+ou: IT
+
+# Działy w pionie IT
+dn: ou=Development,ou=IT,dc=example,dc=org
+objectClass: organizationalUnit
+ou: Development
+
+dn: ou=Operations,ou=IT,dc=example,dc=org
+objectClass: organizationalUnit
+ou: Operations
+
+# Pion HR
+dn: ou=HR,dc=example,dc=org
+objectClass: organizationalUnit
+ou: HR
+
+# Działy w pionie HR
+dn: ou=Recruitment,ou=HR,dc=example,dc=org
+objectClass: organizationalUnit
+ou: Recruitment
+
+dn: ou=Employee Relations,ou=HR,dc=example,dc=org
+objectClass: organizationalUnit
+ou: Employee Relations
+
+# Użytkownicy
+dn: uid=jkowalski,ou=Development,ou=IT,dc=example,dc=org
+objectClass: inetOrgPerson
+uid: jkowalski
+cn: Jan Kowalski
+gn: Jan
+sn: Kowalski
+mail: jkowalski@example.org
+userPassword: jkowalski
+
+dn: uid=awojcik,ou=Development,ou=IT,dc=example,dc=org
+objectClass: inetOrgPerson
+uid: awojcik
+cn: Agnieszka Wójcik
+gn: Agnieszka
+sn: Wójcik
+mail: awojcik@example.org
+userPassword: awojcik
+
+dn: uid=tmazur,ou=Operations,ou=IT,dc=example,dc=org
+objectClass: inetOrgPerson
+uid: tmazur
+cn: Tomasz Mazur
+gn: Tomasz
+sn: Mazur
+mail: tmazur@example.org
+userPassword: tmazur
+
+dn: uid=anowak,ou=Recruitment,ou=HR,dc=example,dc=org
+objectClass: inetOrgPerson
+uid: anowak
+cn: Anna Nowak
+gn: Anna
+sn: Nowak
+mail: anowak@example.org
+userPassword: anowak
+
+dn: uid=pwisniewski,ou=Employee Relations,ou=HR,dc=example,dc=org
+objectClass: inetOrgPerson
+uid: pwisniewski
+cn: Piotr Wiśniewski
+gn: Piotr
+sn: Wiśniewski
+mail: pwisniewski@example.org
+userPassword: pwisniewski
+
+# Struktura grup
+dn: ou=groups,dc=example,dc=org
+objectClass: organizationalUnit
+ou: groups
+
+dn: ou=techs-groups,ou=groups,dc=example,dc=org
+objectClass: organizationalUnit
+ou: techs-groups
+
+# Główna grupa techs
+dn: cn=techs,ou=techs-groups,ou=groups,dc=example,dc=org
+objectClass: groupOfNames
+cn: techs
+description: Główna grupa dla pracowników technicznych
+member: cn=developers,ou=techs-groups,ou=groups,dc=example,dc=org
+member: cn=devops,ou=techs-groups,ou=groups,dc=example,dc=org
+member: cn=admins,ou=techs-groups,ou=groups,dc=example,dc=org
+
+# Podgrupy w techs
+dn: cn=developers,ou=techs-groups,ou=groups,dc=example,dc=org
+objectClass: groupOfNames
+cn: developers
+description: Developerzy
+member: uid=jkowalski,ou=Development,ou=IT,dc=example,dc=org
+member: uid=awojcik,ou=Development,ou=IT,dc=example,dc=org
+
+dn: cn=devops,ou=techs-groups,ou=groups,dc=example,dc=org
+objectClass: groupOfNames
+cn: devops
+description: DevOpsi
+member: uid=tmazur,ou=Operations,ou=IT,dc=example,dc=org
+
+dn: cn=admins,ou=techs-groups,ou=groups,dc=example,dc=org
+objectClass: groupOfNames
+cn: admins
+description: Administratorzy
+member: uid=jkowalski,ou=Development,ou=IT,dc=example,dc=org
+member: uid=tmazur,ou=Operations,ou=IT,dc=example,dc=org
+
+# Inne grupy
+dn: ou=other-groups,ou=groups,dc=example,dc=org
+objectClass: organizationalUnit
+ou: other-groups
+
+dn: cn=hr-team,ou=other-groups,ou=groups,dc=example,dc=org
+objectClass: groupOfNames
+cn: hr-team
+description: HRowcy
+member: uid=anowak,ou=Recruitment,ou=HR,dc=example,dc=org
+member: uid=pwisniewski,ou=Employee Relations,ou=HR,dc=example,dc=org
