@@ -386,16 +386,16 @@
   },
   "groups" : [ {
     "id" : "0645629a-f7a3-4b43-b05f-7db54e8e0f8f",
-    "name" : "Admin",
-    "path" : "/Admin",
+    "name" : "Admins",
+    "path" : "/Admins",
     "subGroups" : [ ],
     "attributes" : { },
     "realmRoles" : [ "Admin" ],
     "clientRoles" : { }
   }, {
     "id" : "c89866d3-e028-4b7c-934d-b52734dd862c",
-    "name" : "DataAnalyst",
-    "path" : "/DataAnalyst",
+    "name" : "DataAnalysts",
+    "path" : "/DataAnalysts",
     "subGroups" : [ ],
     "attributes" : { },
     "realmRoles" : [ "DataAnalyst" ],

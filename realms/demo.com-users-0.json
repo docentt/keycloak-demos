@@ -22,7 +22,7 @@
     "requiredActions" : [ ],
     "realmRoles" : [ "default-roles-demo.com" ],
     "notBefore" : 0,
-    "groups" : [ "/Admin" ]
+    "groups" : [ "/Admins" ]
   }, {
     "id" : "373c007f-d49f-4bc7-8f99-1487ddbebf30",
     "username" : "analyst",
@@ -45,7 +45,7 @@
     "requiredActions" : [ ],
     "realmRoles" : [ "default-roles-demo.com" ],
     "notBefore" : 0,
-    "groups" : [ "/DataAnalyst" ]
+    "groups" : [ "/DataAnalysts" ]
   }, {
     "id" : "461ebd59-aa8e-412a-9c9b-1a89980cdfab",
     "username" : "premium",
