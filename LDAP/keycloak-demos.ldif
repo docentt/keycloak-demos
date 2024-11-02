@@ -36,7 +36,7 @@ dn: uid=jkowalski,ou=Development,ou=IT,dc=example,dc=org
 objectClass: inetOrgPerson
 uid: jkowalski
 cn: Jan Kowalski
-gn: Jan
+givenName: Jan
 sn: Kowalski
 mail: jkowalski@example.org
 userPassword: jkowalski
@@ -45,7 +45,7 @@ dn: uid=awojcik,ou=Development,ou=IT,dc=example,dc=org
 objectClass: inetOrgPerson
 uid: awojcik
 cn: Agnieszka Wójcik
-gn: Agnieszka
+givenName: Agnieszka
 sn: Wójcik
 mail: awojcik@example.org
 userPassword: awojcik
@@ -54,7 +54,7 @@ dn: uid=tmazur,ou=Operations,ou=IT,dc=example,dc=org
 objectClass: inetOrgPerson
 uid: tmazur
 cn: Tomasz Mazur
-gn: Tomasz
+givenName: Tomasz
 sn: Mazur
 mail: tmazur@example.org
 userPassword: tmazur
@@ -63,7 +63,7 @@ dn: uid=anowak,ou=Recruitment,ou=HR,dc=example,dc=org
 objectClass: inetOrgPerson
 uid: anowak
 cn: Anna Nowak
-gn: Anna
+givenName: Anna
 sn: Nowak
 mail: anowak@example.org
 userPassword: anowak
@@ -72,7 +72,7 @@ dn: uid=pwisniewski,ou=Employee Relations,ou=HR,dc=example,dc=org
 objectClass: inetOrgPerson
 uid: pwisniewski
 cn: Piotr Wiśniewski
-gn: Piotr
+givenName: Piotr
 sn: Wiśniewski
 mail: pwisniewski@example.org
 userPassword: pwisniewski
