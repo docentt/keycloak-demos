@@ -19,7 +19,7 @@ Krok opcjonalny, wymaga wcześniejszej instalacji OpenSSL.
 **UWAGA**: Ze względów bezpieczeństwa zalecane jest wygenerowanie certyfikatu, zamiast wykorzystywania certyfikatu znajdującego się w _./certs/_.
 
     cd certs/
-    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout keycloak-demos.key -out keycloak-demos.crt -subj "/CN=login.example.com" -addext "subjectAltName=DNS:login.example.com,DNS:login.example.org,DNS:keycloak-demos"
+    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout keycloak-demos.key -out keycloak-demos.crt -subj "/CN=login.example.com" -addext "subjectAltName=DNS:*.example.com,DNS:*.example.org,DNS:keycloak-demos"
 
 ### Instalacja certyfikatu TLS 
 
