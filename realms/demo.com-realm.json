@@ -40,6 +40,7 @@
   "bruteForceProtected" : false,
   "permanentLockout" : false,
   "maxTemporaryLockouts" : 0,
+  "bruteForceStrategy" : "MULTIPLE",
   "maxFailureWaitSeconds" : 900,
   "minimumQuickLoginWaitSeconds" : 60,
   "waitIncrementSeconds" : 60,
@@ -59,10 +60,7 @@
       "id" : "95ca7d7b-633f-4ffb-b9a8-9e0b4eae6777",
       "name" : "Admin",
       "description" : "Użytkownik z uprawnieniami administracyjnymi.",
-      "composite" : true,
-      "composites" : {
-        "realm" : [ "DataAnalyst", "PremiumUser" ]
-      },
+      "composite" : false,
       "clientRole" : false,
       "containerId" : "118e3627-d6e8-4d61-bf1a-a22f5dcfe3da",
       "attributes" : { }
@@ -108,16 +106,14 @@
       "id" : "fb2d02a2-5579-433a-865d-f36fd722832f",
       "name" : "PremiumUser",
       "description" : "Użytkownik z dostępem do funkcji premium.",
-      "composite" : true,
-      "composites" : {
-        "realm" : [ "User" ]
-      },
+      "composite" : false,
       "clientRole" : false,
       "containerId" : "118e3627-d6e8-4d61-bf1a-a22f5dcfe3da",
       "attributes" : { }
     } ],
     "client" : {
       "opa" : [ ],
+      "https://admindashboard.example.com" : [ ],
       "realm-management" : [ {
         "id" : "8e678ee8-c522-419f-b287-9d39638be416",
         "name" : "create-client",
@@ -286,10 +282,10 @@
         "containerId" : "0284409a-e51e-43b9-a629-e449ba831f1c",
         "attributes" : { }
       } ],
+      "https://analyticsviewer.example.com" : [ ],
       "service-account_private_key_jwt" : [ ],
       "security-admin-console" : [ ],
       "account-console" : [ ],
-      "https://admindashboard.example.com/" : [ ],
       "https://login.example.org:8443/auth/realms/demo.org" : [ ],
       "broker" : [ {
         "id" : "c9149059-fdfc-432b-997b-f54f004f5842",
@@ -300,7 +296,7 @@
         "containerId" : "3ad1130a-f664-4fd9-93e4-2b8b8209aa16",
         "attributes" : { }
       } ],
-      "https://userportal.example.com/" : [ ],
+      "https://userportal.example.com" : [ ],
       "admin-cli" : [ ],
       "https://api.example.com" : [ ],
       "https://api.example.org" : [ ],
@@ -380,8 +376,7 @@
         "containerId" : "5b1a32f7-2758-43d1-bb44-d7a161e7572e",
         "attributes" : { }
       } ],
-      "service-account_client_secret_jwt" : [ ],
-      "https://analyticsviewer.example.com/" : [ ]
+      "service-account_client_secret_jwt" : [ ]
     }
   },
   "groups" : [ {
@@ -390,7 +385,7 @@
     "path" : "/Admins",
     "subGroups" : [ ],
     "attributes" : { },
-    "realmRoles" : [ "Admin" ],
+    "realmRoles" : [ "Admin", "User", "DataAnalyst", "PremiumUser" ],
     "clientRoles" : { }
   }, {
     "id" : "c89866d3-e028-4b7c-934d-b52734dd862c",
@@ -406,7 +401,7 @@
     "path" : "/PremiumUsers",
     "subGroups" : [ ],
     "attributes" : { },
-    "realmRoles" : [ "PremiumUser" ],
+    "realmRoles" : [ "User", "PremiumUser" ],
     "clientRoles" : { }
   }, {
     "id" : "36e99ec7-5e27-41d5-be21-480b20d434f3",
@@ -629,7 +624,7 @@
     "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
   }, {
     "id" : "261afb97-0c4f-4c60-bd09-de642524bfa7",
-    "clientId" : "https://admindashboard.example.com/",
+    "clientId" : "https://admindashboard.example.com",
     "name" : "Portal administracyjny",
     "description" : "Portal administracyjny",
     "rootUrl" : "",
@@ -639,8 +634,8 @@
     "enabled" : true,
     "alwaysDisplayInConsole" : false,
     "clientAuthenticatorType" : "client-secret",
-    "redirectUris" : [ "https://oidcdebugger.com/debug", "https://oauth.pstmn.io/v1/callback" ],
-    "webOrigins" : [ "https://oidcdebugger.com" ],
+    "redirectUris" : [ "https://admindashboard.example.com/callback", "https://oidcdebugger.com/debug", "https://oauth.pstmn.io/v1/callback" ],
+    "webOrigins" : [ "+" ],
     "notBefore" : 0,
     "bearerOnly" : false,
     "consentRequired" : true,
@@ -655,7 +650,7 @@
       "realm_client" : "false",
       "oidc.ciba.grant.enabled" : "false",
       "backchannel.logout.session.required" : "true",
-      "post.logout.redirect.uris" : "+",
+      "post.logout.redirect.uris" : "https://admindashboard.example.com",
       "oauth2.device.authorization.grant.enabled" : "false",
       "display.on.consent.screen" : "false",
       "backchannel.logout.revoke.offline.tokens" : "false"
@@ -696,7 +691,7 @@
     "optionalClientScopes" : [ "address", "phone", "offline_access", "profile", "roles", "microprofile-jwt", "email" ]
   }, {
     "id" : "35ef6c38-02e1-44dc-ad1c-e5cd86d7f573",
-    "clientId" : "https://analyticsviewer.example.com/",
+    "clientId" : "https://analyticsviewer.example.com",
     "name" : "Portal do analityki",
     "description" : "Portal do analityki",
     "rootUrl" : "",
@@ -706,14 +701,14 @@
     "enabled" : true,
     "alwaysDisplayInConsole" : false,
     "clientAuthenticatorType" : "client-secret",
-    "redirectUris" : [ "https://oidcdebugger.com/debug", "https://oauth.pstmn.io/v1/callback" ],
-    "webOrigins" : [ "https://oidcdebugger.com" ],
+    "redirectUris" : [ "https://oidcdebugger.com/debug", "https://analyticsviewer.example.com/callback", "https://oauth.pstmn.io/v1/callback" ],
+    "webOrigins" : [ "+" ],
     "notBefore" : 0,
     "bearerOnly" : false,
     "consentRequired" : true,
     "standardFlowEnabled" : true,
     "implicitFlowEnabled" : true,
-    "directAccessGrantsEnabled" : false,
+    "directAccessGrantsEnabled" : true,
     "serviceAccountsEnabled" : false,
     "publicClient" : true,
     "frontchannelLogout" : true,
@@ -722,7 +717,7 @@
       "realm_client" : "false",
       "oidc.ciba.grant.enabled" : "false",
       "backchannel.logout.session.required" : "true",
-      "post.logout.redirect.uris" : "+",
+      "post.logout.redirect.uris" : "https://analyticsviewer.example.com",
       "oauth2.device.authorization.grant.enabled" : "false",
       "display.on.consent.screen" : "false",
       "backchannel.logout.revoke.offline.tokens" : "false"
@@ -970,7 +965,7 @@
     "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
   }, {
     "id" : "4b762bd9-c769-4890-a71d-097bc828a358",
-    "clientId" : "https://userportal.example.com/",
+    "clientId" : "https://userportal.example.com",
     "name" : "Portal użytkownika",
     "description" : "Portal użytkownika",
     "rootUrl" : "",
@@ -980,8 +975,8 @@
     "enabled" : true,
     "alwaysDisplayInConsole" : false,
     "clientAuthenticatorType" : "client-secret",
-    "redirectUris" : [ "https://oidcdebugger.com/debug", "https://oauth.pstmn.io/v1/callback" ],
-    "webOrigins" : [ "https://oidcdebugger.com" ],
+    "redirectUris" : [ "https://userportal.example.com/callback", "https://oidcdebugger.com/debug", "https://oauth.pstmn.io/v1/callback" ],
+    "webOrigins" : [ "+" ],
     "notBefore" : 0,
     "bearerOnly" : false,
     "consentRequired" : true,
@@ -996,7 +991,7 @@
       "realm_client" : "false",
       "oidc.ciba.grant.enabled" : "false",
       "backchannel.logout.session.required" : "true",
-      "post.logout.redirect.uris" : "+",
+      "post.logout.redirect.uris" : "https://userportal.example.com",
       "oauth2.device.authorization.grant.enabled" : "false",
       "display.on.consent.screen" : "false",
       "backchannel.logout.revoke.offline.tokens" : "false"
@@ -1991,7 +1986,7 @@
       "subType" : "anonymous",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "oidc-sha256-pairwise-sub-mapper", "oidc-address-mapper", "saml-user-property-mapper", "oidc-full-name-mapper", "oidc-usermodel-attribute-mapper", "saml-user-attribute-mapper", "saml-role-list-mapper", "oidc-usermodel-property-mapper" ]
+        "allowed-protocol-mapper-types" : [ "oidc-usermodel-attribute-mapper", "oidc-usermodel-property-mapper", "oidc-full-name-mapper", "saml-user-property-mapper", "oidc-address-mapper", "oidc-sha256-pairwise-sub-mapper", "saml-user-attribute-mapper", "saml-role-list-mapper" ]
       }
     }, {
       "id" : "9b495166-305b-4308-9f70-7f044a2c28c1",
@@ -2000,7 +1995,7 @@
       "subType" : "authenticated",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "saml-user-property-mapper", "saml-role-list-mapper", "oidc-sha256-pairwise-sub-mapper", "oidc-full-name-mapper", "oidc-usermodel-attribute-mapper", "saml-user-attribute-mapper", "oidc-usermodel-property-mapper", "oidc-address-mapper" ]
+        "allowed-protocol-mapper-types" : [ "saml-user-property-mapper", "oidc-sha256-pairwise-sub-mapper", "saml-user-attribute-mapper", "oidc-usermodel-property-mapper", "oidc-full-name-mapper", "oidc-usermodel-attribute-mapper", "saml-role-list-mapper", "oidc-address-mapper" ]
       }
     }, {
       "id" : "bc3c09c7-391c-4ba8-bbde-0cdfd2926721",
@@ -2637,7 +2632,7 @@
     "organizationsEnabled" : "false",
     "adminEventsExpiration" : ""
   },
-  "keycloakVersion" : "26.0.0",
+  "keycloakVersion" : "26.0.4",
   "userManagedAccessAllowed" : false,
   "organizationsEnabled" : false,
   "clientProfiles" : {

@@ -1,6 +1,6 @@
 # Demonstracje Keycloak
 
-Repozytorium pozwala na szybkie uruchomienie Keycloak z demonstracyjnymi konfiguracjami oraz zintegrowanymi usługami (demonstracyjne API, LDAP).
+Repozytorium pozwala na szybkie uruchomienie Keycloak z demonstracyjnymi konfiguracjami oraz zintegrowanymi usługami (demonstracyjne API, Tester OIDC / OAuth2.0, LDAP).
 
 Wersja Keycloak: *26.0.4*
 
@@ -61,6 +61,15 @@ Demonstracja wymaga dodania następujących wpisów do DNS na komputerze na któ
 - demonstracyjne API
   - 127.0.0.1       api.example.com
   - 127.0.0.1       api.example.org
+- serwer pocztowy
+  - 127.0.0.1       mail.example.com
+  - 127.0.0.1       mail.example.org
+- serwer LDAP
+  - 127.0.0.1       ldap.example.org
+- demonstracyjne aplikacje (Tester OIDC / OAuth2.0)
+  - 127.0.0.1       userportal.example.com
+  - 127.0.0.1       analyticsviewer.example.com
+  - 127.0.0.1       admindashboard.example.com
 
 ## Użycie
 
@@ -75,6 +84,12 @@ Usługa nie wymaga budowania.
 Przed uruchomieniem demonstracyjnego API, należy zbudować kontener ze środowiskiem pozwalającym na jego uruchomienie.
 
     ./build_demo-API.sh
+
+#### Tester OIDC / OAuth2.0
+
+Przed uruchomieniem demonstracyjnej aplikacji (Testera OIDC / OAuth2.0), należy zbudować kontener ze środowiskiem pozwalającym na jej uruchomienie.
+
+    ./build_demo-app.sh
 
 #### LDAP
 
@@ -103,8 +118,8 @@ Uruchomienie Keycloak o parametrach:
 
 Dodatkowo uruchomiony zostanie testowy serwer pocztowy.
 
-Konsola Keycloak dostępna jest pod adresem https://login.example.com:8443/auth
-Skrzynka email typu "catch all" z testowego serwera pocztowego dostępna jest pod adresem http://localhost:5000/
+Konsola Keycloak dostępna jest pod adresem https://login.example.com:8443/
+Skrzynka email typu "catch all" z testowego serwera pocztowego dostępna jest pod adresem http://mail.example.com:5000/ / http://mail.example.org:5000/
 
 #### Demonstracyjne API
 
@@ -126,6 +141,26 @@ Demonstracyjne API dostępne jest pod adresami:
 API odpowiada decyzjami autoryzacyjnymi realizowanymi przez agenta [Open Policy Agent (OPA)](https://www.openpolicyagent.org/) uruchomionego w osobnym kontenerze.
 Do OPA kierowane są jedynie żądania zawierające nagłówek HTTP _Authorization_ z tokenem na okaziciela.
 
+#### Tester OIDC / OAuth2.0
+
+Uruchomienie demonstracyjnej aplikacji (Tester OIDC / OAuth2.0) o parametrach:
+- port usługi: 443
+- domeny usługi:
+  - *userportal.example.com*
+  - *analyticsviewer.example.com*
+  - *admindashboard.example.com*
+
+
+
+    ./start_demo-app.sh
+
+Demonstracyjna aplikacji (Tester OIDC / OAuth2.0) dostępna jest pod adresami:
+- https://userportal.example.com/
+- https://analyticsviewer.example.com/
+- https://admindashboard.example.com/
+
+Tester OIDC / OAuth2.0 komunikuje się z Keycloak oraz demonstracyjnym API.
+
 #### LDAP
 
 Uruchomienie serwera OpenLDAP o parametrach:
@@ -143,7 +178,7 @@ Uruchomienie serwera OpenLDAP o parametrach:
 
 Serwer OpenLDAP dostępny:
 - dla Keycloak pod adresem _ldap://ldap-keycloak-demos:389_
-- zewnętrznie pod adresem _ldap://localhost:389_
+- zewnętrznie pod adresem _ldap://ldap.example.org:389_
 
 ### Stop
 
@@ -164,6 +199,12 @@ Zatrzymianie Keycloak wraz z wykonaniem zrzutu konfiguracji.
 Zatrzymianie demonstracyjnego API.
 
     ./stop_demo-API.sh
+
+#### Tester OIDC / OAuth2.0
+
+Zatrzymianie demonstracyjnej aplikacji (Tester OIDC / OAuth2.0).
+
+    ./stop_demo-app.sh
 
 #### LDAP
 
@@ -307,13 +348,16 @@ Serwer Zasobów https://api.example.org
 - typ klienta: bearer-only
 - granty: brak
 
-##### https://userportal.example.com/
+##### https://userportal.example.com
 
-Aplikacja https://userportal.example.com/ (do testowania z https://oidcdebugger.com/ lub Postman)
-- client id: https://userportal.example.com/
+Aplikacja https://userportal.example.com (do testowania z https://oidcdebugger.com/, Postman oraz Tester OIDC / OAuth2.0 )
+- client id: https://userportal.example.com
 - valid redirect URIs:
   - https://oidcdebugger.com/debug
   - https://oauth.pstmn.io/v1/callback
+  - https://userportal.example.com/callback
+- valid post logout redirect URIs:
+  - https://userportal.example.com
 - typ klienta: publiczny
 - zakresy:
   - profile.read
@@ -325,13 +369,16 @@ Aplikacja https://userportal.example.com/ (do testowania z https://oidcdebugger.
   - Resource Owner Password Credentials grant,
   - Implicit grant
 
-##### https://analyticsviewer.example.com/
+##### https://analyticsviewer.example.com
 
-Aplikacja https://analyticsviewer.example.com/ (do testowania z https://oidcdebugger.com/ lub Postman)
-- client id: https://analyticsviewer.example.com/
+Aplikacja https://analyticsviewer.example.com (do testowania z https://oidcdebugger.com/, Postman oraz Tester OIDC / OAuth2.0)
+- client id: https://analyticsviewer.example.com
 - valid redirect URIs:
   - https://oidcdebugger.com/debug
   - https://oauth.pstmn.io/v1/callback
+  - https://analyticsviewer.example.com/callback
+- valid post logout redirect URIs:
+  - https://analyticsviewer.example.com
 - typ klienta: publiczny
 - zakresy:
   - data.read
@@ -343,13 +390,16 @@ Aplikacja https://analyticsviewer.example.com/ (do testowania z https://oidcdebu
   - Resource Owner Password Credentials grant,
   - Implicit grant
 
-##### https://admindashboard.example.com/
+##### https://admindashboard.example.com
 
-Aplikacja https://admindashboard.example.com/ (do testowania z https://oidcdebugger.com/ lub Postman)
-- client id: https://admindashboard.example.com/
+Aplikacja https://admindashboard.example.com (do testowania z https://oidcdebugger.com/, Postman oraz Tester OIDC / OAuth2.0)
+- client id: https://admindashboard.example.com
 - valid redirect URIs:
   - https://oidcdebugger.com/debug
   - https://oauth.pstmn.io/v1/callback
+  - https://admindashboard.example.com/callback
+- valid post logout redirect URIs:
+  - https://admindashboard.example.com
 - typ klienta: publiczny
 - zakresy:
   - data.update

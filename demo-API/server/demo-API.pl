@@ -12,7 +12,7 @@ my $opa_url = $ENV{'OPA_URL'} || 'http://demo-API-opa:8181/v1/data/auth/policy_e
 #CORS
 hook before => sub {
     response_header 'Access-Control-Allow-Origin' => '*';
-    response_header 'Access-Control-Allow-Methods' => 'GET, POST, OPTIONS';
+    response_header 'Access-Control-Allow-Methods' => 'GET, POST, PUT, DELETE, OPTIONS';
     response_header 'Access-Control-Allow-Headers' => 'Authorization, Content-Type';
 };
 
@@ -25,6 +25,8 @@ options qr{.*} => sub {
 
 #OAuth2.0
 hook before => sub {
+    return if request->method eq 'OPTIONS';
+
     my $auth_header = request->header('Authorization');
 
     if (!$auth_header) {
@@ -75,7 +77,14 @@ hook before => sub {
     my $res = $ua->request($req);
 
     if ($res->is_success) {
-        my $result = decode_json($res->decoded_content);
+        my $result = eval { decode_json($res->decoded_content) };
+
+        if ($@ || !$result || !exists $result->{result} || ref($result->{result}) ne 'HASH') {
+            status 500;
+            content_type 'application/json';
+            halt encode_json({ message => 'Błąd przetwarzania odpowiedzi z OPA - pusta odpowiedź' });
+        }
+
         if (!$result->{result}{allow}) {
             status $result->{result}{code};
             content_type 'application/json';

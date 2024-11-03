@@ -14,6 +14,8 @@ default client_roles := []
 default all_client_roles := {}
 default endpoint_requirements_or_empty := {}
 
+default selected_claims_email := ""
+
 endpoint_requirements := _endpoint_requirements if{
     some _endpoint_requirements in endpoint_access
     _endpoint_requirements.method == input.method
@@ -114,6 +116,7 @@ config := {
 global_roles := offline_payload.realm_access.roles
 client_roles := offline_matched_roles
 all_client_roles := offline_payload.resource_access
+selected_claims_email = offline_payload["email"]
 
 token_data := {
     "matched_aud": offline_matched_aud,
@@ -123,7 +126,7 @@ token_data := {
     "all_auds": offline_payload.aud,
     "all_roles": all_client_roles,
     "selected_claims": {
-        "email": offline_payload.email
+        "email": selected_claims_email
     }
 } if {
 	offline_valid_jwt
@@ -294,6 +297,7 @@ config := {
 global_roles := token_introspection_result.realm_access.roles
 client_roles := online_matched_roles
 all_client_roles := token_introspection_result.resource_access
+selected_claims_email = token_introspection_result["email"]
 
 token_data := {
     "matched_aud": online_matched_aud,
@@ -303,7 +307,7 @@ token_data := {
     "all_auds": token_introspection_result.aud,
     "all_roles": all_client_roles,
     "selected_claims": {
-        "email": token_introspection_result.email
+        "email": selected_claims_email
     }
 } if {
 	online_is_active

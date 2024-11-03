@@ -1,0 +1,267 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 20px;
+}
+
+h2, .api-response h3 {
+    margin-top: 20px;
+    color: #333;
+}
+
+input, select, button {
+    margin: 5px;
+    padding: 8px;
+    font-size: 1em;
+}
+
+.config-container,
+.token-display,
+.collapsible-section,
+.collapsible-token,
+.api-response,
+.userinfo-display {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 10px 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    max-width: 1200px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.config-title, .collapsible-header h2, .token-header h3 {
+    font-size: 1.2em;
+    margin: 0;
+    color: #333;
+}
+
+.config-item,
+.collapsible-header,
+.token-header,
+.endpoint-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 8px 0;
+}
+
+.config-label,
+.scope-label,
+.scope-option,
+.config-title,
+.toggle-button,
+.token-value,
+.copy-button,
+.metadata-details strong {
+    font-size: 0.9em;
+    color: #333;
+}
+
+.config-label,
+.metadata-details strong {
+    font-weight: bold;
+}
+
+.config-value {
+    color: #007bff;
+}
+
+.scopes-list,
+.metadata-details ul {
+    padding: 0;
+    list-style-type: none;
+    margin: 0;
+}
+
+.scope-label,
+.scope-option {
+    background-color: #e9ecef;
+    display: inline-block;
+    padding: 4px 8px;
+    margin: 4px;
+    border-radius: 4px;
+}
+
+.optional-scopes,
+.metadata-section {
+    margin-top: 10px;
+    background-color: #f1f1f1;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.login-button,
+.toggle-button,
+.copy-button,
+.refresh-button,
+.logout-button {
+    color: white;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: background-color 0.3s;
+}
+
+.login-button,
+.toggle-button,
+.refresh-button {
+    background-color: #007bff;
+}
+
+.copy-button {
+    background-color: #28a745;
+    margin-left: 10px;
+}
+
+.logout-button {
+    background-color: #dc3545;
+    margin-left: 10px;
+}
+
+.login-button:hover,
+.toggle-button:hover,
+.refresh-button:hover {
+    background-color: #0056b3;
+}
+
+.copy-button:hover {
+    background-color: #218838;
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+}
+
+.endpoint-item.available button,
+.endpoint-item.unavailable button {
+    border-radius: 4px;
+    color: white;
+}
+
+.endpoint-item.available button {
+    background-color: #28a745;
+}
+
+.endpoint-item.unavailable button {
+    background-color: #dc3545;
+}
+
+.endpoint-item.available button:hover {
+    background-color: #218838;
+}
+
+.endpoint-item.unavailable button:hover {
+    background-color: #c82333;
+}
+
+.collapsible-content,
+.token-value,
+.metadata-section,
+.json-viewer {
+    padding-top: 10px;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+}
+
+.token-sections,
+.token-value,
+.highlighted-claim,
+.timestamp {
+    margin-top: 10px;
+}
+
+.token-value {
+    font-family: monospace;
+    font-size: 0.9em;
+}
+
+.highlighted-claim {
+    background-color: #fffbcc;
+    padding: 4px;
+    border-radius: 4px;
+    font-weight: bold;
+    display: block;
+}
+
+.token-section {
+    padding: 10px;
+    background-color: #f5f5f5;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.signature-section {
+    background-color: #f9f9f9;
+    border: 1px dashed #ccc;
+    padding: 8px;
+    border-radius: 5px;
+    margin-top: 15px;
+    color: #555;
+    font-size: 0.85em;
+}
+
+.endpoint-item button {
+    margin-left: 10px;
+}
+
+.endpoint-item.available {
+    color: green;
+}
+
+.endpoint-item.unavailable {
+    color: red;
+}
+
+.error {
+    color: red;
+    font-weight: bold;
+}
+
+.status-message {
+    font-size: 1.5em;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.status-allowed {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.status-denied {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.status-http {
+    font-size: 1.2em;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+.endpoint-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+}
+
+.endpoint-item strong {
+    margin-right: 10px;
+}

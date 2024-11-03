@@ -40,6 +40,7 @@
   "bruteForceProtected" : false,
   "permanentLockout" : false,
   "maxTemporaryLockouts" : 0,
+  "bruteForceStrategy" : "MULTIPLE",
   "maxFailureWaitSeconds" : 900,
   "minimumQuickLoginWaitSeconds" : 60,
   "waitIncrementSeconds" : 60,
@@ -1240,7 +1241,7 @@
       "subType" : "authenticated",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "saml-user-attribute-mapper", "saml-role-list-mapper", "oidc-usermodel-attribute-mapper", "oidc-usermodel-property-mapper", "oidc-sha256-pairwise-sub-mapper", "saml-user-property-mapper", "oidc-address-mapper", "oidc-full-name-mapper" ]
+        "allowed-protocol-mapper-types" : [ "saml-user-attribute-mapper", "oidc-usermodel-property-mapper", "oidc-address-mapper", "oidc-usermodel-attribute-mapper", "oidc-sha256-pairwise-sub-mapper", "saml-role-list-mapper", "oidc-full-name-mapper", "saml-user-property-mapper" ]
       }
     }, {
       "id" : "cd9ee369-667f-42fe-b4dd-b0032e12c3f7",
@@ -1274,7 +1275,7 @@
       "subType" : "anonymous",
       "subComponents" : { },
       "config" : {
-        "allowed-protocol-mapper-types" : [ "oidc-address-mapper", "oidc-sha256-pairwise-sub-mapper", "saml-role-list-mapper", "oidc-full-name-mapper", "oidc-usermodel-attribute-mapper", "saml-user-property-mapper", "saml-user-attribute-mapper", "oidc-usermodel-property-mapper" ]
+        "allowed-protocol-mapper-types" : [ "oidc-sha256-pairwise-sub-mapper", "oidc-usermodel-attribute-mapper", "oidc-full-name-mapper", "saml-user-property-mapper", "oidc-usermodel-property-mapper", "saml-role-list-mapper", "oidc-address-mapper", "saml-user-attribute-mapper" ]
       }
     }, {
       "id" : "25bdc6e4-1456-48a1-ac86-bc98da0f5077",
@@ -1316,8 +1317,8 @@
           "config" : {
             "ldap.attribute" : [ "sn" ],
             "is.mandatory.in.ldap" : [ "true" ],
-            "always.read.value.from.ldap" : [ "true" ],
             "read.only" : [ "true" ],
+            "always.read.value.from.ldap" : [ "true" ],
             "user.model.attribute" : [ "lastName" ]
           }
         }, {
@@ -1328,8 +1329,8 @@
           "config" : {
             "ldap.attribute" : [ "mail" ],
             "is.mandatory.in.ldap" : [ "false" ],
-            "read.only" : [ "true" ],
             "always.read.value.from.ldap" : [ "false" ],
+            "read.only" : [ "true" ],
             "user.model.attribute" : [ "email" ]
           }
         }, {
@@ -1348,10 +1349,10 @@
             "user.roles.retrieve.strategy" : [ "LOAD_GROUPS_BY_MEMBER_ATTRIBUTE" ],
             "ignore.missing.groups" : [ "false" ],
             "membership.ldap.attribute" : [ "member" ],
-            "group.object.classes" : [ "groupOfNames" ],
             "memberof.ldap.attribute" : [ "memberOf" ],
-            "groups.path" : [ "/LDAP/TECHS_ROOT" ],
-            "drop.non.existing.groups.during.sync" : [ "true" ]
+            "group.object.classes" : [ "groupOfNames" ],
+            "drop.non.existing.groups.during.sync" : [ "true" ],
+            "groups.path" : [ "/LDAP/TECHS_ROOT" ]
           }
         }, {
           "id" : "17f15e2e-0ce0-48de-af41-4f4ed3814014",
@@ -1371,18 +1372,18 @@
           "providerId" : "group-ldap-mapper",
           "subComponents" : { },
           "config" : {
-            "mode" : [ "LDAP_ONLY" ],
             "membership.attribute.type" : [ "DN" ],
-            "user.roles.retrieve.strategy" : [ "LOAD_GROUPS_BY_MEMBER_ATTRIBUTE" ],
             "group.name.ldap.attribute" : [ "cn" ],
-            "membership.ldap.attribute" : [ "member" ],
             "membership.user.ldap.attribute" : [ "uid" ],
-            "ignore.missing.groups" : [ "false" ],
             "preserve.group.inheritance" : [ "true" ],
             "groups.dn" : [ "ou=other-groups,ou=groups,dc=example,dc=org" ],
             "mapped.group.attributes" : [ "description" ],
-            "memberof.ldap.attribute" : [ "memberOf" ],
+            "mode" : [ "LDAP_ONLY" ],
+            "user.roles.retrieve.strategy" : [ "LOAD_GROUPS_BY_MEMBER_ATTRIBUTE" ],
+            "ignore.missing.groups" : [ "false" ],
+            "membership.ldap.attribute" : [ "member" ],
             "group.object.classes" : [ "groupOfNames" ],
+            "memberof.ldap.attribute" : [ "memberOf" ],
             "groups.path" : [ "/LDAP/OTHERS_ROOT" ],
             "drop.non.existing.groups.during.sync" : [ "true" ]
           }
@@ -1425,8 +1426,8 @@
         } ]
       },
       "config" : {
-        "pagination" : [ "true" ],
         "fullSyncPeriod" : [ "-1" ],
+        "pagination" : [ "true" ],
         "startTls" : [ "false" ],
         "usersDn" : [ "dc=example,dc=org" ],
         "connectionPooling" : [ "true" ],
@@ -1434,10 +1435,10 @@
         "useKerberosForPasswordAuthentication" : [ "false" ],
         "importEnabled" : [ "true" ],
         "enabled" : [ "true" ],
-        "changedSyncPeriod" : [ "-1" ],
         "bindDn" : [ "cn=admin,dc=example,dc=org" ],
-        "usernameLDAPAttribute" : [ "uid" ],
         "bindCredential" : [ "admin" ],
+        "changedSyncPeriod" : [ "-1" ],
+        "usernameLDAPAttribute" : [ "uid" ],
         "vendor" : [ "other" ],
         "uuidLDAPAttribute" : [ "entryUUID" ],
         "connectionUrl" : [ "ldap://ldap-keycloak-demos" ],
@@ -2072,7 +2073,7 @@
     "acr.loa.map" : "{}",
     "adminEventsExpiration" : ""
   },
-  "keycloakVersion" : "26.0.0",
+  "keycloakVersion" : "26.0.4",
   "userManagedAccessAllowed" : false,
   "organizationsEnabled" : false,
   "clientProfiles" : {
