@@ -7,7 +7,7 @@ docker run --name=keycloak-demos --network keycloak-demos -d -p 8443:8443 -p 500
  -v $(pwd)/certs:/opt/keycloak/data/certs \
  -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin \
  -e JAVA_OPTS_APPEND="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005" \
- quay.io/keycloak/keycloak:26.0.4 start-dev \
+ quay.io/keycloak/keycloak:26.0.5 start-dev \
  --features="preview" --import-realm --verbose \
  --hostname=https://login.example.com:8443/auth --hostname-backchannel-dynamic true --http-relative-path=/auth \
  --https-port=8443 --https-certificate-file=/opt/keycloak/data/certs/keycloak-demos.crt --https-certificate-key-file=/opt/keycloak/data/certs/keycloak-demos.key \

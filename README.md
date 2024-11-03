@@ -2,7 +2,7 @@
 
 Repozytorium pozwala na szybkie uruchomienie Keycloak z demonstracyjnymi konfiguracjami oraz zintegrowanymi usługami (demonstracyjne API, Tester OIDC / OAuth2.0, LDAP).
 
-Wersja Keycloak: *26.0.4*
+Wersja Keycloak: *26.0.5*
 
 ## Wymagania
 
