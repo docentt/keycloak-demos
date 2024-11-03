@@ -10,8 +10,8 @@ endpoint_access := [
     {"method": "GET", "path": "/data", "required_scopes": ["data.read"], "aud": "https://api.example.com"},
     {"method": "PUT", "path": "/data", "required_scopes": ["data.update"], "aud": "https://api.example.com"},
     {"method": "GET", "path": "/data/export", "required_scopes": ["data.export"], "aud": "https://api.example.com"},
-    {"method": "GET", "path": "/config", "required_scopes": ["admin.config"], "aud": "https://api.example.org"},
-    {"method": "PUT", "path": "/config", "required_scopes": ["admin.config"], "aud": "https://api.example.org"}
+    {"method": "GET", "path": "/config", "required_scopes": ["admin.config"], "aud": "https://api.admin.example.com"},
+    {"method": "PUT", "path": "/config", "required_scopes": ["admin.config"], "aud": "https://api.admin.example.com"}
 ]
 
 #Przypasowanie polityki dot. operacji na endpointach do zakresów w tokenie

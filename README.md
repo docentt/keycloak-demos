@@ -19,7 +19,7 @@ Krok opcjonalny, wymaga wcześniejszej instalacji OpenSSL.
 **UWAGA**: Ze względów bezpieczeństwa zalecane jest wygenerowanie certyfikatu, zamiast wykorzystywania certyfikatu znajdującego się w _./certs/_.
 
     cd certs/
-    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout keycloak-demos.key -out keycloak-demos.crt -subj "/CN=login.example.com" -addext "subjectAltName=DNS:*.example.com,DNS:*.example.org,DNS:keycloak-demos"
+    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout keycloak-demos.key -out keycloak-demos.crt -subj "/CN=login.example.com" -addext "subjectAltName=subjectAltName=DNS:*.example.com,DNS:*.admin.example.com,DNS:*.example.org,DNS:*.admin.example.org,DNS:*.internal.example.org,DNS:keycloak-demos"
 
 ### Instalacja certyfikatu TLS 
 
@@ -60,7 +60,7 @@ Demonstracja wymaga dodania następujących wpisów do DNS na komputerze na któ
   - 127.0.0.1       login.example.org
 - demonstracyjne API
   - 127.0.0.1       api.example.com
-  - 127.0.0.1       api.example.org
+  - 127.0.0.1       api.admin.example.com
 - serwer pocztowy
   - 127.0.0.1       mail.example.com
   - 127.0.0.1       mail.example.org
@@ -128,7 +128,7 @@ Uruchomienie demonstracyjnego API o parametrach:
 - ścieżka usługi: */*
 - domeny usługi:
   - *api.example.com*
-  - *api.example.org*
+  - *api.admin.example.com*
 
 
 
@@ -136,7 +136,7 @@ Uruchomienie demonstracyjnego API o parametrach:
 
 Demonstracyjne API dostępne jest pod adresami:
 - https://api.example.com:9443/
-- https://api.example.org:9443/
+- https://api.admin.example.com:9443/
 
 API odpowiada decyzjami autoryzacyjnymi realizowanymi przez agenta [Open Policy Agent (OPA)](https://www.openpolicyagent.org/) uruchomionego w osobnym kontenerze.
 Do OPA kierowane są jedynie żądania zawierające nagłówek HTTP _Authorization_ z tokenem na okaziciela.
@@ -341,10 +341,10 @@ Serwer Zasobów https://api.example.com
 - typ klienta: bearer-only
 - granty: brak
 
-##### https://api.example.org
+##### https://api.admin.example.com
 
-Serwer Zasobów https://api.example.org
-- client id: https://api.example.org
+Serwer Zasobów https://api.admin.example.com
+- client id: https://api.admin.example.com
 - typ klienta: bearer-only
 - granty: brak
 
@@ -406,7 +406,7 @@ Aplikacja https://admindashboard.example.com (do testowania z https://oidcdebugg
   - admin.config
 - aud:
   - https://api.example.com
-  - https://api.example.org
+  - https://api.admin.example.com
 - granty:
   - Authorization Code grant,
   - Resource Owner Password Credentials grant,

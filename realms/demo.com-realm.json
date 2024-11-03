@@ -299,7 +299,7 @@
       "https://userportal.example.com" : [ ],
       "admin-cli" : [ ],
       "https://api.example.com" : [ ],
-      "https://api.example.org" : [ ],
+      "https://api.admin.example.com" : [ ],
       "https://oidcdebugger.com/" : [ ],
       "account" : [ {
         "id" : "d16181bf-255a-48b4-bb00-9991dbb2fb1a",
@@ -660,12 +660,12 @@
     "nodeReRegistrationTimeout" : -1,
     "protocolMappers" : [ {
       "id" : "81a55cb1-e705-46f8-a1e1-56fe1009fc21",
-      "name" : "https://api.example.org",
+      "name" : "https://api.admin.example.com",
       "protocol" : "openid-connect",
       "protocolMapper" : "oidc-audience-mapper",
       "consentRequired" : false,
       "config" : {
-        "included.client.audience" : "https://api.example.org",
+        "included.client.audience" : "https://api.admin.example.com",
         "id.token.claim" : "false",
         "lightweight.claim" : "false",
         "introspection.token.claim" : "true",
@@ -791,7 +791,7 @@
     "optionalClientScopes" : [ "address", "phone", "offline_access", "microprofile-jwt" ]
   }, {
     "id" : "8f08eda6-cb70-4976-a3c3-8a0a508f823f",
-    "clientId" : "https://api.example.org",
+    "clientId" : "https://api.admin.example.com",
     "name" : "",
     "description" : "",
     "rootUrl" : "",

@@ -5,8 +5,8 @@ const apiEndpointsConfig = [
     { method: "GET", path: "/data", requiredScopes: ["data.read"], aud: "https://api.example.com", port: 9443 },
     { method: "PUT", path: "/data", requiredScopes: ["data.update"], aud: "https://api.example.com", port: 9443 },
     { method: "GET", path: "/data/export", requiredScopes: ["data.export"], aud: "https://api.example.com", port: 9443 },
-    { method: "GET", path: "/config", requiredScopes: ["admin.config"], aud: "https://api.example.org", port: 9443 },
-    { method: "PUT", path: "/config", requiredScopes: ["admin.config"], aud: "https://api.example.org", port: 9443 },
+    { method: "GET", path: "/config", requiredScopes: ["admin.config"], aud: "https://api.admin.example.com", port: 9443 },
+    { method: "PUT", path: "/config", requiredScopes: ["admin.config"], aud: "https://api.admin.example.com", port: 9443 },
 ];
 
 export default apiEndpointsConfig;
