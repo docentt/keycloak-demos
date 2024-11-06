@@ -1,11 +1,18 @@
 #!/bin/sh
 
 ./configure.sh
+./stop_syslog.sh
+docker run --name=syslog-keycloak-demos --network keycloak-demos -d -p 514:514/udp \
+ -v $(pwd)/syslog/syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf \
+ -v $(pwd)/logs/syslog:/var/log/syslog-ng \
+ --privileged \
+ balabit/syslog-ng
+
 docker rm keycloak-demos
 docker run --name=keycloak-demos --network keycloak-demos -d -p 8443:8443 -p 5005:5005 \
  -v $(pwd)/realms:/opt/keycloak/data/import \
  -v $(pwd)/certs:/opt/keycloak/data/certs \
- -v $(pwd)/config/keycloak.conf:/opt/keycloak/conf/keycloak.conf \
+ -v $(pwd)/config/quarkus.properties:/opt/keycloak/conf/quarkus.properties \
  -e KEYCLOAK_ADMIN=admin -e KEYCLOAK_ADMIN_PASSWORD=admin \
  -e JAVA_OPTS_APPEND="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005" \
  quay.io/keycloak/keycloak:26.0.5 start-dev \
