@@ -1,6 +1,6 @@
 # Demonstracje Keycloak
 
-Repozytorium pozwala na szybkie uruchomienie Keycloak z demonstracyjnymi konfiguracjami oraz zintegrowanymi usługami (demonstracyjne API, Tester OIDC / OAuth2.0, LDAP).
+Repozytorium pozwala na szybkie uruchomienie Keycloak z demonstracyjnymi konfiguracjami oraz zintegrowanymi usługami (demonstracyjne API, Tester OIDC / OAuth2.0, LDAP, syslog).
 
 Wersja Keycloak: *26.0.5*
 
@@ -116,7 +116,7 @@ Uruchomienie Keycloak o parametrach:
 
     ./start_kc.sh
 
-Dodatkowo uruchomiony zostanie testowy serwer pocztowy.
+Dodatkowo uruchomiony zostanie testowy serwer pocztowy oraz serwer syslog.
 
 Konsola Keycloak dostępna jest pod adresem https://login.example.com:8443/
 Skrzynka email typu "catch all" z testowego serwera pocztowego dostępna jest pod adresem http://mail.example.com:5000/ / http://mail.example.org:5000/
@@ -251,6 +251,12 @@ w zależności od tego, logi którego z kontenerów chcemy podejrzeć.
 Podgląd logów działającego serwera OpenLDAP.
 
     ./see_logs_ldap.sh
+
+#### syslog
+
+Podgląd logów działającego serwera syslog.
+
+    ./see_logs_syslog.sh
 
 ## Konfiguracja
 
