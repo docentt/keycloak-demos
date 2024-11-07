@@ -57,6 +57,7 @@ Jeżeli jednak tak się nie stanie, lub OS jest inny niż Windows, należy wykon
 Demonstracja wymaga dodania następujących wpisów do DNS na komputerze na którym uruchamiane jest demo (wpisy w _/etc/hosts_, w przypadku Windows w _C:\Windows\System32\drivers\etc\hosts_):
 - Keycloak
   - 127.0.0.1       login.example.com
+  - 127.0.0.1       kc-admin.example.com
   - 127.0.0.1       login.example.org
 - demonstracyjne API
   - 127.0.0.1       api.example.com
@@ -107,6 +108,7 @@ Uruchomienie Keycloak o parametrach:
 - domeny usługi: 
   - *login.example.com*
   - *login.example.org* (dla wybranego realm)
+  - *kc-admin.example.com* (do administracji)
 - port do zarządzania: 9000
 - ścieżka do zarządzania: */*
 - tryb debug dla nazw hostów
