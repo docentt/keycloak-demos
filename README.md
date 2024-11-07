@@ -107,6 +107,11 @@ Uruchomienie Keycloak o parametrach:
 - domeny usługi: 
   - *login.example.com*
   - *login.example.org* (dla wybranego realm)
+- port do zarządzania: 9000
+- ścieżka do zarządzania: */*
+- tryb debug dla nazw hostów
+- metryki: włączone
+- health checks: włączone
 - tryb developerski
 - uruchomienie w tle
 - port do zdalnego debuggowania: 5005
