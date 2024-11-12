@@ -5,12 +5,16 @@ import rego.v1
 import data.config.metadata_urls
 import data.config.introspection_clients
 import data.config.tls_ca_cert_file
-import data.scopes.endpoint_access
-import data.scopes.check_scopes
+import data.scopes_and_roles.endpoint_access
+import data.scopes_and_roles.check_scopes
+import data.scopes_and_roles.check_roles
+import data.scopes_and_roles.exact_match_regex
 
 default allow := false
-default global_roles := []
-default client_roles := []
+default offline_matched_roles := []
+default offline_matched_client_roles := []
+default online_matched_roles := []
+default online_matched_client_roles := []
 default all_client_roles := {}
 default endpoint_requirements_or_empty := {}
 
@@ -19,7 +23,7 @@ default selected_claims_email := ""
 endpoint_requirements := _endpoint_requirements if{
     some _endpoint_requirements in endpoint_access
     _endpoint_requirements.method == input.method
-    _endpoint_requirements.path == input.path
+    regex.match(exact_match_regex(_endpoint_requirements.path), input.path)
     _endpoint_requirements.aud == expected_audience
 }
 
@@ -77,7 +81,9 @@ offline_matched_aud := expected_audience if {
 	offline_payload.aud == expected_audience
 }
 
-offline_matched_roles := offline_payload.resource_access[offline_matched_aud].roles
+offline_matched_roles := offline_payload.realm_access.roles
+
+offline_matched_client_roles := offline_payload.resource_access[offline_matched_aud].roles
 
 offline_scopes := split(offline_payload.scope, " ")
 
@@ -85,10 +91,20 @@ offline_scopes_valid if{
     check_scopes(endpoint_requirements, offline_scopes)
 }
 
+offline_roles_valid if{
+    check_roles(endpoint_requirements.required_roles, offline_matched_roles)
+}
+
+offline_client_roles_valid if{
+    check_roles(endpoint_requirements.required_client_roles, offline_matched_client_roles)
+}
+
 allow if {
 	offline_valid_jwt
 	offline_matched_aud
 	offline_scopes_valid
+	offline_roles_valid
+	offline_client_roles_valid
 }
 
 errors["JWT_invalid_or_expired"] if {
@@ -106,6 +122,16 @@ errors["insufficient_token_scope"] if {
 	not offline_scopes_valid
 }
 
+errors["insufficient_token_roles"] if {
+	offline_valid_jwt
+	not offline_roles_valid
+}
+
+errors["insufficient_token_client_roles"] if {
+	offline_valid_jwt
+	not offline_client_roles_valid
+}
+
 config := {
     "iss": metadata.issuer,
     "jwks_url": metadata.jwks_uri
@@ -113,15 +139,13 @@ config := {
     not input.want_online_introspection
 }
 
-global_roles := offline_payload.realm_access.roles
-client_roles := offline_matched_roles
 all_client_roles := offline_payload.resource_access
 selected_claims_email = offline_payload["email"]
 
 token_data := {
     "matched_aud": offline_matched_aud,
-    "matched_roles": client_roles,
-    "global_roles": global_roles,
+    "matched_roles": offline_matched_client_roles,
+    "global_roles": offline_matched_roles,
     "scopes": offline_scopes,
     "all_auds": offline_payload.aud,
     "all_roles": all_client_roles,
@@ -258,7 +282,9 @@ online_matched_aud := expected_audience if {
 	token_introspection_result.aud == expected_audience
 }
 
-online_matched_roles := token_introspection_result.resource_access[online_matched_aud].roles
+online_matched_roles := token_introspection_result.realm_access.roles
+
+online_matched_client_roles := token_introspection_result.resource_access[online_matched_aud].roles
 
 online_scopes := split(token_introspection_result.scope, " ")
 
@@ -266,10 +292,20 @@ online_scopes_valid if {
     check_scopes(endpoint_requirements, online_scopes)
 }
 
+online_roles_valid if{
+    check_roles(endpoint_requirements.required_roles, online_matched_roles)
+}
+
+online_client_roles_valid if{
+    check_roles(endpoint_requirements.required_client_roles, online_matched_client_roles)
+}
+
 allow if {
 	online_is_active
 	online_matched_aud
 	online_scopes_valid
+	online_roles_valid
+	online_client_roles_valid
 }
 
 errors["JWT_invalid_or_expired"] if {
@@ -287,6 +323,16 @@ errors["insufficient_token_scope"] if {
 	not online_scopes_valid
 }
 
+errors["insufficient_token_roles"] if {
+	online_is_active
+	not online_roles_valid
+}
+
+errors["insufficient_token_client_roles"] if {
+	online_is_active
+	not online_client_roles_valid
+}
+
 config := {
     "iss": metadata.issuer,
     "introspection_endpoint": metadata.introspection_endpoint
@@ -294,15 +340,13 @@ config := {
     input.want_online_introspection
 }
 
-global_roles := token_introspection_result.realm_access.roles
-client_roles := online_matched_roles
 all_client_roles := token_introspection_result.resource_access
 selected_claims_email = token_introspection_result["email"]
 
 token_data := {
     "matched_aud": online_matched_aud,
-    "matched_roles": client_roles,
-    "global_roles": global_roles,
+    "matched_roles": online_matched_client_roles,
+    "global_roles": online_matched_roles,
     "scopes": online_scopes,
     "all_auds": token_introspection_result.aud,
     "all_roles": all_client_roles,

@@ -13,8 +13,8 @@ docker run --name=demo-API --network keycloak-demos -d -p 9443:9443 \
 docker run --name=demo-API-opa --network keycloak-demos -d -p 8181:8181 \
   -v $(pwd)/demo-API/opa/auth.rego:/auth.rego \
   -v $(pwd)/demo-API/opa/config.rego:/config.rego \
-  -v $(pwd)/demo-API/opa/scopes.rego:/scopes.rego \
+  -v $(pwd)/demo-API/opa/scopes_and_roles.rego:/scopes_and_roles.rego \
   -v $(pwd)/certs/keycloak-demos.crt:/keycloak-demos.crt \
   openpolicyagent/opa:latest-debug run --server \
   --log-level debug --log-format json-pretty \
-  /auth.rego /scopes.rego /config.rego
+  /auth.rego /scopes_and_roles.rego /config.rego
