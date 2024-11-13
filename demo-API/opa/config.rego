@@ -3,7 +3,8 @@ package config
 #Mapowanie Issuer -> OIDC Metadata URL
 metadata_urls := {
     "https://login.example.com:8443/auth/realms/demo.com": concat("", ["https://keycloak-demos:8443/auth/realms/demo.com", "/.well-known/openid-configuration"]),
-    "https://login.example.org:8443/auth/realms/demo.org": concat("", ["https://keycloak-demos:8443/auth/realms/demo.org", "/.well-known/openid-configuration"])
+    "https://login.example.org:8443/auth/realms/demo.org": concat("", ["https://keycloak-demos:8443/auth/realms/demo.org", "/.well-known/openid-configuration"]),
+    "https://login.example.com:8443/auth/realms/lab.com": concat("", ["https://keycloak-demos:8443/auth/realms/lab.com", "/.well-known/openid-configuration"])
 }
 
 #Mapowanie Issuer -> klient do online introspection

@@ -11,7 +11,15 @@ endpoint_access := [
     {"method": "PUT", "path": "/data/{id}", "required_scopes": ["data.update"], "required_roles": [], "required_client_roles": [], "aud": "https://api.example.com"},
     {"method": "GET", "path": "/data/export", "required_scopes": ["data.export"], "required_roles": [], "required_client_roles": [], "aud": "https://api.example.com"},
     {"method": "GET", "path": "/config", "required_scopes": ["admin.config"], "required_roles": [], "required_client_roles": [], "aud": "https://api.admin.example.com"},
-    {"method": "PUT", "path": "/config", "required_scopes": ["admin.config"], "required_roles": [], "required_client_roles": [], "aud": "https://api.admin.example.com"}
+    {"method": "PUT", "path": "/config", "required_scopes": ["admin.config"], "required_roles": [], "required_client_roles": [], "aud": "https://api.admin.example.com"},
+    {"method": "POST", "path": "/policies", "required_scopes": [ ], "required_roles": [], "required_client_roles": ["policy-create"], "aud": "https://api.example.org"},
+    {"method": "GET", "path": "/policies/{id}", "required_scopes": [ ], "required_roles": [], "required_client_roles": ["policy-read"], "aud": "https://api.example.org"},
+    {"method": "PUT", "path": "/policies/{id}", "required_scopes": [ ], "required_roles": [], "required_client_roles": ["policy-update"], "aud": "https://api.example.org"},
+    {"method": "POST", "path": "/claims", "required_scopes": [ ], "required_roles": [], "required_client_roles": ["claim-create"], "aud": "https://api.example.org"},
+    {"method": "GET", "path": "/claims", "required_scopes": [ ], "required_roles": [], "required_client_roles": ["claim-read"], "aud": "https://api.admin.example.org"},
+    {"method": "POST", "path": "/claims/{id}/approve", "required_scopes": [ ], "required_roles": [], "required_client_roles": ["claim-approve"], "aud": "https://api.admin.example.org"},
+    {"method": "POST", "path": "/claims/{id}/reject", "required_scopes": [ ], "required_roles": [], "required_client_roles": ["claim-reject"], "aud": "https://api.admin.example.org"},
+    {"method": "POST", "path": "/claims/{id}/process", "required_scopes": [ ], "required_roles": [], "required_client_roles": ["claim-process"], "aud": "https://api.internal.example.org"}
 ]
 
 #Przypasowanie polityki dot. operacji na endpointach do zakresów w tokenie
