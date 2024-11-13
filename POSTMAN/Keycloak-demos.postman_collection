@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "b394f91b-e93a-40a5-b723-14d61b99a691",
+		"_postman_id": "9f0296f5-4f6c-4f87-9bde-79d316807cc3",
 		"name": "Keycloak - demos",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "2556997"
@@ -44,8 +44,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"type": "text",
-										"value": "application/json"
+										"value": "application/json",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -114,9 +114,8 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/x-www-form-urlencoded"
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -212,9 +211,8 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/x-www-form-urlencoded"
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -268,8 +266,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"type": "text",
-										"value": "application/json"
+										"value": "application/json",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -338,8 +336,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"type": "text",
-										"value": "application/json"
+										"value": "application/json",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -496,8 +494,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"type": "text",
-										"value": "application/json"
+										"value": "application/json",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -537,8 +535,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"type": "text",
-										"value": "application/json"
+										"value": "application/json",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -649,8 +647,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"type": "text",
-										"value": "application/json"
+										"value": "application/json",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -719,9 +717,8 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/x-www-form-urlencoded"
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -815,9 +812,8 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/x-www-form-urlencoded"
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -885,9 +881,8 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/x-www-form-urlencoded"
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -950,9 +945,8 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/x-www-form-urlencoded"
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -1020,9 +1014,8 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"name": "Content-Type",
-										"type": "text",
-										"value": "application/x-www-form-urlencoded"
+										"value": "application/x-www-form-urlencoded",
+										"type": "text"
 									}
 								],
 								"body": {
@@ -1098,7 +1091,6 @@
 								"header": [
 									{
 										"key": "Content-Type",
-										"name": "Content-Type",
 										"value": "application/x-www-form-urlencoded",
 										"type": "text"
 									}
@@ -1167,8 +1159,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"type": "text",
-										"value": "application/json"
+										"value": "application/json",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1479,8 +1471,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"type": "text",
-										"value": "application/json"
+										"value": "application/json",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1520,8 +1512,8 @@
 								"header": [
 									{
 										"key": "Accept",
-										"type": "text",
-										"value": "application/json"
+										"value": "application/json",
+										"type": "text"
 									}
 								],
 								"url": {
@@ -1581,6 +1573,661 @@
 							"pm.environment.set(\"active-CC_secret\", pm.environment.get(realm + \"-CC_secret\"));\r",
 							"pm.environment.set(\"active-CC_client_client_secret_jwt\", pm.environment.get(realm + \"-CC_client_client_secret_jwt\"));\r",
 							"pm.environment.set(\"active-CC_client_private_key_jwt\", pm.environment.get(realm + \"-CC_client_private_key_jwt\"));"
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "demo.com - OIDC/OAuth2.0 tester app",
+			"item": [
+				{
+					"name": "GET api/public",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{active-api_base_url}}/public?want_online_introspection",
+							"host": [
+								"{{active-api_base_url}}"
+							],
+							"path": [
+								"public"
+							],
+							"query": [
+								{
+									"key": "want_online_introspection",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET api/profile",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{active-api_base_url}}/profile?want_online_introspection",
+							"host": [
+								"{{active-api_base_url}}"
+							],
+							"path": [
+								"profile"
+							],
+							"query": [
+								{
+									"key": "want_online_introspection",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT api/profile",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{active-api_base_url}}/profile?want_online_introspection",
+							"host": [
+								"{{active-api_base_url}}"
+							],
+							"path": [
+								"profile"
+							],
+							"query": [
+								{
+									"key": "want_online_introspection",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET api/data/123",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{active-api_base_url}}/data/123?want_online_introspection",
+							"host": [
+								"{{active-api_base_url}}"
+							],
+							"path": [
+								"data",
+								"123"
+							],
+							"query": [
+								{
+									"key": "want_online_introspection",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT api/data/123",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{active-api_base_url}}/data/123?want_online_introspection",
+							"host": [
+								"{{active-api_base_url}}"
+							],
+							"path": [
+								"data",
+								"123"
+							],
+							"query": [
+								{
+									"key": "want_online_introspection",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET api/data/export",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{active-api_base_url}}/data/export?want_online_introspection",
+							"host": [
+								"{{active-api_base_url}}"
+							],
+							"path": [
+								"data",
+								"export"
+							],
+							"query": [
+								{
+									"key": "want_online_introspection",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET admin.api/config",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{active-admin_api_base_url}}/config?want_online_introspection",
+							"host": [
+								"{{active-admin_api_base_url}}"
+							],
+							"path": [
+								"config"
+							],
+							"query": [
+								{
+									"key": "want_online_introspection",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT admin.api/config",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{active-admin_api_base_url}}/config?want_online_introspection",
+							"host": [
+								"{{active-admin_api_base_url}}"
+							],
+							"path": [
+								"config"
+							],
+							"query": [
+								{
+									"key": "want_online_introspection",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "oauth2",
+				"oauth2": [
+					{
+						"key": "refreshRequestParams",
+						"value": [],
+						"type": "any"
+					},
+					{
+						"key": "tokenRequestParams",
+						"value": [],
+						"type": "any"
+					},
+					{
+						"key": "authRequestParams",
+						"value": [],
+						"type": "any"
+					},
+					{
+						"key": "tokenName",
+						"value": "demo.com-OIDC/OAuth2.0-tester_app",
+						"type": "string"
+					},
+					{
+						"key": "challengeAlgorithm",
+						"value": "S256",
+						"type": "string"
+					},
+					{
+						"key": "useBrowser",
+						"value": true,
+						"type": "boolean"
+					},
+					{
+						"key": "scope",
+						"value": "{{active-scope}}",
+						"type": "string"
+					},
+					{
+						"key": "grant_type",
+						"value": "authorization_code",
+						"type": "string"
+					},
+					{
+						"key": "clientId",
+						"value": "{{active-client_id}}",
+						"type": "string"
+					},
+					{
+						"key": "authUrl",
+						"value": "{{active-authorization_endpoint}}",
+						"type": "string"
+					},
+					{
+						"key": "addTokenTo",
+						"value": "header",
+						"type": "string"
+					},
+					{
+						"key": "client_authentication",
+						"value": "body",
+						"type": "string"
+					},
+					{
+						"key": "accessTokenUrl",
+						"value": "{{active-token_endpoint}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"var realm = \"demo.com\";\r",
+							"pm.environment.set(\"active-realm\", realm);\r",
+							"\r",
+							"pm.environment.set(\"active-authorization_endpoint\", pm.environment.get(realm + \"-authorization_endpoint\"));\r",
+							"pm.environment.set(\"active-token_endpoint\", pm.environment.get(realm + \"-token_endpoint\"));\r",
+							"\r",
+							"pm.environment.set(\"active-client_id\", pm.environment.get(realm + \"-tester_app_client_id\"));\r",
+							"pm.environment.set(\"active-scope\", pm.environment.get(realm + \"-tester_app_scope\"));\r",
+							"\r",
+							"pm.environment.set(\"active-api_base_url\", pm.environment.get(realm + \"-api_base_url\"));\r",
+							"pm.environment.set(\"active-admin_api_base_url\", pm.environment.get(realm + \"-admin_api_base_url\"));\r",
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "lab.com - OIDC/OAuth2.0 tester app Copy",
+			"item": [
+				{
+					"name": "Token exchange",
+					"item": [
+						{
+							"name": "Token exchange",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var realmPrefix = \"lab.com-\";\r",
+											"var jsonData = JSON.parse(responseBody);\r",
+											"postman.setEnvironmentVariable(realmPrefix+\"access_token\", jsonData.access_token);\r",
+											"postman.setEnvironmentVariable(realmPrefix+\"tokens_scope\", jsonData.scope);\r",
+											"const payload = jsonData.access_token.split('.')[1];\r",
+											"const parsed = JSON.parse(atob(payload));\r",
+											"postman.setEnvironmentVariable(realmPrefix+\"access_token_payload-json\", JSON.stringify(parsed));\r",
+											"postman.setEnvironmentVariable(realmPrefix+\"access_token_payload-sub\", parsed.sub);\r",
+											"postman.setEnvironmentVariable(realmPrefix+\"access_token_payload-exp\", new Date(Number(parsed.exp)*1000).toLocaleString(\"pl-PL\"));\r",
+											"postman.setEnvironmentVariable(realmPrefix+\"access_token_payload-iat\", new Date(Number(parsed.iat)*1000).toLocaleString(\"pl-PL\"));"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "urlencoded",
+									"urlencoded": [
+										{
+											"key": "grant_type",
+											"value": "urn:ietf:params:oauth:grant-type:token-exchange",
+											"type": "text"
+										},
+										{
+											"key": "client_id",
+											"value": "https://api.admin.example.org",
+											"type": "text"
+										},
+										{
+											"key": "client_secret",
+											"value": "",
+											"type": "text"
+										},
+										{
+											"key": "audience",
+											"value": "https://api.internal.example.org",
+											"type": "text"
+										},
+										{
+											"key": "requested_token_type",
+											"value": "urn:ietf:params:oauth:token-type:access_token",
+											"type": "text"
+										},
+										{
+											"key": "subject_token",
+											"value": "",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{active-token_endpoint}}",
+									"host": [
+										"{{active-token_endpoint}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "POST internal.api/claims/123/process Copy",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{lab.com-access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{active-internal_api_base_url}}/claims/123/process",
+									"host": [
+										"{{active-internal_api_base_url}}"
+									],
+									"path": [
+										"claims",
+										"123",
+										"process"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "POST api/policies",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{active-api_base_url}}/policies",
+							"host": [
+								"{{active-api_base_url}}"
+							],
+							"path": [
+								"policies"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET api/policies/123",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{active-api_base_url}}/policies/123",
+							"host": [
+								"{{active-api_base_url}}"
+							],
+							"path": [
+								"policies",
+								"123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT api/policies/123",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{active-api_base_url}}/policies/123",
+							"host": [
+								"{{active-api_base_url}}"
+							],
+							"path": [
+								"policies",
+								"123"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET api/claims",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{active-api_base_url}}/claims",
+							"host": [
+								"{{active-api_base_url}}"
+							],
+							"path": [
+								"claims"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET admin.api/claims",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{active-admin_api_base_url}}/claims",
+							"host": [
+								"{{active-admin_api_base_url}}"
+							],
+							"path": [
+								"claims"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST admin.api/claims/123/approve",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{active-admin_api_base_url}}/claims/123/approve",
+							"host": [
+								"{{active-admin_api_base_url}}"
+							],
+							"path": [
+								"claims",
+								"123",
+								"approve"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST admin.api/claims/123/reject",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{active-admin_api_base_url}}/claims/123/reject",
+							"host": [
+								"{{active-admin_api_base_url}}"
+							],
+							"path": [
+								"claims",
+								"123",
+								"reject"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "POST internal.api/claims/123/process",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{active-internal_api_base_url}}/claims/123/process",
+							"host": [
+								"{{active-internal_api_base_url}}"
+							],
+							"path": [
+								"claims",
+								"123",
+								"process"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "oauth2",
+				"oauth2": [
+					{
+						"key": "tokenName",
+						"value": "lab.com-OIDC/OAuth2.0-tester_app",
+						"type": "string"
+					},
+					{
+						"key": "refreshRequestParams",
+						"value": [],
+						"type": "any"
+					},
+					{
+						"key": "tokenRequestParams",
+						"value": [],
+						"type": "any"
+					},
+					{
+						"key": "authRequestParams",
+						"value": [],
+						"type": "any"
+					},
+					{
+						"key": "challengeAlgorithm",
+						"value": "S256",
+						"type": "string"
+					},
+					{
+						"key": "useBrowser",
+						"value": true,
+						"type": "boolean"
+					},
+					{
+						"key": "scope",
+						"value": "{{active-scope}}",
+						"type": "string"
+					},
+					{
+						"key": "grant_type",
+						"value": "authorization_code",
+						"type": "string"
+					},
+					{
+						"key": "clientId",
+						"value": "{{active-client_id}}",
+						"type": "string"
+					},
+					{
+						"key": "authUrl",
+						"value": "{{active-authorization_endpoint}}",
+						"type": "string"
+					},
+					{
+						"key": "addTokenTo",
+						"value": "header",
+						"type": "string"
+					},
+					{
+						"key": "client_authentication",
+						"value": "body",
+						"type": "string"
+					},
+					{
+						"key": "accessTokenUrl",
+						"value": "{{active-token_endpoint}}",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"var realm = \"lab.com\";\r",
+							"pm.environment.set(\"active-realm\", realm);\r",
+							"\r",
+							"pm.environment.set(\"active-authorization_endpoint\", pm.environment.get(realm + \"-authorization_endpoint\"));\r",
+							"pm.environment.set(\"active-token_endpoint\", pm.environment.get(realm + \"-token_endpoint\"));\r",
+							"\r",
+							"pm.environment.set(\"active-client_id\", pm.environment.get(realm + \"-tester_app_client_id\"));\r",
+							"pm.environment.set(\"active-scope\", pm.environment.get(realm + \"-tester_app_scope\"));\r",
+							"\r",
+							"pm.environment.set(\"active-api_base_url\", pm.environment.get(realm + \"-api_base_url\"));\r",
+							"pm.environment.set(\"active-admin_api_base_url\", pm.environment.get(realm + \"-admin_api_base_url\"));\r",
+							"pm.environment.set(\"active-internal_api_base_url\", pm.environment.get(realm + \"-internal_api_base_url\"));\r",
+							""
 						]
 					}
 				},
