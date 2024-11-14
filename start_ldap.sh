@@ -6,4 +6,4 @@ docker run --name ldap-keycloak-demos --network keycloak-demos -d -p 389:389 \
   -e LDAP_PORT_NUMBER="389" \
   -e LDAP_ADMIN_PASSWORD="admin" \
   -e LDAP_LOGLEVEL="1" \
-  bitnami/openldap:latest
+  docker.io/bitnami/openldap:latest

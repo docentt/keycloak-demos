@@ -7,7 +7,7 @@ docker run --name=syslog-keycloak-demos --network keycloak-demos -d -p 514:514/u
  -v $(pwd)/syslog/syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf \
  -v $(pwd)/logs/syslog:/var/log/syslog-ng \
  --privileged \
- balabit/syslog-ng
+ docker.io/balabit/syslog-ng
 
 docker rm keycloak-demos
 docker run --name=keycloak-demos --network keycloak-demos -d -p 8443:8443 -p 9000:9000 -p 5005:5005 \
@@ -32,4 +32,4 @@ fi
 docker rm smtp-keycloak-demos
 docker run --name=smtp-keycloak-demos --network keycloak-demos -d -p 5000:80 \
  -v $(pwd)/smtp/appsettings.json:/smtp4dev/appsettings.json \
- rnwood/smtp4dev
+ docker.io/rnwood/smtp4dev
