@@ -1,9 +1,12 @@
 #!/bin/sh
 
-docker stop keycloak-demos
+. ./docker_utils.sh
+
+stop_container "keycloak-demos"
 if [ "$1" != "--no-dump" ]; then
   ./dump_realms_kc.sh
 else
   echo "Pomijam wykonanie zrzutu konfiguracji."
 fi
-docker rm keycloak-demos
+remove_container "keycloak-demos"
+./stop_syslog.sh

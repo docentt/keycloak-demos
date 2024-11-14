@@ -1,4 +1,5 @@
 #!/bin/sh
 
-docker stop ldap-keycloak-demos
-docker rm ldap-keycloak-demos
+. ./docker_utils.sh
+
+stop_and_remove_container "ldap-keycloak-demos"

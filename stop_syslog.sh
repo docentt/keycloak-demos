@@ -1,4 +1,5 @@
 #!/bin/sh
 
-docker stop syslog-keycloak-demos
-docker rm syslog-keycloak-demos
+. ./docker_utils.sh
+
+stop_and_remove_container "syslog-keycloak-demos"

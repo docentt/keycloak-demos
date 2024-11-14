@@ -1,4 +1,5 @@
 #!/bin/sh
 
-docker stop demo-app
-docker rm demo-app
+. ./docker_utils.sh
+
+stop_and_remove_container "demo-app"

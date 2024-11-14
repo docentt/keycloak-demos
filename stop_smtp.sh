@@ -1,4 +1,5 @@
 #!/bin/sh
 
-docker stop smtp-keycloak-demos
-docker rm smtp-keycloak-demos
+. ./docker_utils.sh
+
+stop_and_remove_container "smtp-keycloak-demos"
