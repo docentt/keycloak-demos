@@ -1,4 +1,4 @@
-FROM perl:latest
+FROM docker.io/perl:latest
 
 RUN apt-get update
 
