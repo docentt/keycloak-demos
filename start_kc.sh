@@ -20,7 +20,7 @@ docker run --name=keycloak-demos --network keycloak-demos -d -p 8443:8443 -p 900
  -v $(pwd)/logs/keycloak:/opt/keycloak/logs \
  -e KC_BOOTSTRAP_ADMIN_USERNAME=admin -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin \
  -e JAVA_OPTS_APPEND="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005" \
- quay.io/keycloak/keycloak:26.0.5 start-dev \
+ quay.io/keycloak/keycloak:26.0.6 start-dev \
  --features="preview" --import-realm --verbose \
  --hostname=https://login.example.com:8443/auth --hostname-backchannel-dynamic true --hostname-debug=true --http-relative-path=/auth \
  --hostname-admin=https://kc-admin.example.com:8443/auth --health-enabled=true --metrics-enabled=true --http-management-relative-path=/ \
