@@ -259,6 +259,10 @@ Podgląd logów działającego serwera OpenLDAP.
 
     ./see_logs_ldap.sh
 
+Monitorowanie liczby połączeń utrzymywanych przez LDAP.
+
+    ./monitor_ldap.sh
+
 #### syslog
 
 Podgląd logów działającego serwera syslog.
