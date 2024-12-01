@@ -672,9 +672,9 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{master-jwks_uri}}",
+									"raw": "{{active-jwks_uri}}",
 									"host": [
-										"{{master-jwks_uri}}"
+										"{{active-jwks_uri}}"
 									]
 								}
 							},
