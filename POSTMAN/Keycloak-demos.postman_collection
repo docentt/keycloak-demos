@@ -1421,22 +1421,26 @@
 										{
 											"key": "client_id",
 											"value": "{{active-AC_client}}",
-											"type": "text"
+											"type": "text",
+											"disabled": true
 										},
 										{
 											"key": "client_secret",
 											"value": "{{active-AC_secret}}",
-											"type": "text"
+											"type": "text",
+											"disabled": true
 										},
 										{
 											"key": "client_id",
 											"value": "{{active-CC_client}}",
-											"type": "text"
+											"type": "text",
+											"disabled": true
 										},
 										{
 											"key": "client_secret",
 											"value": "{{active-CC_secret}}",
-											"type": "text"
+											"type": "text",
+											"disabled": true
 										}
 									]
 								},
