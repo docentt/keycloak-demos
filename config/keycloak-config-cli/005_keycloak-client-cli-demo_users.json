@@ -1,0 +1,36 @@
+{
+  "enabled": true,
+  "realm": "keycloak-client-cli-demo",
+  "users": [
+    {
+      "username": "test",
+      "enabled": true,
+      "email": "test@example.com",
+      "emailVerified": true,
+      "firstName": "Managed Test",
+      "lastName": "User",
+      "credentials": [
+        {
+          "type": "password",
+          "userLabel": "initial",
+          "value": "test"
+        }
+      ],
+      "attributes": {
+        "locale": [
+          "pl"
+        ],
+        "demo_company": "example.com",
+        "demo_hobby": [
+          "movies",
+          "computer games",
+          "travelling"
+        ]
+      },
+      "groups": [
+        "/Group 1/SubGroup 1",
+        "/Group 2/SubGroup 2"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+{
+  "realm": "keycloak-client-cli-demo-manual",
+  "users": [
+    {
+      "username": "test",
+      "enabled": true,
+      "email": "test@manual.example.com",
+      "emailVerified": true,
+      "firstName": "Managed Test",
+      "lastName": "User Updated",
+      "credentials": [
+        {
+          "type": "password",
+          "userLabel": "initial",
+          "value": "test"
+        }
+      ],
+      "attributes": {
+        "locale": [
+          "pl"
+        ]
+      }
+    }
+  ],
+  "groups": [ ]
+}

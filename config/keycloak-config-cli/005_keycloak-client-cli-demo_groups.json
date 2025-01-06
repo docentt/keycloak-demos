@@ -1,0 +1,28 @@
+{
+  "enabled": true,
+  "realm": "keycloak-client-cli-demo",
+  "groups": [
+    {
+      "name": "Group 1",
+      "subGroups": [
+        {
+          "name": "SubGroup 1"
+        },
+        {
+          "name": "SubGroup 2"
+        }
+      ]
+    },
+    {
+      "name": "Group 2",
+      "subGroups": [
+        {
+          "name": "SubGroup 1"
+        },
+        {
+          "name": "SubGroup 2"
+        }
+      ]
+    }
+  ]
+}

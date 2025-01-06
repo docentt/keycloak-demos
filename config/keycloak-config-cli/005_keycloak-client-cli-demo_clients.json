@@ -1,0 +1,90 @@
+{
+  "enabled": true,
+  "realm": "keycloak-client-cli-demo",
+  "clientScopes": [
+    {
+      "name": "demo_client_scope_001",
+      "description": "Demo Company related info",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "true",
+        "consent.screen.text": "Info on your Demo Company"
+      },
+      "protocolMappers": [
+        {
+          "name": "Company",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "aggregate.attrs": "false",
+            "userinfo.token.claim": "true",
+            "multivalued": "false",
+            "user.attribute": "demo_company",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "demo_company",
+            "jsonType.label": "String"
+          }
+        }
+      ]
+    },
+    {
+      "name": "demo_client_scope_002",
+      "description": "Demo Hobby related info",
+      "protocol": "openid-connect",
+      "attributes": {
+        "include.in.token.scope": "true",
+        "display.on.consent.screen": "true",
+        "consent.screen.text": "Info on your Demo Hobby"
+      },
+      "protocolMappers": [
+        {
+          "name": "Demo hobby",
+          "protocol": "openid-connect",
+          "protocolMapper": "oidc-usermodel-attribute-mapper",
+          "consentRequired": false,
+          "config": {
+            "aggregate.attrs": "false",
+            "userinfo.token.claim": "true",
+            "multivalued": "true",
+            "user.attribute": "demo_hobby",
+            "id.token.claim": "true",
+            "access.token.claim": "true",
+            "claim.name": "demo_hobby",
+            "jsonType.label": "String"
+          }
+        }
+      ]
+    }
+  ],
+  "clients": [
+    {
+      "clientId": "https://oidcdebugger.com/",
+      "name": "https://oidcdebugger.com/",
+      "description": "OIDC Debugger",
+      "enabled": true,
+      "implicitFlowEnabled": true,
+      "publicClient": true,
+      "redirectUris": [
+        "https://oidcdebugger.com/debug"
+      ],
+      "webOrigins": [
+        "https://oidcdebugger.com"
+      ],
+      "consentRequired": true,
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "roles",
+        "profile",
+        "email",
+        "demo_client_scope_001"
+      ],
+      "optionalClientScopes": [
+        "demo_client_scope_002"
+      ]
+    }
+  ]
+}
