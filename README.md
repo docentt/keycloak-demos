@@ -269,6 +269,19 @@ Podgląd logów działającego serwera syslog.
 
     ./see_logs_syslog.sh
 
+### Zarządzanie konfiguracją z CLI
+
+#### keycloak-config-cli
+
+Skrypt, który uruchamia narzędzie [keycloak-client-cli](https://github.com/adorsys/keycloak-config-cli/tree/main) z poziomu Docker.
+Zarządzane realmy to:
+- keycloak-client-cli-demo-manual
+- keycloak-client-cli-demo
+
+Konfiguracja znajduje się w katalogu _config/keycloak-config-cli_.
+
+    ./keycloak-config-cli-demo.sh
+
 ## Konfiguracja
 
 Testowa konfiguracja. 

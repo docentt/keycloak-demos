@@ -3,6 +3,6 @@
   "attributes": {
     "configurationUpdated": "By keycloak-client-cli at $(date:yyyy-MM-dd HH:mm:ss) GMT"
   },
-  "displayName": "Updated at $(date:HH:mm:ss yyyy-MM-dd) GMT",
+  "displayName": "Updated at $(date:HH:mm:ss yyyy-MM-dd) GMT"
   $(env:KCCD_MANUAL_GROUPS)
 }
