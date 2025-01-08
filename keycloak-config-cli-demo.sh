@@ -22,5 +22,5 @@ if is_container_running "keycloak-demos"; then
       -v $(pwd)/config/keycloak-config-cli:/config \
       quay.io/adorsys/keycloak-config-cli:latest-26.0.5
 else
-  echo "Wygagane uruchomienie keycloak-demos (należy wykonać ./start_kc.sh)."
+  echo "Wymagane uruchomienie keycloak-demos (należy wykonać ./start_kc.sh)."
 fi

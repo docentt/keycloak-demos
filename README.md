@@ -273,7 +273,7 @@ Podgląd logów działającego serwera syslog.
 
 #### keycloak-config-cli
 
-Skrypt, który uruchamia narzędzie [keycloak-client-cli](https://github.com/adorsys/keycloak-config-cli/tree/main) z poziomu Docker.
+Skrypt, który uruchamia narzędzie [keycloak-client-cli](https://github.com/adorsys/keycloak-config-cli) z poziomu Docker.
 Zarządzane realmy to:
 - keycloak-client-cli-demo-manual
 - keycloak-client-cli-demo
@@ -281,6 +281,17 @@ Zarządzane realmy to:
 Konfiguracja znajduje się w katalogu _config/keycloak-config-cli_.
 
     ./keycloak-config-cli-demo.sh
+
+#### terraform-provider-keycloak
+
+Skrypt, który uruchamia narzędzie [terraform-provider-keycloak](https://github.com/keycloak/terraform-provider-keycloak) z poziomu Docker.
+Zarządzany realm to:
+- terraform-provider-keycloak-demo
+
+Konfiguracja znajduje się w katalogu _config/terraform-provider-keycloak_.
+
+    ./terraform-provider-keycloak-demo.sh
+
 
 ## Konfiguracja
 

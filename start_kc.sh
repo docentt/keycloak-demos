@@ -5,6 +5,7 @@
 ./configure.sh
 ./stop_syslog.sh
 ./clear_logs.sh
+./clear_terraform_state.sh
 docker run --name=syslog-keycloak-demos --network keycloak-demos -d -p 514:514/udp \
  -v $(pwd)/syslog/syslog-ng.conf:/etc/syslog-ng/syslog-ng.conf \
  -v $(pwd)/logs/syslog:/var/log/syslog-ng \
