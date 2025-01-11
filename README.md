@@ -3,7 +3,7 @@
 The repository enables quick deployment of Keycloak with demonstration configurations and integrated services (demonstration API, OIDC/OAuth2.0 Tester, LDAP, syslog).
 https://github.com/docentt/keycloak-demos/blob/main/README.md
 
-[Polish Version of the Documentation](https://github.com/docentt/keycloak-demos/blob/main/README.md)
+[Polish Version of the Documentation](https://github.com/docentt/keycloak-demos/blob/main/README.pl.md)
 
 Keycloak Version: *26.0.7*
 
