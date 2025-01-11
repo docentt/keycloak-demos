@@ -49,5 +49,5 @@ else
   docker run --name haproxy-keycloak-clustered-demos --network keycloak-demos -d -p 443:443 -p 8080:8080 \
       -v $(pwd)/config/clustered/haproxy/haproxy.cfg:/usr/local/etc/haproxy/haproxy.cfg \
       -v $(pwd)/certs:/etc/ssl/certs \
-      haproxy:latest
+      docker.io/haproxy:latest
 fi

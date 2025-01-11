@@ -15,7 +15,7 @@ if is_container_running "keycloak-demos"; then
     -e TF_VAR_keycloak_insecure="true" \
     -v "$(pwd)/config/terraform-provider-keycloak:/terraform" \
     --entrypoint /bin/sh -w /terraform \
-    hashicorp/terraform:latest -c "terraform init && terraform $CMD"
+    docker.io/hashicorp/terraform:latest -c "terraform init && terraform $CMD"
 else
   echo "Keycloak-demos must be running (please execute ./start_kc.sh)."
 fi
