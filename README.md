@@ -1,566 +1,619 @@
-# Demonstracje Keycloak
+# Keycloak Demonstrations
 
-Repozytorium pozwala na szybkie uruchomienie Keycloak z demonstracyjnymi konfiguracjami oraz zintegrowanymi usługami (demonstracyjne API, Tester OIDC / OAuth2.0, LDAP, syslog).
+The repository enables quick deployment of Keycloak with demonstration configurations and integrated services (demonstration API, OIDC/OAuth2.0 Tester, LDAP, syslog).
+https://github.com/docentt/keycloak-demos/blob/main/README.md
 
-Wersja Keycloak: *26.0.7*
+[Polish Version of the Documentation](https://github.com/docentt/keycloak-demos/blob/main/README.md)
 
-## Wymagania
+Keycloak Version: *26.0.7*
 
-Aby móc uruchomić demonstrację, należy:
+## Requirements
 
-1. (opcjonalnie) Wygenerować certyfikat TLS.
-2. Zainstalować certyfikat TLS _./certs/keycloak-demos.crt_ w zaufanych głównych urzędach certyfikacji.
-3. Dodać wpisy z domenami wykorzystywanymi w demonstracji do lokalnego DNS.
+To run the demonstration, you need to:
 
-### Wygenerowanie certyfikatu
+1. (Optional) Generate a TLS certificate.
+2. Install the TLS certificate _./certs/keycloak-demos.crt_ in trusted root certification authorities.
+3. Add domain entries used in the demonstration to the local DNS.
 
-Krok opcjonalny, wymaga wcześniejszej instalacji OpenSSL.
+### Generate a Certificate
 
-**UWAGA**: Ze względów bezpieczeństwa zalecane jest wygenerowanie certyfikatu, zamiast wykorzystywania certyfikatu znajdującego się w _./certs/_.
+Optional step, requires OpenSSL to be installed beforehand.
 
-    cd certs/
-    openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout keycloak-demos.key -out keycloak-demos.crt -subj "/CN=login.example.com" -addext "subjectAltName=DNS:*.example.com,DNS:*.admin.example.com,DNS:*.example.org,DNS:*.admin.example.org,DNS:*.internal.example.org,DNS:keycloak-demos"
+**NOTE**: For security reasons, it is recommended to generate a certificate rather than using the one in _./certs/_.
 
-### Instalacja certyfikatu TLS 
+```bash
+cd certs/
+openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout keycloak-demos.key -out keycloak-demos.crt -subj "/CN=login.example.com" -addext "subjectAltName=DNS:*.example.com,DNS:*.admin.example.com,DNS:*.example.org,DNS:*.admin.example.org,DNS:*.internal.example.org,DNS:keycloak-demos"
+```
 
-Poniżej podano kroki dla systemu Windows z przeglądarką Chrome oraz Docker uruchomionym w WSL, aczkolwiek część z tych kroków można zastosować w zupełnie innych setupach.
+### Install the TLS Certificate
 
-#### Instalacja w OS (Windows)
+Below are the steps for Windows with Chrome and Docker running on WSL. Some steps can be applied to entirely different setups.
 
-1. uruchomić _cmd_ jako administrator,
-2. uruchomić _certmgr.msc_ z poziomu ww. _cmd_,
-3. na pozycji _Zaufane główne urzędy certyfikacji_ wcisnąć prawy przycisk i wybrać _Wszystkie zadania -> import_,
-4. wybrać plik _certs/keycloak-demos.crt_ i dokończyć proces.
+#### Installation in OS (Windows)
 
-#### Instalacja w Docker (instalacja na WSL)
+1. Run _cmd_ as an administrator.
+2. Execute _certmgr.msc_ from the aforementioned _cmd_.
+3. Right-click on _Trusted Root Certification Authorities_ and select _All Tasks -> Import_.
+4. Select the file _certs/keycloak-demos.crt_ and complete the process.
 
-Doinstalowanie _ca-certificates_ (pierwsza komenda) jedynie jeżeli pakiet nie był wcześniej zainstalowany.
+#### Installation in Docker (on WSL)
 
-    sudo apt-get install -y ca-certificates
-    sudo cp ./certs/keycloak-demos.crt /usr/local/share/ca-certificates/keycloak-demos.crt
-    sudo update-ca-certificates
+Install _ca-certificates_ (first command) only if the package has not been installed before.
 
-#### Instalacja w przeglądarce (Chrome)
+```bash
+sudo apt-get install -y ca-certificates
+sudo cp ./certs/keycloak-demos.crt /usr/local/share/ca-certificates/keycloak-demos.crt
+sudo update-ca-certificates
+```
 
-Chrome na Windows korzysta z systemowego magazynu certyfikatów, więc po dodaniu certyfikatu do systemu, Chrome automatycznie go zaakceptuje.
-Jeżeli jednak tak się nie stanie, lub OS jest inny niż Windows, należy wykonać poniższe czynności.
+#### Installation in Browser (Chrome)
 
-1. uruchomić przeglądarkę Chrome,
-2. w pasku adresu wpisać: _chrome://settings/security_,
-3. wybrać opcję _Zarządzaj certyfikatami_,
-4. przełączyć na zakładkę _Zaufane główne urzędy certyfikacji_,
-5. kliknąć przycisk _Import_, a następnie _Dalej_, _Przeglądaj..._,
-6. wybrać plik _certs/keycloak-demos.crt_ i dokończyć proces.
+Chrome on Windows uses the system certificate store, so after adding the certificate to the system, Chrome will automatically accept it. If not, or the OS is other than Windows, perform the following steps:
 
-### Wpisy DNS 
+1. Open Chrome.
+2. In the address bar, type: _chrome://settings/security_.
+3. Select _Manage Certificates_.
+4. Switch to the _Trusted Root Certification Authorities_ tab.
+5. Click _Import_, then _Next_, _Browse..._.
+6. Select the file _certs/keycloak-demos.crt_ and complete the process.
 
-Demonstracja wymaga dodania następujących wpisów do DNS na komputerze na którym uruchamiane jest demo (wpisy w _/etc/hosts_, w przypadku Windows w _C:\Windows\System32\drivers\etc\hosts_):
+### DNS Entries
+
+The demonstration requires adding the following entries to the DNS on the machine running the demo (entries in _/etc/hosts_, for Windows _C:\Windows\System32\drivers\etc\hosts_):
 - Keycloak
   - 127.0.0.1       login.example.com
   - 127.0.0.1       kc-admin.example.com
   - 127.0.0.1       login.example.org
-- demonstracyjne API
+- Demonstration API
   - 127.0.0.1       api.example.com
   - 127.0.0.1       api.admin.example.com
-- serwer pocztowy
+- Mail Server
   - 127.0.0.1       mail.example.com
   - 127.0.0.1       mail.example.org
-- serwer LDAP
+- LDAP Server
   - 127.0.0.1       ldap.example.org
-- demonstracyjne aplikacje (Tester OIDC / OAuth2.0)
+- Demonstration Applications (OIDC/OAuth2.0 Tester)
   - 127.0.0.1       userportal.example.com
   - 127.0.0.1       analyticsviewer.example.com
   - 127.0.0.1       admindashboard.example.com
 
-## Użycie
+## Usage
 
 ### Build
 
 #### Keycloak
 
-Usługa nie wymaga budowania.
+No build required.
 
-#### Demonstracyjne API
+#### Demonstration API
 
-Przed uruchomieniem demonstracyjnego API, należy zbudować kontener ze środowiskiem pozwalającym na jego uruchomienie.
+Before running the demonstration API, build the container with the runtime environment.
 
-    ./build_demo-API.sh
+```bash
+./build_demo-API.sh
+```
 
-#### Tester OIDC / OAuth2.0
+#### OIDC/OAuth2.0 Tester
 
-Przed uruchomieniem demonstracyjnej aplikacji (Testera OIDC / OAuth2.0), należy zbudować kontener ze środowiskiem pozwalającym na jej uruchomienie.
+Before running the demonstration application (OIDC/OAuth2.0 Tester), build the container with the runtime environment.
 
-    ./build_demo-app.sh
+```bash
+./build_demo-app.sh
+```
 
 #### LDAP
 
-Usługa nie wymaga budowania.
+No build required.
 
-#### Klaster Keycloak
+#### Keycloak Cluster
 
-Usługa nie wymaga budowania.
+No build required.
 
 ### Start
 
 #### Keycloak
 
-Uruchomienie Keycloak o parametrach:
-- wersja zgodna z informacją powyżej
-- w trakcie startu import konfiguracji z katalogu *./realms*
-- port usługi: 8443
-- ścieżka usługi: */auth*
-- domeny usługi: 
+Start Keycloak with the following parameters:
+- Version as specified above.
+- Import configuration from the *./realms* directory during startup.
+- Service port: 8443.
+- Service path: */auth*.
+- Service domains:
   - *login.example.com*
-  - *login.example.org* (dla wybranego realm)
-  - *kc-admin.example.com* (do administracji)
-- port do zarządzania: 9000
-- ścieżka do zarządzania: */*
-- tryb debug dla nazw hostów
-- metryki: włączone
-- health checks: włączone
-- tryb developerski
-- uruchomienie w tle
-- port do zdalnego debuggowania: 5005
-- poświadczenia: admin / admin
+  - *login.example.org* (for selected realm).
+  - *kc-admin.example.com* (for administration).
+- Management port: 9000.
+- Management path: */*.
+- Debug mode for hostnames.
+- Metrics: enabled.
+- Health checks: enabled.
+- Developer mode.
+- Background execution.
+- Remote debugging port: 5005.
+- Credentials: admin/admin.
 
-Komenda:
+Command:
 
-    ./start_kc.sh
+```bash
+./start_kc.sh
+```
 
-Dodatkowo uruchomiony zostanie testowy serwer pocztowy oraz serwer syslog.
+Additionally, a test mail server and a syslog server will be started.
 
-Konsola Keycloak dostępna jest pod adresem https://login.example.com:8443/
-Skrzynka email typu "catch all" z testowego serwera pocztowego dostępna jest pod adresem http://mail.example.com:5000/ / http://mail.example.org:5000/
+Keycloak console is available at https://login.example.com:8443/.
+Test mail server "catch-all" inbox is accessible at http://mail.example.com:5000/ / http://mail.example.org:5000/.
 
-#### Demonstracyjne API
+#### Demonstration API
 
-Uruchomienie demonstracyjnego API o parametrach:
-- port usługi: 9443
-- ścieżka usługi: */*
-- domeny usługi:
-  - *api.example.com*
-  - *api.admin.example.com*
+Start the demonstration API with the following parameters:
+- Service port: 9443.
+- Service path: */*.
+- Service domains:
+  - *api.example.com*.
+  - *api.admin.example.com*.
 
-Komenda:
+Command:
 
-    ./start_demo-API.sh
+```bash
+./start_demo-API.sh
+```
 
-Demonstracyjne API dostępne jest pod adresami:
-- https://api.example.com:9443/
-- https://api.admin.example.com:9443/
+The demonstration API is available at:
+- https://api.example.com:9443/.
+- https://api.admin.example.com:9443/.
 
-API odpowiada decyzjami autoryzacyjnymi realizowanymi przez agenta [Open Policy Agent (OPA)](https://www.openpolicyagent.org/) uruchomionego w osobnym kontenerze.
-Do OPA kierowane są jedynie żądania zawierające nagłówek HTTP _Authorization_ z tokenem na okaziciela.
+#### OIDC/OAuth2.0 Tester
 
-#### Tester OIDC / OAuth2.0
+Start the demonstration application (OIDC/OAuth2.0 Tester) with the following parameters:
+- Service port: 443.
+- Service domains:
+  - *userportal.example.com*.
+  - *analyticsviewer.example.com*.
+  - *admindashboard.example.com*.
 
-Uruchomienie demonstracyjnej aplikacji (Tester OIDC / OAuth2.0) o parametrach:
-- port usługi: 443
-- domeny usługi:
-  - *userportal.example.com*
-  - *analyticsviewer.example.com*
-  - *admindashboard.example.com*
+Command:
 
-Komenda:
+```bash
+./start_demo-app.sh
+```
 
-    ./start_demo-app.sh
+The demonstration application (OIDC/OAuth2.0 Tester) is available at:
+- https://userportal.example.com/.
+- https://analyticsviewer.example.com/.
+- https://admindashboard.example.com/.
 
-Demonstracyjna aplikacji (Tester OIDC / OAuth2.0) dostępna jest pod adresami:
-- https://userportal.example.com/
-- https://analyticsviewer.example.com/
-- https://admindashboard.example.com/
-
-Tester OIDC / OAuth2.0 komunikuje się z Keycloak oraz demonstracyjnym API.
+OIDC/OAuth2.0 Tester communicates with Keycloak and the demonstration API.
 
 #### LDAP
 
-Uruchomienie serwera OpenLDAP o parametrach:
-- na bazie obrazu [bitnami/openldap](https://hub.docker.com/r/bitnami/openldap)
-- w trakcie startu import _./LDAP/keycloak-demos.ldif_
-- logowanie na poziomie 1 (więcej informacji: [OpenLDAP loglevel](https://www.openldap.org/doc/admin26/slapdconfig.html#loglevel%20%3Clevel%3E))
-- brak konfiguracji TLS
-- port usługi: 389
-- uruchomienie w tle
-- bind: _cn=admin,dc=example,dc=org / admin_
+Start the OpenLDAP server with the following parameters:
+- Based on the [bitnami/openldap](https://hub.docker.com/r/bitnami/openldap) image.
+- Import _./LDAP/keycloak-demos.ldif_ during startup.
+- Logging level 1 (more information: [OpenLDAP loglevel](https://www.openldap.org/doc/admin26/slapdconfig.html#loglevel%20%3Clevel%3E)).
+- No TLS configuration.
+- Service port: 389.
+- Background execution.
+- Bind credentials: _cn=admin,dc=example,dc=org / admin_.
 
-Komenda:
+Command:
 
-    ./start_ldap.sh
+```bash
+./start_ldap.sh
+```
 
-Serwer OpenLDAP dostępny:
-- dla Keycloak pod adresem _ldap://ldap-keycloak-demos:389_
-- zewnętrznie pod adresem _ldap://ldap.example.org:389_
+The OpenLDAP server is available:
+- For Keycloak at _ldap://ldap-keycloak-demos:389_.
+- Externally at _ldap://ldap.example.org:389_.
 
-#### Klaster Keycloak
+#### Keycloak Cluster
 
-Uruchomienie klastra Keycloak wraz z dodatkowymi usługami. Parametry klastra Keycloak:
-- wersja zgodna z informacją powyżej
-- liczba węzłów Keycloak: 3
-- port usługi: 443
-- ścieżka usługi: */auth*
-- domena usługi: 
-  - *login.example.com*
-- porty do zarządzania (dla kolejnych węzłów Keycloak): 9001-9003
-- ścieżka do zarządzania: */*
-- metryki: włączone (wraz z histogramami dla metryk cache)
-- health checks: włączone
-- uruchomienie w tle
-- poświadczenia: admin / admin
+Start the Keycloak cluster with additional services. Keycloak cluster parameters:
+- Version as specified above.
+- Number of Keycloak nodes: 3.
+- Service port: 443.
+- Service path: */auth*.
+- Service domain:
+  - *login.example.com*.
+- Management ports (for individual Keycloak nodes): 9001-9003.
+- Management path: */*.
+- Metrics: enabled (including cache metrics histograms).
+- Health checks: enabled.
+- Background execution.
+- Credentials: admin/admin.
 
-Komenda:
+Command:
 
-    ./start_clustered_kc.bash
+```bash
+./start_clustered_kc.bash
+```
 
-Dodatkowe usługi:
-- baza danych PostgreSQL w wersji 15 (dane zapisywane w katalogu _./clustered/postgresql/data/_) 
+Additional services:
+- PostgreSQL database version 15 (data stored in _./clustered/postgresql/data/_).
 - HAProxy:
-  - konfiguracja w _./config/clustered/haproxy/haproxy.cfg_)
-  - wysyłanie logów do syslog
-  - afiliacja sesji (Session Affinity): 
-    - cookie _KC_NODE_ przypisuje użytkownika do konkretnego węzła backendu,
-  - równoważenie obciążenia: 
-    - metoda round robin,
-  - monitorowanie zdrowia backendu: 
-    - z wykorzystaniem endpointu _/health/live_ Keycloak na porcie zarządzania (9000).
-  - terminacja TLS
-  - przepisywanie nagłówków X-Forwarded-* (Proto, Port, For).
-  - dynamiczne rozwiązywanie DNS z Docker,
-  - panel statystyk:
-    - dostępny na porcie 8080,
-    - poświadczenia admin / admin
-- serwer syslog 
+  - Configuration in _./config/clustered/haproxy/haproxy.cfg_).
+  - Logging to syslog.
+  - Session affinity:
+    - Cookie _KC_NODE_ binds users to specific backend nodes.
+  - Load balancing:
+    - Method: round robin.
+  - Health monitoring of the backend:
+    - Using the _/health/live_ endpoint of Keycloak on the management port (9000).
+  - TLS termination.
+  - Rewriting X-Forwarded-* headers (Proto, Port, For, Host).
+  - Dynamic DNS resolution with Docker.
+  - Statistics panel:
+    - Available on port 8080.
+    - Credentials: admin/admin.
+- Syslog server.
 
-Konsola Keycloak dostępna jest pod adresem https://login.example.com/
-Konsola klastra dostępna jest pod adresem http://localhost:8080/
+Keycloak console is available at https://login.example.com/.
+Cluster console is available at http://localhost:8080/.
 
 ### Stop
 
 #### Keycloak
 
-Zatrzymianie Keycloak wraz z wykonaniem zrzutu konfiguracji.
+Stop Keycloak and dump the configuration.
 
-    ./stop_kc.sh [opcje]
+```bash
+./stop_kc.sh [options]
+```
 
-##### Opcje uruchomienia skryptu
+##### Script Options
 
-| Opcja            | Opis                                                   |
-|------------------|--------------------------------------------------------|
-| `--no-dump`      | Nie wykonuje zrzutu konfiguracji.                      |
+| Option            | Description                                |
+|-------------------|--------------------------------------------|
+| `--no-dump`       | Does not dump the configuration.           |
 
-#### Demonstracyjne API
+#### Demonstration API
 
-Zatrzymianie demonstracyjnego API.
+Stop the demonstration API.
 
-    ./stop_demo-API.sh
+```bash
+./stop_demo-API.sh
+```
 
-#### Tester OIDC / OAuth2.0
+#### OIDC/OAuth2.0 Tester
 
-Zatrzymianie demonstracyjnej aplikacji (Tester OIDC / OAuth2.0).
+Stop the demonstration application (OIDC/OAuth2.0 Tester).
 
-    ./stop_demo-app.sh
+```bash
+./stop_demo-app.sh
+```
 
 #### LDAP
 
-Zatrzymianie serwera OpenLDAP.
+Stop the OpenLDAP server.
 
-    ./stop_ldap.sh
+```bash
+./stop_ldap.sh
+```
 
-#### Klaster Keycloak
+#### Keycloak Cluster
 
-Zatrzymianie klastra Keycloak wraz z dodatkowymi usługami.
+Stop the Keycloak cluster along with additional services.
 
-    ./stop_clustered_kc.bash
+```bash
+./stop_clustered_kc.bash
+```
 
 ### Restart
 
 #### Keycloak
 
-Restart Keycloak wraz z wykonaniem zrzutu konfiguracji.
+Restart Keycloak and dump the configuration.
 
-    ./restart_kc.sh [opcje]
+```bash
+./restart_kc.sh [options]
+```
 
-##### Opcje uruchomienia skryptu
-| Opcja            | Opis                              |
-|------------------|-----------------------------------|
-| `--no-dump`      | Nie wykonuje zrzutu konfiguracji. |
-| `--smtp-restart` | Zrestartuje serwer pocztowy.      |
+##### Script Options
 
-### Podgląd logów
+| Option            | Description               |
+|-------------------|---------------------------|
+| `--no-dump`       | Does not dump configuration.|
+| `--smtp-restart`  | Restarts the SMTP server. |
+
+### Log Monitoring
 
 #### Keycloak
 
-Podgląd logów działającego Keycloak.
+Monitor logs of the running Keycloak instance.
 
-    ./see_logs_kc.sh
+```bash
+./see_logs_kc.sh
+```
 
-#### Demonstracyjne API
+#### Demonstration API
 
-Podgląd logów działającego demonstracyjnego API.
+Monitor logs of the running demonstration API.
 
-    ./see_logs_demo-API.sh
+```bash
+./see_logs_demo-API.sh
+```
 
-lub
+or
 
-    ./see_logs_demo-API-opa.sh
+```bash
+./see_logs_demo-API-opa.sh
+```
 
-w zależności od tego, logi którego z kontenerów chcemy podejrzeć.
+depending on the container logs to view.
 
 #### LDAP
 
-Podgląd logów działającego serwera OpenLDAP.
+Monitor logs of the running OpenLDAP server.
 
-    ./see_logs_ldap.sh
+```bash
+./see_logs_ldap.sh
+```
 
-Monitorowanie liczby połączeń utrzymywanych przez LDAP.
+Monitor the number of connections maintained by LDAP.
 
-    ./monitor_ldap.sh
+```bash
+./monitor_ldap.sh
+```
 
-#### syslog
+#### Syslog
 
-Podgląd logów działającego serwera syslog.
+Monitor logs of the running syslog server.
 
-    ./see_logs_syslog.sh
+```bash
+./see_logs_syslog.sh
+```
 
-#### Węzeł klastra Keycloak
+#### Keycloak Cluster Node
 
-Podgląd logów działającego węzła klastra Keycloak.
+Monitor logs of a running Keycloak cluster node.
 
-    ./see_logs_clustered_kc.sh [numer węzła]
+```bash
+./see_logs_clustered_kc.sh [node_number]
+```
 
-##### Argumenty
-| Argument        | Opis                              |
-|-----------------|-----------------------------------|
-| `[numer_węzła]` | Numer węzła do zarządzania (1-3). |
+##### Arguments
 
-### Zarządzanie konfiguracją z CLI
+| Argument        | Description                     |
+|-----------------|---------------------------------|
+| `[node_number]` | Node number to manage (1-3).    |
+
+### CLI Configuration Management
 
 #### keycloak-config-cli
 
-Skrypt, który uruchamia narzędzie [keycloak-client-cli](https://github.com/adorsys/keycloak-config-cli) z poziomu Docker.
-Zarządzane realmy to:
+Script to run the [keycloak-client-cli](https://github.com/adorsys/keycloak-config-cli) tool from Docker.
+Managed realms:
 - keycloak-client-cli-demo-manual
 - keycloak-client-cli-demo
 
-Konfiguracja znajduje się w katalogu _config/keycloak-config-cli_.
+Configuration is in the _config/keycloak-config-cli_ directory.
 
-    ./keycloak-config-cli-demo.sh
+```bash
+./keycloak-config-cli-demo.sh
+```
 
 #### terraform-provider-keycloak
 
-Skrypt, który uruchamia narzędzie [terraform-provider-keycloak](https://github.com/keycloak/terraform-provider-keycloak) z poziomu Docker.
-Zarządzany realm to:
+Script to run the [terraform-provider-keycloak](https://github.com/keycloak/terraform-provider-keycloak) tool from Docker.
+Managed realm:
 - terraform-provider-keycloak-demo
 
-Konfiguracja znajduje się w katalogu _config/terraform-provider-keycloak_.
+Configuration is in the _config/terraform-provider-keycloak_ directory.
 
-    ./terraform-provider-keycloak-demo.sh
+```bash
+./terraform-provider-keycloak-demo.sh
+```
 
-### Zarządzanie węzłami klastra Keycloak
+### Managing Keycloak Cluster Nodes
 
-Zarządzaj węzłami klastra Keycloak, w tym uruchamianiem, zatrzymywaniem i ponownym uruchamianiem konkretnych węzłów.
+Manage Keycloak cluster nodes, including starting, stopping, and restarting specific nodes.
 
-    ./manage_nodes.sh [akcja] [numer_węzła]
+```bash
+./manage_nodes.sh [action] [node_number]
+```
 
-#### Akcje
-| Akcja     | Opis                                 |
-|-----------|--------------------------------------|
-| `start`   | Uruchamia wskazany węzeł Keycloak.   |
-| `stop`    | Zatrzymuje wskazany węzeł Keycloak.  |
-| `restart` | Zrestartuje wskazany węzeł Keycloak. |
+#### Actions
 
-#### Argumenty
-| Argument        | Opis                              |
-|-----------------|-----------------------------------|
-| `[numer_węzła]` | Numer węzła do zarządzania (1-3). |
+| Action    | Description                              |
+|-----------|------------------------------------------|
+| `start`   | Starts the specified Keycloak node.      |
+| `stop`    | Stops the specified Keycloak node.       |
+| `restart` | Restarts the specified Keycloak node.    |
 
-## Konfiguracja
+#### Arguments
 
-Testowa konfiguracja. 
-Realmy: 
-- demo.com - realm z testową konfiguracją
-- demo.org - realm do testowania identity brokeringu (RP zintegrowany z OP, którym jest realm demo.com) oraz federacji użytkowników przez LDAP
-  - konfiguracja dostawcy tożsamości https://login.example.com:8443/auth/admin/master/console/#/demo.org/identity-providers/oidc/login.example.com/settings
-  - konfiguracja federacji użytkowników przez LDAP https://login.example.com:8443/auth/admin/master/console/#/demo.org/user-federation/ldap/4bee9eb3-c5ad-44fe-b9e7-11ccef192e52
+| Argument        | Description                     |
+|-----------------|---------------------------------|
+| `[node_number]` | Node number to manage (1-3).    |
 
-### Użytkownicy (realm: demo.com)
+## Configuration
 
-- user / user - zwykły użytkownik
-- premium / premium - użytkownik premium
-- analyst / analyst - analityk danych
-- admin / admin - administrator
+Test configuration.
+Realms:
+- demo.com - Realm with test configuration.
+- demo.org - Realm for testing identity brokering (RP integrated with OP, which is the demo.com realm) and LDAP user federation.
+  - Identity provider configuration: https://login.example.com:8443/auth/admin/master/console/#/demo.org/identity-providers/oidc/login.example.com/settings.
+  - LDAP user federation configuration: https://login.example.com:8443/auth/admin/master/console/#/demo.org/user-federation/ldap/4bee9eb3-c5ad-44fe-b9e7-11ccef192e52.
 
-Do testowania account linkingu z użytkownikami federowanymi przez LDAP w realm _demo.org_ (wymagana zmiana konfiguracji trybu synchronizacji LDAP):
-- anowak / anowak
-- awojcik / awojcik
-- jkowalski / jkowalski
-- pwisniewski / pwisniewski
-- tmazur / tmazur
+### Users (realm: demo.com)
 
-### Użytkownicy (realm: demo.org)
+- user/user - Regular user.
+- premium/premium - Premium user.
+- analyst/analyst - Data analyst.
+- admin/admin - Administrator.
 
-Brak użytkowników lokalnych, można uwierzytelnić się względem realma _demo.com_, dodatkowo po uruchomieniu serwera OpenLDAP użytkownicy federowani przez LDAP:
-- anowak / anowak
-- awojcik / awojcik
-- jkowalski / jkowalski
-- pwisniewski / pwisniewski
-- tmazur / tmazur
+For testing account linking with LDAP-federated users in the _demo.org_ realm (LDAP synchronization mode configuration required):
+- anowak/anowak
+- awojcik/awojcik
+- jkowalski/jkowalski
+- pwisniewski/pwisniewski
+- tmazur/tmazur
 
-### Klienci (realm: demo.com)
+### Users (realm: demo.org)
 
-#### https://oidcdebugger.com/ 
+No local users. Authentication is possible against the _demo.com_ realm. Additionally, after starting the OpenLDAP server, users are federated via LDAP:
+- anowak/anowak
+- awojcik/awojcik
+- jkowalski/jkowalski
+- pwisniewski/pwisniewski
+- tmazur/tmazur
 
-Testowa integracja z https://oidcdebugger.com/
-- client id: https://oidcdebugger.com/
+### Clients (realm: demo.com)
+
+#### https://oidcdebugger.com/
+
+Test integration with https://oidcdebugger.com/:
+- client id: https://oidcdebugger.com/.
 - valid redirect URIs:
-  - https://oidcdebugger.com/debug
-- typ klienta: poufny
-- uwierzytelnianie klienta:
-  - metoda: client secret
-  - secret: 0rsNk8Dzf9QfHHg7lnmSSrSKRrw3za5O
-- role na koncie serwisowym:
-  - view-users @ realm-management
-- granty: 
-  - Authorization Code grant, 
-  - Resource Owner Password Credentials grant, 
-  - Implicit grant
-  - Client Credentials grant
+  - https://oidcdebugger.com/debug.
+- Client type: Confidential.
+- Client authentication:
+  - Method: Client secret.
+  - Secret: 0rsNk8Dzf9QfHHg7lnmSSrSKRrw3za5O.
+- Service account roles:
+  - view-users @ realm-management.
+- Grants:
+  - Authorization Code grant.
+  - Resource Owner Password Credentials grant.
+  - Implicit grant.
+  - Client Credentials grant.
 
-#### Konta serwisowe
+#### Service Accounts
 
 ##### service-account_client_secret_jwt
 
-Konto serwisowe z uwierzytelnianiem client_secret_jwt (patrz: https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication)
+Service account with client_secret_jwt authentication (see: https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication).
 
-- client id: service-account_client_secret_jwt
-- typ klienta: poufny
-- uwierzytelnianie klienta: 
-  - metoda: client_secret_jwt
-  - algorytm sygnatury: HS256
-  - secret: 54wgKGlaGYtaG3ZIBQWJ6mLu3v7WgW25
-- granty:
-    - Client Credentials grant
+- client id: service-account_client_secret_jwt.
+- Client type: Confidential.
+- Client authentication:
+  - Method: client_secret_jwt.
+  - Signature algorithm: HS256.
+  - Secret: 54wgKGlaGYtaG3ZIBQWJ6mLu3v7WgW25.
+- Grants:
+  - Client Credentials grant.
 
 ##### service-account_private_key_jwt
 
-Konto serwisowe z uwierzytelnianiem private_key_jwt (patrz: https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication)
+Service account with private_key_jwt authentication (see: https://openid.net/specs/openid-connect-core-1_0.html#ClientAuthentication).
 
-- client id: service-account_private_key_jwt
-- typ klienta: poufny
-- uwierzytelnianie klienta:
-    - metoda: private_key_jwt
-    - algorytm sygnatury: RS256
-    - klucze: patrz katalog _./keys_
-- granty:
-    - Client Credentials grant
+- client id: service-account_private_key_jwt.
+- Client type: Confidential.
+- Client authentication:
+  - Method: private_key_jwt.
+  - Signature algorithm: RS256.
+  - Keys: see the _./keys_ directory.
+- Grants:
+  - Client Credentials grant.
 
-#### Modelowanie Serwerów Zasobów
+#### Resource Server Modeling
 
 ##### https://api.example.com
 
-Serwer Zasobów https://api.example.com
-- client id: https://api.example.com
-- typ klienta: bearer-only
-- granty: brak
+Resource server https://api.example.com:
+- client id: https://api.example.com.
+- Client type: Bearer-only.
+- Grants: None.
 
 ##### https://api.admin.example.com
 
-Serwer Zasobów https://api.admin.example.com
-- client id: https://api.admin.example.com
-- typ klienta: bearer-only
-- granty: brak
+Resource server https://api.admin.example.com:
+- client id: https://api.admin.example.com.
+- Client type: Bearer-only.
+- Grants: None.
 
 ##### https://userportal.example.com
 
-Aplikacja https://userportal.example.com (do testowania z https://oidcdebugger.com/, Postman oraz Tester OIDC / OAuth2.0 )
-- client id: https://userportal.example.com
-- valid redirect URIs:
-  - https://oidcdebugger.com/debug
-  - https://oauth.pstmn.io/v1/callback
-  - https://userportal.example.com/callback
-- valid post logout redirect URIs:
-  - https://userportal.example.com
-- typ klienta: publiczny
-- zakresy:
-  - profile.read
-  - profile.update (opcjonalny)
+Application https://userportal.example.com (for testing with https://oidcdebugger.com/, Postman, and OIDC/OAuth2.0 Tester):
+- client id: https://userportal.example.com.
+- Valid redirect URIs:
+  - https://oidcdebugger.com/debug.
+  - https://oauth.pstmn.io/v1/callback.
+  - https://userportal.example.com/callback.
+- Valid post logout redirect URIs:
+  - https://userportal.example.com.
+- Client type: Public.
+- Scopes:
+  - profile.read.
+  - profile.update (optional).
 - aud:
-  - https://api.example.com
-- granty: 
-  - Authorization Code grant,
-  - Resource Owner Password Credentials grant,
-  - Implicit grant
+  - https://api.example.com.
+- Grants:
+  - Authorization Code grant.
+  - Resource Owner Password Credentials grant.
+  - Implicit grant.
 
 ##### https://analyticsviewer.example.com
 
-Aplikacja https://analyticsviewer.example.com (do testowania z https://oidcdebugger.com/, Postman oraz Tester OIDC / OAuth2.0)
-- client id: https://analyticsviewer.example.com
-- valid redirect URIs:
-  - https://oidcdebugger.com/debug
-  - https://oauth.pstmn.io/v1/callback
-  - https://analyticsviewer.example.com/callback
-- valid post logout redirect URIs:
-  - https://analyticsviewer.example.com
-- typ klienta: publiczny
-- zakresy:
-  - data.read
-  - data.export
+Application https://analyticsviewer.example.com (for testing with https://oidcdebugger.com/, Postman, and OIDC/OAuth2.0 Tester):
+- client id: https://analyticsviewer.example.com.
+- Valid redirect URIs:
+  - https://oidcdebugger.com/debug.
+  - https://oauth.pstmn.io/v1/callback.
+  - https://analyticsviewer.example.com/callback.
+- Valid post logout redirect URIs:
+  - https://analyticsviewer.example.com.
+- Client type: Public.
+- Scopes:
+  - data.read.
+  - data.export.
 - aud:
-  - https://api.example.com
-- granty:
-  - Authorization Code grant,
-  - Resource Owner Password Credentials grant,
-  - Implicit grant
+  - https://api.example.com.
+- Grants:
+  - Authorization Code grant.
+  - Resource Owner Password Credentials grant.
+  - Implicit grant.
 
 ##### https://admindashboard.example.com
 
-Aplikacja https://admindashboard.example.com (do testowania z https://oidcdebugger.com/, Postman oraz Tester OIDC / OAuth2.0)
-- client id: https://admindashboard.example.com
-- valid redirect URIs:
-  - https://oidcdebugger.com/debug
-  - https://oauth.pstmn.io/v1/callback
-  - https://admindashboard.example.com/callback
-- valid post logout redirect URIs:
-  - https://admindashboard.example.com
-- typ klienta: publiczny
-- zakresy:
-  - data.update
-  - admin.config
+Application https://admindashboard.example.com (for testing with https://oidcdebugger.com/, Postman, and OIDC/OAuth2.0 Tester):
+- client id: https://admindashboard.example.com.
+- Valid redirect URIs:
+  - https://oidcdebugger.com/debug.
+  - https://oauth.pstmn.io/v1/callback.
+  - https://admindashboard.example.com/callback.
+- Valid post logout redirect URIs:
+  - https://admindashboard.example.com.
+- Client type: Public.
+- Scopes:
+  - data.update.
+  - admin.config.
 - aud:
-  - https://api.example.com
-  - https://api.admin.example.com
-- granty:
-  - Authorization Code grant,
-  - Resource Owner Password Credentials grant,
-  - Implicit grant
+  - https://api.example.com.
+  - https://api.admin.example.com.
+- Grants:
+  - Authorization Code grant.
+  - Resource Owner Password Credentials grant.
+  - Implicit grant.
 
 #### https://login.example.org:8443/auth/realms/demo.org
 
-Klient do integracji realm demo.org w scenariuszu Identity Brokeringu z realm demo.com.
-- client id: https://login.example.org:8443/auth/realms/demo.org
-- valid redirect URIs:
-  - https://login.example.org:8443/auth/realms/demo.org/broker/login.example.com/endpoint
-- valid post logout redirect URIs:
-  - https://login.example.org:8443/auth/realms/demo.org/broker/login.example.com/endpoint/logout_response
-- typ klienta: poufny
-- uwierzytelnianie klienta:
-  - metoda: private_key_jwt
-  - algorytm sygnatury: RS256
-  - klucze pobrane po jwks (na backchannel)
-- granty:
-  - Authorization Code grant
-- PKCE: S256
+Client for integrating the demo.org realm in the Identity Brokering scenario with the demo.com realm.
+- client id: https://login.example.org:8443/auth/realms/demo.org.
+- Valid redirect URIs:
+  - https://login.example.org:8443/auth/realms/demo.org/broker/login.example.com/endpoint.
+- Valid post logout redirect URIs:
+  - https://login.example.org:8443/auth/realms/demo.org/broker/login.example.com/endpoint/logout_response.
+- Client type: Confidential.
+- Client authentication:
+  - Method: private_key_jwt.
+  - Signature algorithm: RS256.
+  - Keys obtained via JWKS (backchannel).
+- Grants:
+  - Authorization Code grant.
+- PKCE: S256.
 
 #### opa
 
-Klient do weryfikacji tokenów online z poziomu polityk OPA.
+Client for online token validation within OPA policies.
 
-- client id: opa
-- typ klienta: poufny
-- uwierzytelnianie klienta:
-  - metoda: private_key_jwt
-  - algorytm sygnatury: RS256
-  - klucze: patrz katalog _./keys_
+- client id: opa.
+- Client type: Confidential.
+- Client authentication:
+  - Method: private_key_jwt.
+  - Signature algorithm: RS256.
+  - Keys: see the _./keys_ directory.
 
-## Kolekcja Postman
+## Postman Collection
 
-W katalogu POSTMAN znajdują się pliki do zaimportowania do Postman (https://www.postman.com/) skrojone pod interakcję z demonstracyjnym Keycloak.
+The _POSTMAN_ directory contains files for importing into Postman (https://www.postman.com/) tailored for interacting with the demonstration Keycloak setup.
