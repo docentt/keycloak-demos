@@ -17,5 +17,5 @@ if is_container_running "keycloak-demos"; then
     --entrypoint /bin/sh -w /terraform \
     hashicorp/terraform:latest -c "terraform init && terraform $CMD"
 else
-  echo "Wymagane uruchomienie keycloak-demos (należy wykonać ./start_kc.sh)."
+  echo "Keycloak-demos must be running (please execute ./start_kc.sh)."
 fi

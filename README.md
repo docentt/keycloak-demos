@@ -96,6 +96,10 @@ Przed uruchomieniem demonstracyjnej aplikacji (Testera OIDC / OAuth2.0), należy
 
 Usługa nie wymaga budowania.
 
+#### Klaster Keycloak
+
+Usługa nie wymaga budowania.
+
 ### Start
 
 #### Keycloak
@@ -119,7 +123,7 @@ Uruchomienie Keycloak o parametrach:
 - port do zdalnego debuggowania: 5005
 - poświadczenia: admin / admin
 
-
+Komenda:
 
     ./start_kc.sh
 
@@ -137,7 +141,7 @@ Uruchomienie demonstracyjnego API o parametrach:
   - *api.example.com*
   - *api.admin.example.com*
 
-
+Komenda:
 
     ./start_demo-API.sh
 
@@ -157,7 +161,7 @@ Uruchomienie demonstracyjnej aplikacji (Tester OIDC / OAuth2.0) o parametrach:
   - *analyticsviewer.example.com*
   - *admindashboard.example.com*
 
-
+Komenda:
 
     ./start_demo-app.sh
 
@@ -179,13 +183,55 @@ Uruchomienie serwera OpenLDAP o parametrach:
 - uruchomienie w tle
 - bind: _cn=admin,dc=example,dc=org / admin_
 
-
+Komenda:
 
     ./start_ldap.sh
 
 Serwer OpenLDAP dostępny:
 - dla Keycloak pod adresem _ldap://ldap-keycloak-demos:389_
 - zewnętrznie pod adresem _ldap://ldap.example.org:389_
+
+#### Klaster Keycloak
+
+Uruchomienie klastra Keycloak wraz z dodatkowymi usługami. Parametry klastra Keycloak:
+- wersja zgodna z informacją powyżej
+- liczba węzłów Keycloak: 3
+- port usługi: 443
+- ścieżka usługi: */auth*
+- domena usługi: 
+  - *login.example.com*
+- porty do zarządzania (dla kolejnych węzłów Keycloak): 9001-9003
+- ścieżka do zarządzania: */*
+- metryki: włączone (wraz z histogramami dla metryk cache)
+- health checks: włączone
+- uruchomienie w tle
+- poświadczenia: admin / admin
+
+Komenda:
+
+    ./start_clustered_kc.bash
+
+Dodatkowe usługi:
+- baza danych PostgreSQL w wersji 15 (dane zapisywane w katalogu _./clustered/postgresql/data/_) 
+- HAProxy:
+  - konfiguracja w _./config/clustered/haproxy/haproxy.cfg_)
+  - wysyłanie logów do syslog
+  - afiliacja sesji (Session Affinity): 
+    - cookie _KC_NODE_ przypisuje użytkownika do konkretnego węzła backendu,
+  - równoważenie obciążenia: 
+    - metoda round robin,
+  - monitorowanie zdrowia backendu: 
+    - z wykorzystaniem endpointu _/health/live_ Keycloak na porcie zarządzania (9000).
+  - terminacja TLS
+  - przepisywanie nagłówków X-Forwarded-* (Proto, Port, For).
+  - dynamiczne rozwiązywanie DNS z Docker,
+  - panel statystyk:
+    - dostępny na porcie 8080,
+    - poświadczenia admin / admin
+- serwer syslog 
+
+Konsola Keycloak dostępna jest pod adresem https://login.example.com/
+Konsola klastra dostępna jest pod adresem http://localhost:8080/
 
 ### Stop
 
@@ -218,6 +264,12 @@ Zatrzymianie demonstracyjnej aplikacji (Tester OIDC / OAuth2.0).
 Zatrzymianie serwera OpenLDAP.
 
     ./stop_ldap.sh
+
+#### Klaster Keycloak
+
+Zatrzymianie klastra Keycloak wraz z dodatkowymi usługami.
+
+    ./stop_clustered_kc.bash
 
 ### Restart
 
@@ -269,6 +321,17 @@ Podgląd logów działającego serwera syslog.
 
     ./see_logs_syslog.sh
 
+#### Węzeł klastra Keycloak
+
+Podgląd logów działającego węzła klastra Keycloak.
+
+    ./see_logs_clustered_kc.sh [numer węzła]
+
+##### Argumenty
+| Argument        | Opis                              |
+|-----------------|-----------------------------------|
+| `[numer_węzła]` | Numer węzła do zarządzania (1-3). |
+
 ### Zarządzanie konfiguracją z CLI
 
 #### keycloak-config-cli
@@ -292,6 +355,23 @@ Konfiguracja znajduje się w katalogu _config/terraform-provider-keycloak_.
 
     ./terraform-provider-keycloak-demo.sh
 
+### Zarządzanie węzłami klastra Keycloak
+
+Zarządzaj węzłami klastra Keycloak, w tym uruchamianiem, zatrzymywaniem i ponownym uruchamianiem konkretnych węzłów.
+
+    ./manage_nodes.sh [akcja] [numer_węzła]
+
+#### Akcje
+| Akcja     | Opis                                 |
+|-----------|--------------------------------------|
+| `start`   | Uruchamia wskazany węzeł Keycloak.   |
+| `stop`    | Zatrzymuje wskazany węzeł Keycloak.  |
+| `restart` | Zrestartuje wskazany węzeł Keycloak. |
+
+#### Argumenty
+| Argument        | Opis                              |
+|-----------------|-----------------------------------|
+| `[numer_węzła]` | Numer węzła do zarządzania (1-3). |
 
 ## Konfiguracja
 
