@@ -22,8 +22,10 @@ start_keycloak_cluster_node() {
    -e KC_BOOTSTRAP_ADMIN_PASSWORD=admin \
    -e KC_HOSTNAME_STRICT=false \
    -v $(pwd)/config/quarkus.properties:/opt/keycloak/conf/quarkus.properties \
+   -v $(pwd)/clustered/cache-ispn.xml:/opt/keycloak/conf/cache-ispn.xml \
    quay.io/keycloak/keycloak:26.0.7 start \
    --proxy-headers=xforwarded --spi-sticky-session-encoder-infinispan-should-attach-route=false \
    --hostname=https://login.example.com/auth --http-enabled=true --hostname-debug=true --http-relative-path=/auth \
-   --health-enabled=true --metrics-enabled=true --cache-metrics-histograms-enabled=true --http-management-relative-path=/
+   --health-enabled=true --metrics-enabled=true --cache-metrics-histograms-enabled=true --http-management-relative-path=/ \
+   --cache-config-file=cache-ispn.xml
 }

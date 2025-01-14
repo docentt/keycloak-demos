@@ -208,6 +208,7 @@ The OpenLDAP server is available:
 #### Keycloak Cluster
 
 Start the Keycloak cluster with additional services. Keycloak cluster parameters:
+- Infinispan configuration in _/clustered/cache-ispn.xml_
 - Version as specified above.
 - Number of Keycloak nodes: 3.
 - Service port: 443.
@@ -230,7 +231,7 @@ Command:
 Additional services:
 - PostgreSQL database version 15 (data stored in _./clustered/postgresql/data/_).
 - HAProxy:
-  - Configuration in _./config/clustered/haproxy/haproxy.cfg_).
+  - Configuration in _./config/clustered/haproxy/haproxy.cfg_.
   - Logging to syslog.
   - Session affinity:
     - Cookie _KC_NODE_ binds users to specific backend nodes.

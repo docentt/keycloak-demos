@@ -212,6 +212,7 @@ Serwer OpenLDAP dostępny:
 #### Klaster Keycloak
 
 Uruchomienie klastra Keycloak wraz z dodatkowymi usługami. Parametry klastra Keycloak:
+- konfiguracja Infinispan w _/clustered/cache-ispn.xml_
 - wersja zgodna z informacją powyżej
 - liczba węzłów Keycloak: 3
 - port usługi: 443
@@ -234,7 +235,7 @@ Komenda:
 Dodatkowe usługi:
 - baza danych PostgreSQL w wersji 15 (dane zapisywane w katalogu _./clustered/postgresql/data/_) 
 - HAProxy:
-  - konfiguracja w _./config/clustered/haproxy/haproxy.cfg_)
+  - konfiguracja w _./config/clustered/haproxy/haproxy.cfg_
   - wysyłanie logów do syslog
   - afiliacja sesji (Session Affinity): 
     - cookie _KC_NODE_ przypisuje użytkownika do konkretnego węzła backendu,

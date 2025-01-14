@@ -23,7 +23,7 @@ docker run --name=keycloak-demos --network keycloak-demos -d -p 8443:8443 -p 900
  -e JAVA_OPTS_APPEND="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005 -Dcom.sun.jndi.ldap.connect.pool.timeout=2000" \
  quay.io/keycloak/keycloak:26.0.7 start-dev \
  --features="preview" --import-realm --verbose \
- --hostname=https://login.example.com:8443/auth --hostname-backchannel-dynamic true --hostname-debug=true --http-relative-path=/auth \
+ --hostname=https://login.example.com:8443/auth --hostname-backchannel-dynamic=true --hostname-debug=true --http-relative-path=/auth \
  --hostname-admin=https://kc-admin.example.com:8443/auth --health-enabled=true --metrics-enabled=true --http-management-relative-path=/ \
  --https-port=8443 --https-certificate-file=/opt/keycloak/data/certs/keycloak-demos.crt --https-certificate-key-file=/opt/keycloak/data/certs/keycloak-demos.key \
  --truststore-paths=/opt/keycloak/data/certs/keycloak-demos.crt
